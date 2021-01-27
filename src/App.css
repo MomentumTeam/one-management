@@ -1,0 +1,10 @@
+.App {
+  text-align: center;
+  display: flex;
+  flex-direction: row-reverse;
+
+}
+
+.App-link {
+  color: rgb(112, 76, 182);
+}
