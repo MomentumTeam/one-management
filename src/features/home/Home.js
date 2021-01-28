@@ -1,12 +1,26 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { selectHome } from "./homeSlice";
+import { selectTab } from "./homeSlice";
+import {TabPanel} from "../../components/TabPanel"
 
 function Home() {
-  const homeState = useSelector(selectHome);
+  const tab = useSelector(selectTab);
+  
   return (
     <div>
-      <h1>{homeState.page}</h1>
+      <TabPanel value={tab} index={0}>
+         Item One
+       </TabPanel>
+       <TabPanel value={tab} index={1}>
+         Item Two
+       </TabPanel>
+       <TabPanel value={tab} index={2}>
+         Item Three
+       </TabPanel>
+       <TabPanel value={tab} index={3}>
+         Item Four
+       </TabPanel>
+
     </div>
   );
 }

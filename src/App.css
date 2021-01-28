@@ -1,10 +1,23 @@
 .App {
   text-align: center;
-  display: flex;
-  flex-direction: row-reverse;
+  /* display: flex;
+  flex-direction: row-reverse;  */
 
 }
 
-.App-link {
-  color: rgb(112, 76, 182);
+.grid-container {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1.6fr 0.4fr;
+  grid-template-rows: 0.2fr 2.7fr 0.1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    "Header SideNavBar"
+    "Content SideNavBar"
+    "Footer Footer";
 }
+.Header { grid-area: Header; background-color: black;}
+.Content { grid-area: Content; background-color: gainsboro;}
+.Footer { grid-area: Footer; background-color: green;}
+.SideNavBar { grid-area: SideNavBar; background-color: black; color: aliceblue;}

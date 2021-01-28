@@ -6,8 +6,14 @@ import "./App.css";
 function App() {
   return (
     <div className="App">
-      <SideNavbar />
-      <Home />
+      <div class="grid-container">
+        <div class="Header"></div>
+        <div class="SideNavBar"> <SideNavbar /></div>
+        <div class="Content"><Home /></div>
+        <div class="Footer"></div>
+      </div>
+     
+      
     </div>
   );
 }

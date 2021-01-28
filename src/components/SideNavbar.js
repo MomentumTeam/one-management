@@ -10,8 +10,10 @@ import StarIcon from "@material-ui/icons/Star";
 import CategoryIcon from "@material-ui/icons/Category";
 import HelpIcon from "@material-ui/icons/Help";
 import Kermit from "../img/kermit.png";
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 import { useSelector, useDispatch } from "react-redux";
-import { switchTo, selectHome } from "../features/home/homeSlice";
+import { switchTo, selectHome,changeTab } from "../features/home/homeSlice";
 
 const useStyles = makeStyles((theme) => ({
   img: {
@@ -27,76 +29,36 @@ const useStyles = makeStyles((theme) => ({
     direction: "rtl",
   },
 }));
-
+function a11yProps(index) {
+  return {
+    id: `vertical-tab-${index}`,
+    'aria-controls': `vertical-tabpanel-${index}`,
+  };
+}
 function SideNavbar() {
   const page = useSelector(selectHome);
   const dispatch = useDispatch();
   const classes = useStyles();
+  const [value, setValue] = React.useState(0);
 
-  const handleClick = (page) => {
-    console.log("input page: ", page);
-    dispatch(switchTo(page));
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+    dispatch(changeTab(newValue))
   };
-
   return (
-    <List
-      component="nav"
-      aria-labelledby="nested-list-subheader"
-      subheader={
-        <ListSubheader component="div" id="nested-list-subheader">
-          <img className={classes.img} src={Kermit}></img>
-        </ListSubheader>
-      }
-      className={classes.root}
-    >
-      <ListItem
-        button
-        onClick={() => {
-          handleClick("favorites");
-        }}
-      >
-        <ListItemIcon>
-          <StarIcon />
-        </ListItemIcon>
-        <ListItemText primary="מועדפים" />
-      </ListItem>
-
-      <ListItem
-        button
-        onClick={() => {
-          handleClick("history");
-        }}
-      >
-        <ListItemIcon>
-          <QueryBuilderIcon />
-        </ListItemIcon>
-        <ListItemText primary="היסטוריה" />
-      </ListItem>
-
-      <ListItem
-        button
-        onClick={() => {
-          handleClick("categories");
-        }}
-      >
-        <ListItemIcon>
-          <CategoryIcon />
-        </ListItemIcon>
-        <ListItemText primary="קטגוריות" />
-      </ListItem>
-
-      <ListItem
-        button
-        onClick={() => {
-          handleClick("faq");
-        }}
-      >
-        <ListItemIcon>
-          <HelpIcon />
-        </ListItemIcon>
-        <ListItemText primary="FAQ" />
-      </ListItem>
-    </List>
+    <Tabs
+    orientation="vertical"
+    variant="scrollable"
+    value={value}
+    onChange={handleChange}
+    aria-label="Vertical tabs example"
+    className={classes.tabs}
+  >
+    <Tab label="Item One" {...a11yProps(0)} />
+    <Tab label="Item Two" {...a11yProps(1)} />
+    <Tab label="Item Three" {...a11yProps(2)} />
+    <Tab label="Item Four" {...a11yProps(3)} />
+  </Tabs>
   );
 }
 
