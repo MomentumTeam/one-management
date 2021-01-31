@@ -37,7 +37,7 @@ authRoutes(app);
 
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", indexRouter);
+app.use("/api", indexRouter);
 app.use("/api/users", usersRouter);
 
 // catch 404 and forward to error handler
@@ -56,6 +56,6 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
-app.listen(process.env.PORT || 3000, () => {
-  console.log(`server is listening at http://localhost:${process.env.PORT || 3000}`);
+app.listen(process.env.PORT || 4000, () => {
+  console.log(`server is listening at http://localhost:${process.env.SERVER_PORT || 4000}`);
 });

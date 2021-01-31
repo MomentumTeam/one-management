@@ -6,7 +6,7 @@ class UserController {
     try {
       const user = await User.findOne({ userId: req.user.id });
       return res.send({
-        user: req.user,
+        userObj: req.user,
         history: user.history,
         favorites: user.favorites,
       });

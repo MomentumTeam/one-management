@@ -20,7 +20,7 @@ passport.deserializeUser(async (user, done) => {
 });
 
 const config = {
-  callbackURL: `${process.env.SERVER_URL || "http://localhost:3000"}/success`,
+  callbackURL: `${process.env.SERVER_URL || "http://localhost:4000"}/api/success`,
   shragaURL: process.env.SHRAGA_URL || "http://13.79.7.3",
   useADFS: true,
   useEnrichId: true,
