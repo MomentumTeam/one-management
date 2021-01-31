@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const homeSlice = createSlice({
   name: "home",
   initialState: {
-    page: "favorites",
+    page: "מועדפים",
     tab:0
   },
   reducers: {
