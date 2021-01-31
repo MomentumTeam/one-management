@@ -16,7 +16,7 @@ export const homeSlice = createSlice({
   },
 });
 
-export const { switchTo,changeTab } = homeSlice.actions;
+// export const { switchTo,changeTab } = homeSlice.actions;
 
 // export const incrementAsync = (amount) => (dispatch) => {
 //   setTimeout(() => {
@@ -24,7 +24,7 @@ export const { switchTo,changeTab } = homeSlice.actions;
 //   }, 1000);
 // };
 
-export const selectHome = (state) => state.home;
-export const selectTab = (state) => state.home.tab;
+// export const selectHome = (state) => state.home;
+// export const selectTab = (state) => state.home.tab;
 
 export default homeSlice.reducer;

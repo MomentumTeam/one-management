@@ -1,9 +1,17 @@
-import React from 'react'
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+    selectHistory
+  } from '../features/application/ApplicationSlice';
+  import ApplicationList from "../features/application/ApplicationList"
+function History({match}) {
+    const applications = useSelector(selectHistory);
 
-function History() {
     return (
         <div>
-            <h1>history</h1>
+            <h1>history </h1>
+            {applications.map((item ) => item.name)}
+            <ApplicationList applicationList={applications}/>
         </div>
     )
 }

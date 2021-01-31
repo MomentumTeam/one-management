@@ -1,118 +1,72 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
-import StarIcon from "@material-ui/icons/Star";
-import CategoryIcon from "@material-ui/icons/Category";
-import HelpIcon from "@material-ui/icons/Help";
+import { withStyles } from "@material-ui/core/styles";
+import { NavLink } from "react-router-dom";
 import logo from "../img/logo.png";
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import { useSelector, useDispatch } from "react-redux";
-import { switchTo, selectHome, changeTab } from "../features/home/homeSlice";
+import List from '@material-ui/core/List';
+import MuiListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import { Star , History, Category} from '@material-ui/icons';
 
-import Faq from "./Faq";
-import Favorites from "./Favorites";
-import Catogries from "./Catogries";
-import History from "./History";
-
-import { Link, Route, BrowserRouter, Switch } from "react-router-dom";
-
-const useStyles = makeStyles({
-  img: {
-    width: "100%",
+const ListItem = withStyles({
+  root: {
+    textAlign:"right",
+    "&$selected": {
+      backgroundColor: "white",
+      color: "black"
+    },
+    "&$selected:hover": {
+      backgroundColor: "gray",
+      color: "white"
+    },
+    "&:hover": {
+      backgroundColor: "white",
+      color: "black"
+    }
   },
-  tabs:{
-    marginTop:"10%"
+  selected: {}
+})(MuiListItem);
+const ruotes = [
+  {
+    name: "הכל",
+    link: "/",
+    icon: <Star />
+  },
+  {
+    name: "מועדפים",
+    link: "/favorites",
+    icon: <Star />
+},
+{
+  name: "היסטוריה",
+  link: "/history",
+  icon: <History />
+},
+{
+  name: "קטגוריות",
+  link: "/catogries",
+  icon: <Category />
+},
+{
+  name: "FAQ",
+  link: "/faq",
+  icon: <Star />
+},
+]
 
-  },
-  iconLabelWrapper: {
-    flexDirection: "row-reverse",
-    fontSize:"large",
-  },
-  indicator: {
-    left: "0px",
-    backgroundColor: "white"
-  },
-  active_tabStyle: {
-    color: 'black',
-    backgroundColor: 'white',
-  }
-});
-
-function a11yProps(index) {
-  return {
-    id: `vertical-tab-${index}`,
-    'aria-controls': `vertical-tabpanel-${index}`,
-  };
-}
 function SideNavbar() {
-  const page = useSelector(selectHome);
-  const dispatch = useDispatch();
-  const classes = useStyles();
-  const [value, setValue] = React.useState(0);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-    dispatch(changeTab(newValue))
-  };
   return (
-    <BrowserRouter>
       <div>
-
-        <img src={logo} className={classes.img} />
-        <Tabs
-          orientation="vertical"
-          variant="fullWidth"
-          value={value}
-          onChange={handleChange}
-          aria-label="Vertical tabs example"
-          classes={{
-            root: classes.tabs,
-            indicator: classes.indicator
-          }}
-        >
-          <Tab
-            classes={{
-              wrapper: classes.iconLabelWrapper,
-              selected: classes.active_tabStyle,
-            }}
-            icon={<StarIcon />}
-            label="מועדפים" {...a11yProps(0)}
-            component={Link} to="/one" />
-          <Tab
-            classes={{
-              wrapper: classes.iconLabelWrapper,
-              selected: classes.active_tabStyle
-            }}
-            icon={<QueryBuilderIcon />}
-            label="היסטוריה" {...a11yProps(1)} 
-            component={Link} to="/two"/>
-          <Tab
-            classes={{
-              wrapper: classes.iconLabelWrapper,
-              selected: classes.active_tabStyle
-            }}
-            icon={<CategoryIcon />}
-            label="קטגוריות" {...a11yProps(2)}
-            component={Link} to="/three" />
-          <Tab
-            classes={{
-              wrapper: classes.iconLabelWrapper,
-              selected: classes.active_tabStyle
-            }}
-            icon={<HelpIcon />}
-            label="FAQ" {...a11yProps(3)}
-            component={Link} to="/four" />
-        </Tabs>
-
-        {/* <Switch>
-            <Route path="/one" component={Favorites} />
-            <Route path="/two" component={History} />
-            <Route path="/three" component={Catogries} />
-            <Route path="/four" component={Faq} />
-          </Switch> */}
+        <img src={logo} style={{width: "50%"}} />
+        <List component="nav" aria-label="main mailbox folders">
+          {ruotes.map((ruote) => {
+             return  <ListItem button component={NavLink} exact to={ruote.link} activeStyle={{backgroundColor:"white", color:"black"}}>
+             <ListItemText primary={ruote.name} />
+              {ruote.icon} 
+           </ListItem>
+          })}
+      </List>
       </div>
-    </BrowserRouter>
   );
 }
 
