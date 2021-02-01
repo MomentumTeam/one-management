@@ -22,7 +22,7 @@ export const userSlice = createSlice({
       state.favorites = [action.payload, ...state.favorites];
     },
     RemoveFromFavorites: (state, action) => {
-      state.favorites = state.favorites.filter((favorite) => favorite.name !== action.payload);
+      state.favorites = state.favorites.filter((favorite) => favorite !== action.payload);
     },
   },
   extraReducers: {
