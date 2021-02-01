@@ -1,14 +1,11 @@
 import React, { useEffect } from "react";
 import SideNavbar from "./components/SideNavbar";
-import Faq from './components/Faq';
-import Favorites from './components/Favorites';
-import Catogries from './components/Catogries';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect
-} from "react-router-dom";
+import Faq from "./components/Faq";
+import Favorites from "./components/Favorites";
+import History from "./components/History";
+import Categories from "./components/Categories";
+import "./App.css";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 
 import Header from "./components/Header";
 import { selectUserObj, selectLoading } from "./features/user/userSlice";
@@ -40,21 +37,26 @@ function App() {
     return (
       <div className="App">
         <Router>
-        <div class="grid-container">
-          <div class="Header"><Header user={{name:"ליאורה יעקב",age:"19"}}/></div>
-          <div class="SideNavBar"> <SideNavbar /></div>
-          <div class="Content">
-          <Switch>
-            <Route exact path="/" component={Favorites} />
-            <Route exact path="/favorites" component={Favorites} />
-            <Route exact path="/history" component={History} />
-            <Route exact path="/catogries" component={Catogries} />
-            <Route exact path="/faq" component={Faq} />
-            <Redirect to="/" />
-          </Switch>
+          <div class="grid-container">
+            <div class="Header">
+              <Header user={{ name: "ליאורה יעקב", age: "19" }} />
             </div>
-          <div class="Footer"></div>
-        </div>
+            <div class="SideNavBar">
+              {" "}
+              <SideNavbar />
+            </div>
+            <div class="Content">
+              <Switch>
+                <Route exact path="/" component={Favorites} />
+                <Route exact path="/favorites" component={Favorites} />
+                <Route exact path="/history" component={History} />
+                <Route exact path="/categories" component={Categories} />
+                <Route exact path="/faq" component={Faq} />
+                <Redirect to="/" />
+              </Switch>
+            </div>
+            <div class="Footer"></div>
+          </div>
         </Router>
       </div>
     );
