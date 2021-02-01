@@ -39,13 +39,15 @@ function App() {
         <Router>
           <div class="grid-container">
             <div class="Header">
-              <Header user={{ name: "ליאורה יעקב", age: "19" }} />
+              <Header />
             </div>
             <div class="SideNavBar">
               {" "}
               <SideNavbar />
             </div>
-            <div class="Content">
+            <div class="Content" style={{ 
+        backgroundImage: `url("https://coloringhome.com/coloring/dc8/xXk/dc8xXknBi.png")` 
+      }}>
               <Switch>
                 <Route exact path="/" component={Favorites} />
                 <Route exact path="/favorites" component={Favorites} />
