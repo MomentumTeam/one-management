@@ -47,7 +47,9 @@ function App() {
               {" "}
               <SideNavbar />
             </div>
-            <div class="Content">
+            <div class="Content" style={{ 
+        backgroundImage: `url("https://coloringhome.com/coloring/dc8/xXk/dc8xXknBi.png")` 
+      }}>
               <Switch>
                 <Route exact path="/" component={AllApplications} />
                 <Route exact path="/favorites" component={Favorites} />

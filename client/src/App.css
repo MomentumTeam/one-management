@@ -19,5 +19,5 @@
 }
 .Header { grid-area: Header; background-color: black;}
 .Content { grid-area: Content; background-color: white;}
-.Footer { grid-area: Footer; background-color: green;}
+.Footer { grid-area: Footer; background-color: teal;}
 .SideNavBar { grid-area: SideNavBar; background-color: black; color: aliceblue;}
