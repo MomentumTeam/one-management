@@ -23,6 +23,7 @@ function Star({ item }) {
         }}
       />
     );
+    return star;
   }
 }
 

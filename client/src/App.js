@@ -11,6 +11,8 @@ import Header from "./components/Header";
 import { selectUserObj, selectLoading } from "./features/user/userSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { getUser } from "./features/user/userSlice";
+import AllApplications from "./components/AllApplications";
+import Application from "./components/Application";
 
 function App() {
   const dispatch = useDispatch();
@@ -47,10 +49,11 @@ function App() {
             </div>
             <div class="Content">
               <Switch>
-                <Route exact path="/" component={Favorites} />
+                <Route exact path="/" component={AllApplications} />
                 <Route exact path="/favorites" component={Favorites} />
                 <Route exact path="/history" component={History} />
                 <Route exact path="/categories" component={Categories} />
+                <Route exact path="/application/:applicatinId" component={Application} />
                 <Route exact path="/faq" component={Faq} />
                 <Redirect to="/" />
               </Switch>
