@@ -12,7 +12,7 @@ import {
   } from './ApplicationSlice';
   import { Link } from "react-router-dom";
 function ApplicationList({applicationList}) {
-    // applicationList = applicationList || useSelector(selectAll);
+
   return (
     <div style={{ marginTop: 20, padding: 30 }}>
       <Grid container spacing={4} justify="center">
