@@ -7,7 +7,6 @@ function AllApplications({ match }) {
   const applications = useSelector(selectAll);
   return (
     <div>
-      <h1>categories</h1>
       <ApplicationList applicationList={applications} />
     </div>
   );

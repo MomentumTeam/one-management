@@ -1,17 +1,31 @@
-import React from "react";
+import React, { lazy, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { selectAll } from "../features/application/ApplicationSlice";
-
 import ApplicationList from "../features/application/ApplicationList";
-function Application({ match }) {
 
-    console.log(match)
-//   const applications = useSelector(selectAll);
+const importView = component =>
+  lazy(() =>
+    import(`./applicationsViews/${component}`).catch(() =>
+      import(`./applicationsViews/NullView`)
+    )
+  );
+
+function Application({ match }) {
+  const { applicatinId } = match.params;
+  const [view, setView] = useState();
+
+  useEffect(() => {
+     function loadView() {
+          const View = importView(applicatinId);
+          return <View/>;
+    }
+    const el = loadView();
+    setView(el)
+  }, [match.params.applicatinId]);
   return (
-    <div>
-      <h1>application {match.params.applicatinId}</h1>
-      {/* <ApplicationList applicationList={applications} /> */}
-    </div>
+    <React.Suspense fallback='Loading views...'>
+      <div className='container'>{view}</div>
+    </React.Suspense>
   );
 }
 

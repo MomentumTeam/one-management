@@ -18,7 +18,7 @@ const initialState = {
       categories: ["b"],
     },
     {
-      name: "ניהול VLAN",
+      name: "VLAN",
       id: "4",
       categories: ["b"],
     },
@@ -70,11 +70,11 @@ export const ApplicationSlice = createSlice({
 
 export const selectAll = (state) => state.application.applications;
 
-export const selectFavorite = (state) => state.application.filter((item) => {
+export const selectFavorite = (state) => state.application.applications.filter((item) => {
        return state.user.favorites.includes(item.id)
 });
 
-export const selectHistory = (state) => state.application.filter((item) => {
+export const selectHistory = (state) => state.application.applications.filter((item) => {
     return state.user.history.includes(item.id)
 });
 

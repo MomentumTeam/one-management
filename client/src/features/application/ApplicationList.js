@@ -19,7 +19,7 @@ function ApplicationList({applicationList}) {
         {applicationList.map(application => (
           <Grid item key={application.id}>
             <Card>
-              <CardActionArea component={Link}  to={`/application/${application.id}`}>
+              <CardActionArea component={Link}  to={`/application/${application.name}`}>
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="h2">
                     {application.name}
