@@ -10,15 +10,16 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
     selectAll
   } from './ApplicationSlice';
+  import { Link } from "react-router-dom";
 function ApplicationList({applicationList}) {
     // applicationList = applicationList || useSelector(selectAll);
   return (
     <div style={{ marginTop: 20, padding: 30 }}>
-      <Grid container spacing={40} justify="center">
+      <Grid container spacing={4} justify="center">
         {applicationList.map(application => (
           <Grid item key={application.id}>
             <Card>
-              <CardActionArea>
+              <CardActionArea component={Link}  to={`/application/${application.id}`}>
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="h2">
                     {application.name}

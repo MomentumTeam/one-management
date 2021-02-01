@@ -30,11 +30,11 @@ export const ApplicationSlice = createSlice({
 export const selectAll = (state) => state.application
 
 export const selectFavorite = (state) => state.application.filter((item) => {
-       return item.id === 2
+       return state.user.favorites.includes(item.id)
 });
 
 export const selectHistory = (state) => state.application.filter((item) => {
-    return item.id === 1
+    return state.user.history.includes(item.id)
 });
 
 export default ApplicationSlice.reducer;

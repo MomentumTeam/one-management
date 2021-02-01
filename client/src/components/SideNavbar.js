@@ -60,9 +60,9 @@ function SideNavbar() {
     <div>
       <img src={logo} style={{ width: "50%" }} />
       <List component="nav" aria-label="main mailbox folders">
-        {routes.map((route) => {
+        {routes.map((route, index) => {
           return (
-            <ListItem button component={NavLink} exact to={route.link} activeStyle={{ backgroundColor: "white", color: "black" }}>
+            <ListItem button component={NavLink} key={index} exact to={route.link} activeStyle={{ backgroundColor: "white", color: "black" }}>
               <ListItemText primary={route.name} />
               {route.icon}
             </ListItem>
