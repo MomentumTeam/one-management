@@ -6,16 +6,14 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
-import { useSelector, useDispatch } from 'react-redux';
-import {
-    selectAll
-  } from './ApplicationSlice';
-function ApplicationList({applicationList}) {
-    // applicationList = applicationList || useSelector(selectAll);
+import { useSelector, useDispatch } from "react-redux";
+import { selectAll } from "./ApplicationSlice";
+function ApplicationList({ applicationList }) {
+  // applicationList = applicationList || useSelector(selectAll);
   return (
     <div style={{ marginTop: 20, padding: 30 }}>
-      <Grid container spacing={40} justify="center">
-        {applicationList.map(application => (
+      <Grid container spacing={4} justify="center">
+        {applicationList.map((application) => (
           <Grid item key={application.id}>
             <Card>
               <CardActionArea>

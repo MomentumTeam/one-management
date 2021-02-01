@@ -39,7 +39,7 @@ function App() {
         <Router>
           <div class="grid-container">
             <div class="Header">
-              <Header user={{ name: "ליאורה יעקב", age: "19" }} />
+              <Header />
             </div>
             <div class="SideNavBar">
               {" "}
