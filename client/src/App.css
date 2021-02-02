@@ -24,8 +24,8 @@
 }
 .Content {
   grid-area: Content;
-  background-color: white;
   overflow: auto;
+  background-color: pink;
 }
 .Footer {
   grid-area: Footer;

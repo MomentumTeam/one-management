@@ -1,7 +1,7 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import { NavLink, Route } from "react-router-dom";
-import logo from "../img/logo.png";
+import oneAmanLogo2 from "../img/oneAmanLogo2.png";
 import List from "@material-ui/core/List";
 import MuiListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -59,7 +59,7 @@ const routes = [
 function SideNavbar() {
   return (
     <div>
-      <img src={logo} style={{ width: "50%" }} />
+      <img src={oneAmanLogo2} style={{ width: "50%" , marginTop:"10%"}} />
       <List component="nav" aria-label="main mailbox folders">
         {routes.map((route, index) => {
           return (

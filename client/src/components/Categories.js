@@ -6,6 +6,8 @@ import ApplicationList from "../features/application/ApplicationList";
 function Categories({ match }) {
   console.log('match: ', match);
   const categories = useSelector(selectCategories);
+  console.log('categories: ', categories);
+
   return (
     <div>
       <h1>categories</h1>
