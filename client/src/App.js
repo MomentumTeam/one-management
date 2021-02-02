@@ -13,11 +13,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { getUser } from "./features/user/userSlice";
 import AllApplications from "./components/AllApplications";
 import Application from "./components/Application";
+import Cookies from 'js-cookie';
+
 
 function App() {
   const dispatch = useDispatch();
-  const userObj = useSelector(selectUserObj);
+  // const userObj = useSelector(selectUserObj);
   const loading = useSelector(selectLoading);
+  const cookie = Cookies.get('SignInSecret');
 
   useEffect(() => {
     dispatch(getUser());
@@ -27,14 +30,8 @@ function App() {
     return <div>Waiting for user</div>;
   }
 
-  if (JSON.stringify(userObj) === "{}") {
-    return (
-      <Router>
-        <Switch>
-          <Redirect to="/api/login" />
-        </Switch>
-      </Router>
-    );
+  if (!cookie) {
+    window.location = "http://localhost:4000/api/login";
   } else {
     return (
       <div className="App">
@@ -43,13 +40,13 @@ function App() {
             <div class="Header">
               <Header />
             </div>
-            <div class="SideNavBar">
+            <div class="SideNavBar" >
               {" "}
               <SideNavbar />
             </div>
-            <div class="Content" style={{ 
-        backgroundImage: `url("https://coloringhome.com/coloring/dc8/xXk/dc8xXknBi.png")` 
-      }}>
+            <div class="Content" style={{
+              backgroundImage: `url("https://coloringhome.com/coloring/dc8/xXk/dc8xXknBi.png")`
+            }}>
               <Switch>
                 <Route exact path="/" component={AllApplications} />
                 <Route exact path="/favorites" component={Favorites} />
