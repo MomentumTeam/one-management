@@ -31,7 +31,7 @@ function ApplicationList({ applicationList }) {
               <CardActionArea className={classes.root} component={Link} to={`/application/${application.name}`}>
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="h2">
-                    {application.name}
+                    {application.displayName}
                   </Typography>
                 </CardContent>
               </CardActionArea>

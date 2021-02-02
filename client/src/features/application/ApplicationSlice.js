@@ -3,43 +3,50 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   applications: [
     {
-      name: "ניהול משתמש",
+      name: "UserManagement",
+      displayName:"ניהול משתמש",
       id: "1",
       type: "application",
       categories: ["a"],
     },
     {
       name: "BitLocker",
+      displayName:"Bit Locker",
       id: "2",
       type: "application",
       categories: ["b"],
     },
     {
       name: "LAPS",
+      displayName:"LAPS",
       id: "3",
       type: "application",
       categories: ["b"],
     },
     {
       name: "VLAN",
+      displayName:"VLAN",
       id: "4",
       type: "application",
       categories: ["b"],
     },
     {
-      name: "Allow List",
+      name: "AllowList",
+      displayName:"Allow List",
       id: "5",
       type: "application",
       categories: ["c"],
     },
     {
       name: "Nova",
+      displayName:"Nova",
       id: "6",
       type: "application",
       categories: ["d"],
     },
     {
       name: "Sword",
+      displayName:"Sword",
       id: "7",
       type: "application",
       categories: ["d"],
