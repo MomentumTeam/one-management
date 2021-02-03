@@ -17,6 +17,8 @@
     "Footer Footer";
 
   overflow: hidden;
+  /* min-width: "50%";
+        min-height: "30%" */
 }
 .Header {
   grid-area: Header;

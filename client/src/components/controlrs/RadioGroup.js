@@ -1,17 +1,17 @@
 import React from 'react'
 import { FormControl, FormLabel, RadioGroup as MuiRadioGroup, FormControlLabel, Radio } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import { green } from '@material-ui/core/colors';
+import { teal } from '@material-ui/core/colors';
 
 const GreenRadio = withStyles({
     root: {
-        color: green[400],
+        color: teal[400],
         '&$checked': {
-            color: green[600],
+            color: teal[600],
         },
     },
     checked: {},
-})((props) => <Radio color="default" {...props} />);
+})((props) => <Radio color="default" required {...props} />);
 
 export default function RadioGroup(props) {
 

@@ -34,7 +34,7 @@ function App() {
     window.location = "http://localhost:4000/api/login";
   } else {
     return (
-      <div className="App">
+      <div className="App" >
         <Router>
           <div class="grid-container">
             <div class="Header">
@@ -44,10 +44,10 @@ function App() {
               {" "}
               <SideNavbar />
             </div>
-            <div class="Content" 
-            style={{
-              backgroundImage:`url(${background})`
-            }}
+            <div class="Content"
+              style={{
+                backgroundImage: `url(${background})`
+              }}
             >
               <Switch>
                 <Route exact path="/" component={AllApplications} />

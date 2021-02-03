@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Controls from '../Controls';
@@ -12,30 +12,28 @@ const useStyles = makeStyles((theme) => ({
         height: "100%",
         display: "flex",
         justifyContent: "center",
-        alignItems: "center",     
-        direction:"rtl" 
+        alignItems: "center",
+        direction: "rtl"
     },
     paper: {
         backgroundColor: "#D0D0D0",
         width: "70%",
         height: "70%",
-        // fontSize:"100%"
+        background: 'linear-gradient( #e6e6e6 90%, teal 10%)'
+
     },
+
 }));
 
 const initialFValues = {
-    searchType: '',
     input: '',
-
 }
 
-function BitLockerApp() {
+function LAPS() {
     const classes = useStyles();
 
-    const items = [
-        { id: '1', title: 'KeyID' },
-        { id: '2', title: 'שם מחשב' },
-    ];
+    const [password, setPassword] = useState('');
+
 
     const {
         values,
@@ -43,42 +41,41 @@ function BitLockerApp() {
         resetForm
     } = useForm(initialFValues);
 
+
     const handleSubmit = e => {
         e.preventDefault()
-        window.alert("good Job!")
-        resetForm()
+        setPassword("12345689");
+        window.alert("good Job!");
     }
 
     return (
         <div className={classes.root}>
-            <Paper elevation={20} classes={{ root: classes.paper }}>
-                <h1>BitLocker Password</h1>
+            <Paper elevation={24} classes={{ root: classes.paper }} >
+                <h1>Local Admin Password</h1>
                 <Form onSubmit={handleSubmit}>
-                    <Grid container>
+                    <Grid container spacing={0}
+                        direction="column"
+                        alignItems="center"
+                        justify="center">
                         <Grid item xs={6}>
-                            <Controls.RadioGroup
-                                name="searchType"
-                                label=""
-                                value={values.searchType}
-                                onChange={handleInputChange}
-                                items={items}
-                            />
                             <Controls.Input
                                 name="input"
-                                label=""
+                                label="שם מחשב"
+                                placeHolder="שם מחשב"
                                 value={values.input}
                                 onChange={handleInputChange}
                             />
                             <div>
                                 <Controls.Button
                                     type="submit"
-                                    text="שלח" />
-                                <Controls.Button
-                                    text="אפס"
+                                    text="Submit" />
+                                {/* <Controls.Button
+                                    text="Reset"
                                     color="default"
-                                    onClick={resetForm} />
+                                    onClick={resetForm} /> */}
                             </div>
                         </Grid>
+                        <h4>סיסמא: {password} </h4>
                     </Grid>
                 </Form>
             </Paper>
@@ -86,5 +83,5 @@ function BitLockerApp() {
     )
 }
 
-export default BitLockerApp;
+export default LAPS;
 

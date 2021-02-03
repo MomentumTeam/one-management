@@ -6,7 +6,7 @@ import ApplicationList from "../features/application/ApplicationList";
 const importView = component =>
   lazy(() =>
     import(`./applicationsViews/${component}`).catch(() =>
-      import(`./categories/Laps`)
+      import(`./applicationsViews/NullView`)
     )
   );
 
@@ -25,8 +25,9 @@ function Application({ match }) {
   }, [match.params.applicatinId]);
   return (
     <React.Suspense fallback='Loading views...'>
-      <div className='container'style={{width:"100%",height:"100%",fontSize:"large"
-      // backgroundColor:"yellow"
+      <div className='container' style={{
+        width: "100%", height: "100%", fontSize: "large"
+        // backgroundColor:"yellow"
       }}>{view}</div>
     </React.Suspense>
   );
