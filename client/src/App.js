@@ -51,7 +51,7 @@ function App() {
                 <Route exact path="/" component={AllApplications} />
                 <Route exact path="/favorites" component={Favorites} />
                 <Route exact path="/history" component={History} />
-                <Route exact path="/categories" component={Categories} />
+                <Route exact path="/categories/:categorieId" component={Categories} />
                 <Route exact path="/application/:applicatinId" component={Application} />
                 <Route exact path="/faq" component={Faq} />
                 <Redirect to="/" />
