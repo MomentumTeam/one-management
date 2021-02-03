@@ -16,16 +16,19 @@ function Application({ match }) {
   const [view, setView] = useState();
 
   useEffect(() => {
-     function loadView() {
-          const View = importView(applicatinId);
-          return <View/>;
+    function loadView() {
+      const View = importView(applicatinId);
+      return <View />;
     }
     const el = loadView();
     setView(el)
   }, [match.params.applicatinId]);
   return (
     <React.Suspense fallback='Loading views...'>
-      <div className={styles.container}>{view}</div>
+      <div className='container' style={{
+        width: "100%", height: "100%", fontSize: "large"
+        // backgroundColor:"yellow"
+      }}>{view}</div>
     </React.Suspense>
   );
 }

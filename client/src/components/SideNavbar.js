@@ -1,94 +1,3 @@
-// import React from "react";
-// import { withStyles } from "@material-ui/core/styles";
-// import { NavLink, Route } from "react-router-dom";
-// import logo from "../img/logo.png";
-// import List from "@material-ui/core/List";
-// import MuiListItem from "@material-ui/core/ListItem";
-// import ListItemText from "@material-ui/core/ListItemText";
-// import { Star, History, Category } from "@material-ui/icons";
-// import HelpIcon from "@material-ui/icons/Help";
-// import HomeIcon from "@material-ui/icons/Home";
-// import Collapse from '@material-ui/core/Collapse';
-// const ListItem = withStyles({
-//   root: {
-//     textAlign: "right",
-//     "&$selected": {
-//       backgroundColor: "white",
-//       color: "black",
-//     },
-//     "&$selected:hover": {
-//       backgroundColor: "gray",
-//       color: "white",
-//     },
-//     "&:hover": {
-//       backgroundColor: "white",
-//       color: "black",
-//     },
-//   },
-//   nested: {
-//     paddingRight: '20%',
-//   },
-//   selected: {},
-// })(MuiListItem);
-
-// const routes = [
-//   {
-//     name: "הכל",
-//     link: "/",
-//     icon: <HomeIcon />,
-//   },
-//   {
-//     name: "מועדפים",
-//     link: "/favorites",
-//     icon: <Star />,
-//   },
-//   {
-//     name: "היסטוריה",
-//     link: "/history",
-//     icon: <History />,
-//   },
-//   {
-//     name: "קטגוריות",
-//     link: "/categories",
-//     icon: <Category />,
-//   },
-//   {
-//     name: "FAQ",
-//     link: "/faq",
-//     icon: <HelpIcon />,
-//   },
-// ];
-
-// function SideNavbar() {
-//   return (
-//     <div>
-//       <img src={logo} style={{ width: "50%" }} />
-//       <List component="nav" aria-label="main mailbox folders">
-//         {routes.map((route, index) => {
-//           return (
-//             <ListItem button component={NavLink} key={index} exact to={route.link} activeStyle={{ backgroundColor: "white", color: "black" }}>
-//               <ListItemText primary={route.name} />
-//               {route.icon}
-//             </ListItem>
-//           );
-//         })}
-//               <Collapse in={true} timeout="auto" unmountOnExit>
-//         <List component="div" >
-//           <ListItem button >
-//             {/* <ListItemIcon>
-//               <StarBorder />
-//             </ListItemIcon> */}
-//             <ListItemText primary="Starred" />
-//           </ListItem>
-//         </List>
-//       </Collapse>
-//       </List>
-//     </div>
-//   );
-// }
-
-// export default SideNavbar;
-
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import ListSubheader from "@material-ui/core/ListSubheader";
@@ -108,6 +17,8 @@ import HelpIcon from "@material-ui/icons/Help";
 import HomeIcon from "@material-ui/icons/Home";
 import { withStyles } from "@material-ui/core/styles";
 import { NavLink, Route } from "react-router-dom";
+import oneAmanLogo2 from "../img/oneAmanLogo2.png";
+
 const routes = [
   {
     name: "הכל",
@@ -132,25 +43,25 @@ const routes = [
       {
         name: "ניהול משתמש",
         id: "a",
-        icon: <PermIdentity/>,
+        icon: <PermIdentity />,
         link: "/categories/a",
       },
       {
         name: "ניהול עמדה",
         id: "b",
-        icon: <DesktopWindows/>,
+        icon: <DesktopWindows />,
         link: "/categories/b",
       },
       {
         name: "הרשאות ומידור",
         id: "d",
-        icon: <DesktopWindows/>,
+        icon: <DesktopWindows />,
         link: "/categories/d",
       },
       {
         name: "ניהול מייל",
         id: "e",
-        icon: <Email/>,
+        icon: <Email />,
         link: "/categories/e",
       },
     ],
@@ -223,52 +134,55 @@ export default function SideNavbar() {
   };
 
   return (
-    <List
-      component="nav"
-      aria-labelledby="nested-list-subheader"
-      className={classes.root}
-    >
-      {routes.map((route, index) => {
-        return (
-          <div>
-         {!route.children ? <ListItem button component={NavLink} key={index} exact to={route.link} activeStyle={{ backgroundColor: "white", color: "black" }}>
-            <ListItemIcon className={classes.icon}>
-              {route.icon}
-            </ListItemIcon>
-            <ListItemText primary={route.name} />
-          </ListItem> :
-          <>
-                <ListItem button onClick={handleClick}>
+    <div>
+
+      <img src={oneAmanLogo2} style={{ width: "50%", marginTop: "10%" }} />
+
+      <List
+        component="nav"
+        aria-labelledby="nested-list-subheader"
+        className={classes.root}
+      >
+        {routes.map((route, index) => {
+          return (
+            <div>
+              {!route.children ? <ListItem button component={NavLink} key={index} exact to={route.link} activeStyle={{ backgroundColor: "white", color: "black" }}>
                 <ListItemIcon className={classes.icon}>
-                {route.icon}
+                  {route.icon}
                 </ListItemIcon>
-                <ListItemText  primary={route.name}/>
-                {open ? <ExpandLess /> : <ExpandMore />}
-              </ListItem>
-              <Collapse in={open} timeout="auto" unmountOnExit>
-                <List component="nav" disablePadding>
-                {route.children.map((route, index) => {
-                  return (
-                    <ListItem button className={classes.nested} component={NavLink} key={index} exact to={route.link} activeStyle={{ backgroundColor: "white", color: "black" }}>
+                <ListItemText primary={route.name} />
+              </ListItem> :
+                <>
+                  <ListItem button onClick={handleClick}>
                     <ListItemIcon className={classes.icon}>
-                    {route.icon}
+                      {route.icon}
                     </ListItemIcon>
-                    <ListItemText primary={route.name}/>
+                    <ListItemText primary={route.name} />
+                    {open ? <ExpandLess /> : <ExpandMore />}
                   </ListItem>
-                  )
-                })}
+                  <Collapse in={open} timeout="auto" unmountOnExit>
+                    <List component="nav" disablePadding>
+                      {route.children.map((route, index) => {
+                        return (
+                          <ListItem button className={classes.nested} component={NavLink} key={index} exact to={route.link} activeStyle={{ backgroundColor: "white", color: "black" }}>
+                            <ListItemIcon className={classes.icon}>
+                              {route.icon}
+                            </ListItemIcon>
+                            <ListItemText primary={route.name} />
+                          </ListItem>
+                        )
+                      })}
 
-                </List>
-              </Collapse>
-              </>
-          }
-           
-          </div>
-        );
-      })}
+                    </List>
+                  </Collapse>
+                </>
+              }
 
-
-    </List>
+            </div>
+          );
+        })}
+      </List>
+    </div>
   );
 }
 

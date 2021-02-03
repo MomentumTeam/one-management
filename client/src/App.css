@@ -17,6 +17,8 @@
     "Footer Footer";
 
   overflow: hidden;
+  /* min-width: "50%";
+        min-height: "30%" */
 }
 .Header {
   grid-area: Header;
@@ -24,8 +26,8 @@
 }
 .Content {
   grid-area: Content;
-  background-color: white;
   overflow: auto;
+  background-color: pink;
 }
 .Footer {
   grid-area: Footer;

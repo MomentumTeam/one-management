@@ -6,7 +6,7 @@ import History from "./components/History";
 import Categories from "./components/Categories";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
-
+import background from './img/background.jpg';
 import Header from "./components/Header";
 import { selectUserObj, selectLoading } from "./features/user/userSlice";
 import { useSelector, useDispatch } from "react-redux";
@@ -34,7 +34,7 @@ function App() {
     window.location = "http://localhost:4000/api/login";
   } else {
     return (
-      <div className="App">
+      <div className="App" >
         <Router>
           <div class="grid-container">
             <div class="Header">
@@ -44,9 +44,11 @@ function App() {
               {" "}
               <SideNavbar />
             </div>
-            <div class="Content" style={{
-              backgroundImage: `url("https://coloringhome.com/coloring/dc8/xXk/dc8xXknBi.png")`
-            }}>
+            <div class="Content"
+              style={{
+                backgroundImage: `url(${background})`
+              }}
+            >
               <Switch>
                 <Route exact path="/" component={AllApplications} />
                 <Route exact path="/favorites" component={Favorites} />

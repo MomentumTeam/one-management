@@ -21,6 +21,8 @@ const useStyles = makeStyles({
 
 function ApplicationList({ applicationList }) {
   const classes = useStyles();
+    console.log('applicationList: ', applicationList);
+
   return (
     <div style={{ marginTop: 20, padding: 30 }}>
       <Grid container spacing={4} justify="center">
