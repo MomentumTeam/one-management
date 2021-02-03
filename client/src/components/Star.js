@@ -1,5 +1,5 @@
 import React from "react";
-import { selectFavorites, AddToFavorites, RemoveFromFavorites } from "../features/user/userSlice";
+import { selectFavorites, AddToFavorites, RemoveFromFavorites, updateHistory, updateFavorites } from "../features/user/userSlice";
 import { useSelector, useDispatch } from "react-redux";
 import StarIcon from "@material-ui/icons/Star";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
@@ -14,12 +14,14 @@ function Star({ item }) {
       <StarIcon
         onClick={() => {
           dispatch(RemoveFromFavorites(item.id));
+          dispatch(updateFavorites(favorites));
         }}
       />
     ) : (
       <StarBorderIcon
         onClick={() => {
           dispatch(AddToFavorites(item.id));
+          dispatch(updateFavorites(favorites));
         }}
       />
     );
