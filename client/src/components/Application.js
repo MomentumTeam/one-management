@@ -2,7 +2,7 @@ import React, { lazy, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { selectAll } from "../features/application/ApplicationSlice";
 import ApplicationList from "../features/application/ApplicationList";
-
+import styles from './applicationsViews/style.module.css';
 const importView = component =>
   lazy(() =>
     import(`./applicationsViews/${component}`).catch(() =>
@@ -24,7 +24,7 @@ function Application({ match }) {
   }, [match.params.applicatinId]);
   return (
     <React.Suspense fallback='Loading views...'>
-      <div className='container'>{view}</div>
+      <div className={styles.container}>{view}</div>
     </React.Suspense>
   );
 }
