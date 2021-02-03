@@ -2,7 +2,6 @@
   text-align: center;
   /* display: flex;
   flex-direction: row-reverse;  */
-
 }
 
 .grid-container {
@@ -16,6 +15,26 @@
     "Header SideNavBar"
     "Content SideNavBar"
     "Footer Footer";
+
+  overflow: hidden;
+}
+.Header {
+  grid-area: Header;
+  background-color: black;
+}
+.Content {
+  grid-area: Content;
+  background-color: white;
+  overflow: auto;
+}
+.Footer {
+  grid-area: Footer;
+  background-color: teal;
+}
+.SideNavBar {
+  grid-area: SideNavBar;
+  background-color: black;
+  color: aliceblue;
 }
 .Header { grid-area: Header; background-color: black;}
 .Content { grid-area: Content; background-color: white; height: 100%;}
