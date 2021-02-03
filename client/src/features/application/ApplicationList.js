@@ -6,13 +6,13 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Star from "../../components/Star";
 import { Link } from "react-router-dom";
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   root: {
     minWidth: 300,
     minHeight: 150,
-    background: 'linear-gradient( #e6e6e6 90%, teal 10%)'
+    background: "linear-gradient( #e6e6e6 90%, teal 10%)",
   },
   media: {
     height: 140,
@@ -21,7 +21,7 @@ const useStyles = makeStyles({
 
 function ApplicationList({ applicationList }) {
   const classes = useStyles();
-    console.log('applicationList: ', applicationList);
+  console.log("applicationList: ", applicationList);
 
   return (
     <div style={{ marginTop: 20, padding: 30 }}>
