@@ -38,3 +38,7 @@
   background-color: black;
   color: aliceblue;
 }
+.Header { grid-area: Header; background-color: black;}
+.Content { grid-area: Content; background-color: white; height: 100%;}
+.Footer { grid-area: Footer; background-color: teal;}
+.SideNavBar { grid-area: SideNavBar; background-color: black; color: aliceblue;}

@@ -99,6 +99,13 @@ export const selectHistory = (state) =>
         return state.user.history.includes(item.id);
     });
 
-export const selectCategories = (state) => state.application.categories;
+export const selectByCategorie = id => (state) => {
+ return state.application.applications.filter(item => {
+   if(item.categories.includes(id)){
+    return item
+   }
+  
+  });
+}
 
 export default ApplicationSlice.reducer;
