@@ -12,25 +12,30 @@ const theme = createMuiTheme({
     palette: {
         primary: teal,
     },
-    textAlign: "center",
-    direction: 'rtl', 
-
+    direction: 'rtl',
 });
 
+const useStyles = makeStyles(theme => ({
+    root: {
+        margin: theme.spacing(0.5),
+        backgroundColor:"white"
+    }
+}));
 
 export default function Input(props) {
+    const classes = useStyles();
+    const { name, label, value, onChange } = props;
 
-    const { name, label, placeHolder, value, onChange } = props;
     return (
         <ThemeProvider theme={theme}>
             <TextField
                 required
-                placeholder={placeHolder}
-                // label={label}
+                label={label}
                 id="mui-theme-provider-outlined-input"
                 value={value}
                 onChange={onChange}
                 variant="outlined"
+                classes={{ root: classes.root }}
                 name={name}
             />
         </ThemeProvider>

@@ -7,16 +7,13 @@ import { useForm, Form } from '../UseForm';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        // backgroundColor: "blue",
         width: "100%",
         height: "100%",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        direction: "rtl"
     },
     paper: {
-        backgroundColor: "#D0D0D0",
         width: "70%",
         height: "70%",
         background: 'linear-gradient( #e6e6e6 90%, teal 10%)'
@@ -31,9 +28,7 @@ const initialFValues = {
 
 function LAPS() {
     const classes = useStyles();
-
     const [password, setPassword] = useState('');
-
 
     const {
         values,
@@ -41,11 +36,16 @@ function LAPS() {
         resetForm
     } = useForm(initialFValues);
 
-
     const handleSubmit = e => {
         e.preventDefault()
         setPassword("12345689");
         window.alert("good Job!");
+        resetForm();
+    }
+
+    const onReset=()=>{
+        resetForm();
+        setPassword("");
     }
 
     return (
@@ -61,7 +61,6 @@ function LAPS() {
                             <Controls.Input
                                 name="input"
                                 label="שם מחשב"
-                                placeHolder="שם מחשב"
                                 value={values.input}
                                 onChange={handleInputChange}
                             />
@@ -69,10 +68,10 @@ function LAPS() {
                                 <Controls.Button
                                     type="submit"
                                     text="Submit" />
-                                {/* <Controls.Button
+                                <Controls.Button
                                     text="Reset"
-                                    color="default"
-                                    onClick={resetForm} /> */}
+                                    // color="default"
+                                    onClick={onReset} />
                             </div>
                         </Grid>
                         <h4>סיסמא: {password} </h4>

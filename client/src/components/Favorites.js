@@ -4,7 +4,6 @@ import { selectFavorites } from "../features/application/ApplicationSlice";
 
 import ApplicationList from "../features/application/ApplicationList";
 function Favorites({ match }) {
-  console.log('match: ', match);
   const favorites = useSelector(selectFavorites);
   return (
     <div>
