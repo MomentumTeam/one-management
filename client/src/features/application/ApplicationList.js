@@ -6,13 +6,15 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Star from "../../components/Star";
 import { Link } from "react-router-dom";
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
+import { AddToHistory, updateHistory } from "../user/userSlice";
+import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles({
   root: {
     minWidth: 300,
     minHeight: 150,
-    background: 'linear-gradient( #e6e6e6 90%, teal 10%)'
+    background: "linear-gradient( #e6e6e6 90%, teal 10%)",
   },
   media: {
     height: 140,
@@ -21,7 +23,8 @@ const useStyles = makeStyles({
 
 function ApplicationList({ applicationList }) {
   const classes = useStyles();
-    console.log('applicationList: ', applicationList);
+  console.log("applicationList: ", applicationList);
+  const dispatch = useDispatch();
 
   return (
     <div style={{ marginTop: 20, padding: 30 }}>
@@ -30,7 +33,15 @@ function ApplicationList({ applicationList }) {
           <Grid item key={application.id}>
             <Card className={classes.root}>
               <Star item={application}></Star>
-              <CardActionArea className={classes.root} component={Link} to={`/application/${application.name}`}>
+              <CardActionArea
+                onClick={() => {
+                  dispatch(AddToHistory(application.id));
+                  dispatch(updateHistory());
+                }}
+                className={classes.root}
+                component={Link}
+                to={`/application/${application.name}`}
+              >
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="h2">
                     {application.displayName}
