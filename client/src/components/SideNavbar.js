@@ -74,38 +74,35 @@ const routes = [
 ];
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "100%",
-    direction: "rtl",
-    float: "right",
-    textAlign: "right",
-    maxWidth: 360,
-    color: "white",
-    // backgroundColor: theme.palette.background.paper,
-    // "&$selected": {
-    //   backgroundColor: "white",
-    //   color: "black"
-    // },
-    // "&$selected:hover": {
-    //   backgroundColor: "red",
-    //   color: "white"
-    // }
+    // width: "100%",
+    // // maxWidth: 360,
+    // color: "white",
+    // // backgroundColor: theme.palette.background.paper,
+    // // "&$selected": {
+    // //   backgroundColor: "white",
+    // //   color: "black"
+    // // },
+    // // "&$selected:hover": {
+    // //   backgroundColor: "red",
+    // //   color: "white"
+    // // }
   },
   icon: {
-    color: 'white',
-    // "&:hover": {
-    //   color: "black",
-    // },
+    color: 'teal',
+    // // "&:hover": {
+    // //   color: "black",
+    // // },
   },
   nested: {
-    paddingRight: theme.spacing(5)
+    // paddingRight: theme.spacing(5)
   }
 }));
+
 const ListItem = withStyles({
   root: {
-    textAlign: "right",
-    color: "white",
+    // color: "white",
     "&$selected": {
-      backgroundColor: "white",
+      backgroundColor: "pink",
       color: "black",
     },
     "&$selected:hover": {
@@ -125,6 +122,7 @@ const ListItem = withStyles({
   },
   selected: {},
 })(MuiListItem);
+
 export default function SideNavbar() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);

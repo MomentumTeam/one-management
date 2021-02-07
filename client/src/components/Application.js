@@ -11,7 +11,6 @@ const importView = component =>
   );
 
 function Application({ match }) {
-  console.log('match: ', match);
   const { applicatinId } = match.params;
   const [view, setView] = useState();
 

@@ -5,18 +5,17 @@ import Controls from '../Controls';
 import { Grid, } from '@material-ui/core';
 import { useForm, Form } from '../UseForm';
 
+import CONFIG from '../../config.json';
+
 const useStyles = makeStyles((theme) => ({
     root: {
-        // backgroundColor: "blue",
         width: "100%",
         height: "100%",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        direction: "rtl"
     },
     paper: {
-        backgroundColor: "#D0D0D0",
         width: "70%",
         height: "70%",
         background: 'linear-gradient( #e6e6e6 90%, teal 10%)'
@@ -28,22 +27,7 @@ const initialFValues = {
     macAddress:'',
     location: '',
     vlan: '',
-
 }
-
-const vlanOptions = [
-    { id: '1', title: 'Development' },
-    { id: '2', title: 'Marketing' },
-    { id: '3', title: 'Accounting' },
-    { id: '4', title: 'HR' },
-];
-
-const locationOptions = [
-    { id: '1', title: 'A' },
-    { id: '2', title: 'B' },
-    { id: '3', title: 'C' },
-    { id: '4', title: 'D' },
-];
 
 function Vlan() {
     const classes = useStyles();
@@ -56,9 +40,10 @@ function Vlan() {
 
     const handleSubmit = e => {
         e.preventDefault()
-        window.alert("good Job!")
+        window.alert("vlan שונה בהצלחה")
         resetForm()
     }
+
 
     return (
         <div className={classes.root}>
@@ -74,32 +59,31 @@ function Vlan() {
                             <Controls.Input
                                 name="macAddress"
                                 label="כתובת Mac"
-                                placeHolder="כתובת Mac"
                                 value={values.macAddress}
                                 onChange={handleInputChange}
                             />
                             <Controls.Select
                                 name="location"
-                                label="Location"
+                                label="מיקום"
                                 value={values.location}
                                 onChange={handleInputChange}
-                                options={locationOptions}
+                                options={CONFIG.locationOptions}
                             />
                             <Controls.Select
                                 name="vlan"
                                 label="Vlan"
                                 value={values.vlan}
                                 onChange={handleInputChange}
-                                options={vlanOptions}
+                                options={CONFIG.vlanOptions}
                             />
                             <div>
                                 <Controls.Button
                                     type="submit"
                                     text="Submit" />
-                                {/* <Controls.Button
+                                <Controls.Button
                                     text="Reset"
-                                    color="default"
-                                    onClick={resetForm} /> */}
+                                    // color="default"
+                                    onClick={resetForm} />
                             </div>
                         </Grid>
                     </Grid>

@@ -1,84 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
+import CONFIG from "../../config.json";
 
 const initialState = {
-  applications: [
-    {
-      name: "UserManagement",
-      displayName: "ניהול משתמש",
-      id: "1",
-      type: "application",
-      categories: ["a"],
-    },
-    {
-      name: "BitLocker",
-      displayName: "Bit Locker",
-      id: "2",
-      type: "application",
-      categories: ["b"],
-    },
-    {
-      name: "LAPS",
-      displayName: "LAPS",
-      id: "3",
-      type: "application",
-      categories: ["b"],
-    },
-    {
-      name: "VLAN",
-      displayName: "VLAN",
-      id: "4",
-      type: "application",
-      categories: ["b"],
-    },
-    {
-      name: "AllowList",
-      displayName: "Allow List",
-      id: "5",
-      type: "application",
-      categories: ["c"],
-    },
-    {
-      name: "Nova",
-      displayName: "Nova",
-      id: "6",
-      type: "application",
-      categories: ["d"],
-    },
-    {
-      name: "Sword",
-      displayName: "Sword",
-      id: "7",
-      type: "application",
-      categories: ["d"],
-    },
-  ],
-  categories: [
-    {
-      displayName: "ניהול משתמש",
-      id: "a",
-      type: "category",
-    },
-    {
-      displayName: "ניהול עמדה",
-      id: "b",
-      type: "category",
-    },
-    {
-      displayName: "ניהול רשת",
-      id: "c",
-      type: "category",
-    },
-    {
-      displayName: "הרשאות ומידור",
-      id: "d",
-      type: "category",
-    },
-    {
-      displayName: "ניהול מייל",
-      id: "e",
-      type: "category",
-    },
-  ],
+  applications: CONFIG.applications,
+  categories: CONFIG.categories,
 };
 
 export const ApplicationSlice = createSlice({
@@ -103,9 +28,7 @@ export const selectHistory = (state) => [
 export const selectByCategorie = (id) => (state) => {
   return state.application.applications.filter((item) => {
     if (item.categories.includes(id)) {
-      return true;
-    } else {
-      return false;
+      return item;
     }
   });
 };

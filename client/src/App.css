@@ -8,12 +8,12 @@
   width: 100vw;
   height: 100vh;
   display: grid;
-  grid-template-columns: 1.6fr 0.4fr;
+  grid-template-columns: 0.4fr 1.6fr;
   grid-template-rows: 0.2fr 2.7fr 0.1fr;
   gap: 0px 0px;
   grid-template-areas:
-    "Header SideNavBar"
-    "Content SideNavBar"
+    "SideNavBar Header "
+    "SideNavBar Content "
     "Footer Footer";
 
   overflow: hidden;
@@ -26,7 +26,7 @@
 }
 .Content {
   grid-area: Content;
-  overflow: auto;
+  overflow-y: scroll;
   background-color: pink;
 }
 .Footer {
@@ -37,8 +37,5 @@
   grid-area: SideNavBar;
   background-color: black;
   color: aliceblue;
+  overflow-y: scroll;
 }
-.Header { grid-area: Header; background-color: black;}
-.Content { grid-area: Content; background-color: white; height: 100%;}
-.Footer { grid-area: Footer; background-color: teal;}
-.SideNavBar { grid-area: SideNavBar; background-color: black; color: aliceblue;}

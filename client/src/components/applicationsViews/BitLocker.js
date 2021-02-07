@@ -5,39 +5,31 @@ import Controls from '../Controls';
 import { Grid, } from '@material-ui/core';
 import { useForm, Form } from '../UseForm';
 
+import CONFIG from '../../config.json';
+
 const useStyles = makeStyles((theme) => ({
     root: {
-        // backgroundColor: "blue",
         width: "100%",
         height: "100%",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        direction: "rtl"
     },
     paper: {
-        backgroundColor: "#D0D0D0",
         width: "70%",
         height: "70%",
         background: 'linear-gradient( #e6e6e6 90%, teal 10%)',
-    
     },
 }));
 
 const initialFValues = {
     searchType: '',
     input: '',
-
 }
 
 function BitLocker() {
     const classes = useStyles();
     const [password, setPassword] = useState('');
-
-    const items = [
-        { id: '1', title: 'KeyID' },
-        { id: '2', title: 'שם מחשב' },
-    ];
 
     const {
         values,
@@ -50,6 +42,11 @@ function BitLocker() {
         setPassword("Liora123");
         window.alert("good Job!")
         resetForm()
+    }
+
+    const onReset=()=>{
+        resetForm();
+        setPassword("");
     }
 
     return (
@@ -67,7 +64,7 @@ function BitLocker() {
                                 label=""
                                 value={values.searchType}
                                 onChange={handleInputChange}
-                                items={items}
+                                items={CONFIG.bitLockerItems}
                             />
                             <Controls.Input
                                 name="input"
@@ -78,14 +75,13 @@ function BitLocker() {
                             <div>
                                 <Controls.Button
                                     type="submit"
-                                    text="שלח" />
-                                {/* <Controls.Button
-                                    text="אפס"
-                                    color="default"
-                                    onClick={resetForm} /> */}
+                                    text="submit" />
+                                <Controls.Button
+                                    text="Reset"
+                                    // color="default"
+                                    onClick={onReset} />
                             </div>
                             <h4>סיסמא: {password} </h4>
-
                         </Grid>
                     </Grid>
                 </Form>
