@@ -9,6 +9,7 @@ const authRoutes = require("./routes/authentication");
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
+const applicationRouetr = require("./routes/applications");
 
 const mongoose = require("mongoose");
 mongoose.connect(process.env.MONGO_HOST || "mongodb://localhost/one_management", { useNewUrlParser: true, useUnifiedTopology: true });
@@ -39,6 +40,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/api", indexRouter);
 app.use("/api/users", usersRouter);
+app.use("/api/application", applicationRouetr);
 
 // catch 404 and forward to error handler
 // app.use(function (req, res, next) {

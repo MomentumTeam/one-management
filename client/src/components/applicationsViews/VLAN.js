@@ -6,6 +6,7 @@ import { Grid, } from '@material-ui/core';
 import { useForm, Form } from '../UseForm';
 
 import CONFIG from '../../config.json';
+import apis from '../../api/applicationsApi';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -24,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const initialFValues = {
-    macAddress:'',
+    macAddress: '',
     location: '',
     vlan: '',
 }
@@ -38,9 +39,23 @@ function Vlan() {
         resetForm
     } = useForm(initialFValues);
 
-    const handleSubmit = e => {
-        e.preventDefault()
-        window.alert("vlan שונה בהצלחה")
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        let location, vlan;
+        
+        CONFIG.locationOptions.find(option => {
+            if (option.id == values.location) {
+                location = option.title;
+            }
+        });
+        CONFIG.vlanOptions.find(option => {
+            if (option.id == values.vlan) {
+                vlan = option.title;
+            }
+        });
+
+        const res = await apis.updateVlan(values.macAddress, location, vlan);
+        window.alert(res.data.message)
         resetForm()
     }
 

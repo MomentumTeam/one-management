@@ -5,6 +5,8 @@ import Controls from '../Controls';
 import { Grid, } from '@material-ui/core';
 import { useForm, Form } from '../UseForm';
 
+import apis from '../../api/applicationsApi';
+
 const useStyles = makeStyles((theme) => ({
     root: {
         width: "100%",
@@ -23,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const initialFValues = {
-    input: '',
+    computerName: '',
 }
 
 function LAPS() {
@@ -36,9 +38,11 @@ function LAPS() {
         resetForm
     } = useForm(initialFValues);
 
-    const handleSubmit = e => {
+    const handleSubmit = async(e) => {
         e.preventDefault()
-        setPassword("12345689");
+        const computerName = values.computerName;
+        const res = await apis.getLapsPassword(computerName);
+        setPassword(res.data.password);
         window.alert("good Job!");
         resetForm();
     }
@@ -59,9 +63,9 @@ function LAPS() {
                         justify="center">
                         <Grid item xs={6}>
                             <Controls.Input
-                                name="input"
+                                name="computerName"
                                 label="שם מחשב"
-                                value={values.input}
+                                value={values.computerName}
                                 onChange={handleInputChange}
                             />
                             <div>

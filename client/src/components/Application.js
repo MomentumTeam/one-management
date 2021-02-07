@@ -23,7 +23,7 @@ function Application({ match }) {
     setView(el)
   }, [match.params.applicatinId]);
   return (
-    <React.Suspense fallback='Loading views...'>
+    <React.Suspense fallback="">
       <div className='container' style={{
         width: "100%", height: "100%", fontSize: "large"
         // backgroundColor:"yellow"
