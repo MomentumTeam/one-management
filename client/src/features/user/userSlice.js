@@ -1,8 +1,20 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getUserFromServer } from "./userAPI";
+import { getUserFromServer, updateUserInServer } from "./userAPI";
 
 export const getUser = createAsyncThunk("user/getUser", async () => {
   const user = await getUserFromServer();
+  return user;
+});
+
+export const updateFavorites = createAsyncThunk("user/updateFavorites", async (_, { getState }) => {
+  const { favorites } = getState().user;
+  const user = await updateUserInServer({ favorites: favorites });
+  return user;
+});
+
+export const updateHistory = createAsyncThunk("user/updateHistory", async (_, { getState }) => {
+  const { history } = getState().user;
+  const user = await updateUserInServer({ history: history });
   return user;
 });
 
@@ -16,7 +28,10 @@ export const userSlice = createSlice({
   },
   reducers: {
     AddToHistory: (state, action) => {
+      state.history = state.history.filter((item) => item.id !== action.payload);
       state.history = [action.payload, ...state.history];
+      state.history = state.history.slice(0, Math.min(3, state.history.length));
+      console.log("AddToHistory:", state.history);
     },
     AddToFavorites: (state, action) => {
       state.favorites = [action.payload, ...state.favorites];
@@ -34,6 +49,13 @@ export const userSlice = createSlice({
     },
     [getUser.pending]: (state, action) => {
       state.loading = true;
+    },
+    [updateFavorites.fulfilled]: (state, action) => {
+      state.favorites = action.payload.favorites;
+    },
+    [updateHistory.fulfilled]: (state, action) => {
+      console.log("history fulfilled:", action.payload);
+      state.history = action.payload.history;
     },
   },
 });
