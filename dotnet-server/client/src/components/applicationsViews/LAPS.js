@@ -43,7 +43,7 @@ function LAPS() {
         const computerName = values.computerName;
         const res = await apis.getLapsPassword(computerName);
         setPassword(res.data.password);
-        window.alert("good Job!");
+        // window.alert("good Job!");
         resetForm();
     }
 

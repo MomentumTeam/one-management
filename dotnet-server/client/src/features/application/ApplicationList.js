@@ -38,13 +38,13 @@ function ApplicationList({ applicationList }) {
                 onClick={() => {
                   dispatch(AddToHistory(application.id));
                   dispatch(updateHistory());
-                  if(application.id === "6" || application.id === "7"){
-                    window.open(CONFIG[`url${application.name}`],'_blank');
+                  if(application.name === "Nova" || application.name === "Sword"){
+                    window.open(application.url,'_blank');
                   }
                 }}
                 className={classes.root}
-                component={application.id === "6" || application.id === "7" ? Link : Link}
-                to={application.id === "6" || application.id === "7" ? "" : `/application/${application.name}`}
+                component={Link}
+                to={application.name === "Nova" || application.name === "Sword" ? "" : `/application/${application.name}`}
               >
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="h2">

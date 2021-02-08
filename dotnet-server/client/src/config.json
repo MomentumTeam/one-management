@@ -35,16 +35,6 @@
             "title": "D"
         }
     ],
-    "bitLockerItems": [
-        {
-            "id": "1",
-            "title": "KeyID"
-        },
-        {
-            "id": "2",
-            "title": "שם מחשב"
-        }
-    ],
     "questions": [
         {
             "question": "מהו נגיף (וירוס) קורונה?",
@@ -101,31 +91,24 @@
             ]
         },
         {
-            "name": "AllowList",
-            "displayName": "Allow List",
-            "id": "5",
-            "type": "application",
-            "categories": [
-                "c"
-            ]
-        },
-        {
             "name": "Nova",
             "displayName": "Nova",
             "id": "6",
             "type": "application",
             "categories": [
                 "d"
-            ]
+            ],
+            "url":"http://www.google.com"
         },
         {
             "name": "Sword",
-            "displayName": "Sword",
+            "displayName": "חרב",
             "id": "7",
             "type": "application",
             "categories": [
                 "d"
-            ]
+            ],
+            "url": "http://www.google.com"
         }
     ],
     "categories": [
@@ -154,7 +137,5 @@
             "id": "e",
             "type": "category"
         }
-    ],
-    "urlSword":"https://www.google.com",
-    "urlNova":"https://www.google.com"
+    ]
 }

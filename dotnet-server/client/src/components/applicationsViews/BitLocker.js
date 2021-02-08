@@ -40,11 +40,11 @@ function BitLocker() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const type = (values.searchType == 1) ? "keyID" : "computerName";
+        const type = "keyID";
         const input = values.input;
         const res = await apis.getBitLockerPassword(type, input);
         setPassword(res.data.password);
-        window.alert("good Job!")
+        // window.alert("good Job!")
         resetForm()
     }
 
@@ -63,16 +63,9 @@ function BitLocker() {
                         alignItems="center"
                         justify="center">
                         <Grid item xs={6}>
-                            <Controls.RadioGroup
-                                name="searchType"
-                                label=""
-                                value={values.searchType}
-                                onChange={handleInputChange}
-                                items={CONFIG.bitLockerItems}
-                            />
                             <Controls.Input
                                 name="input"
-                                label=""
+                                label="keyId"
                                 value={values.input}
                                 onChange={handleInputChange}
                             />
