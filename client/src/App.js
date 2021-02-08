@@ -34,16 +34,14 @@ function App() {
   const cookie = Cookies.get('SignInSecret');
 
   useEffect(() => {
+    console.log("useEffect")
     dispatch(getUser());
   }, []);
 
   if (loading) {
     return <div>Waiting for user</div>;
   }
-
-  if (!cookie) {
-    window.location = "http://localhost:4000/api/login";
-  } else {
+  else {
     return (
       <ThemeProvider theme={theme}>
         <StylesProvider jss={jss}>

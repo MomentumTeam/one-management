@@ -1,12 +1,12 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace os_server.Models
 {
     public class User
     {
-        public string Id { get; set; }
-        public string[] History { get; set; }
-        public string[] Favorites { get; set; }
+        public string UserId { get; set; }
     }
 }

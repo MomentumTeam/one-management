@@ -28,7 +28,7 @@ export const userSlice = createSlice({
   },
   reducers: {
     AddToHistory: (state, action) => {
-      state.history = state.history.filter((item) => item.id !== action.payload);
+      state.history = state.history.filter((item) => item !== action.payload);
       state.history = [action.payload, ...state.history];
       state.history = state.history.slice(0, Math.min(3, state.history.length));
       console.log("AddToHistory:", state.history);
@@ -42,6 +42,8 @@ export const userSlice = createSlice({
   },
   extraReducers: {
     [getUser.fulfilled]: (state, action) => {
+      console.log("getUser Fulfilled!");
+      console.log(action.payload);
       state.userObj = action.payload.userObj;
       state.favorites = action.payload.favorites;
       state.history = action.payload.history;
@@ -50,11 +52,14 @@ export const userSlice = createSlice({
     [getUser.pending]: (state, action) => {
       state.loading = true;
     },
+    [getUser.rejected]: (state, action) => {
+      console.log("getUser rejected!");
+      console.log(action.error);
+    },
     [updateFavorites.fulfilled]: (state, action) => {
       state.favorites = action.payload.favorites;
     },
     [updateHistory.fulfilled]: (state, action) => {
-      console.log("history fulfilled:", action.payload);
       state.history = action.payload.history;
     },
   },

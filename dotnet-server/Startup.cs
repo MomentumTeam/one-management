@@ -12,8 +12,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Server.IISIntegration;
+using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using os_server.Models;
 using os_server.Services;
+using os_server.Middleware;
+using System.IO;
 
 namespace os_server
 {
@@ -37,16 +40,24 @@ namespace os_server
                 sp.GetRequiredService<IOptions<UsersDatabaseSettings>>().Value);
 
             services.AddCors(opt =>
-                { opt.AddPolicy("CorsPolicy", builder => builder
-                .AllowAnyHeader()
-                .AllowAnyMethod()
-                .WithOrigins(Configuration.GetSection(Config.CORS_ORIGINS).Get<string[]>())
-                .AllowCredentials());});
+                {
+                    opt.AddPolicy("CorsPolicy", builder => builder
+                  .AllowAnyHeader()
+                  .AllowAnyMethod()
+                  .WithOrigins(Configuration.GetSection(Config.CORS_ORIGINS).Get<string[]>())
+                  .SetIsOriginAllowed((host) => true)
+                  .AllowCredentials()); ;});
 
             services.AddSingleton<UserService>();
 
             services.AddControllers();
             services.AddAuthentication(IISDefaults.AuthenticationScheme);
+
+            services.AddMvc(option => option.EnableEndpointRouting = false);
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "client";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,7 +67,7 @@ namespace os_server
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseImpersonation();
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -70,6 +81,19 @@ namespace os_server
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseStaticFiles();
+            app.UseSpaStaticFiles();
+            app.UseMvc();
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = Path.Join(env.ContentRootPath, "client");
+
+                if (env.IsDevelopment())
+                {
+                    spa.UseReactDevelopmentServer(npmScript: "start");
+                }
             });
         }
     }

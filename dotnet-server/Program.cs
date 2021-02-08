@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace os_server
@@ -13,6 +14,8 @@ namespace os_server
     {
         public static void Main(string[] args)
         {
+            ServicePointManager.ServerCertificateValidationCallback +=
+ (sender, cert, chain, sslPolicyErrors) => true;
             CreateHostBuilder(args).Build().Run();
         }
 

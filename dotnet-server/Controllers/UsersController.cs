@@ -2,11 +2,14 @@
 using os_server.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Authorization;
 
 namespace os_server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("CorsPolicy")]
     public class UsersController : ControllerBase
     {
         private readonly UserService _userService;
@@ -16,50 +19,57 @@ namespace os_server.Controllers
             _userService = userService;
         }
 
-        [HttpGet("{id}", Name = "GetUser")]
-        public ActionResult<User> Get(string id)
+        [HttpGet]
+        public ActionResult<UserResponse> Get()
         {
-            var user = _userService.Get(id);
+            string userId = HttpContext.User.Identity.Name;
+          
+            MongoUser mongoUser = _userService.Get(userId);
 
-            if (user == null)
+            if (mongoUser == null)
             {
-                return NotFound();
+                mongoUser = new MongoUser(userId);
+                _userService.Create(mongoUser);
             }
 
-            return user;
+            User user = new User();
+            user.UserId = userId;
+            UserResponse response = new UserResponse();
+            response.InitFields(mongoUser, user);
+
+            return response;
         }
 
-        [HttpPost]
-        public ActionResult<User> Create(User user)
+        [HttpPut]
+        public ActionResult<UserResponse> Update([FromBody] MongoUser userIn)
         {
-            _userService.Create(user);
+            string userId = HttpContext.User.Identity.Name;
+            var mongoUser = _userService.Get(userId);
 
-            return CreatedAtRoute("GetUser", new { id = user.Id.ToString() }, user);
-        }
-
-        [HttpPut("{id}")]
-        public IActionResult Update(string id, User userIn)
-        {
-            var user = _userService.Get(id);
-
-            if (user == null)
+            if (mongoUser == null)
             {
-                return NotFound();
+                mongoUser = new MongoUser(userId);
+                _userService.Create(mongoUser);
             }
 
-            userIn.Id = id;
+            userIn.Id = userId;
             if(userIn.Favorites == null)
             {
-                userIn.Favorites = user.Favorites;
+                userIn.Favorites = mongoUser.Favorites;
             }
             if (userIn.History == null)
             {
-                userIn.History = user.History;
+                userIn.History = mongoUser.History;
             }
 
-            _userService.Update(id, userIn);
+            _userService.Update(userId, userIn);
+            User user = new User();
+            user.UserId = userId;
+            UserResponse response = new UserResponse();
+            response.InitFields(mongoUser, user);
 
-            return NoContent();
+
+            return response ;
         }
     }
 }

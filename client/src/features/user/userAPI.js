@@ -2,8 +2,9 @@ import axios from "axios";
 
 export const getUserFromServer = () => {
   return new Promise((resolve, reject) => {
-    axios
-      .get(`/api/users`)
+    axios(`/api/users`,{ 
+      withCredentials:true,
+    })
       .then((res) => {
         resolve(res.data);
       })
@@ -14,7 +15,7 @@ export const getUserFromServer = () => {
 export const updateUserInServer = (user) => {
   return new Promise((resolve, reject) => {
     axios
-      .put(`/api/users`, user)
+      .put(`/api/users`, user,{withCredentials:true})
       .then((res) => {
         resolve(res.data);
       })

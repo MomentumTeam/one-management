@@ -8,26 +8,26 @@ namespace os_server.Services
 {
     public class UserService
     {
-        private readonly IMongoCollection<User> _users;
+        private readonly IMongoCollection<MongoUser> _users;
 
         public UserService(IUsersDatabaseSettings settings)
         {
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.DatabaseName);
 
-            _users = database.GetCollection<User>(settings.UsersCollectionName);
+            _users = database.GetCollection<MongoUser>(settings.UsersCollectionName);
         }
 
-        public User Get(string id) =>
-            _users.Find<User>(user => user.Id.Equals(id)).FirstOrDefault();
+        public MongoUser Get(string id) =>
+            _users.Find<MongoUser>(user => user.Id.Equals(id)).FirstOrDefault();
 
-        public User Create(User userToCreate)
+        public MongoUser Create(MongoUser userToCreate)
         {
             _users.ReplaceOne((user) => user.Id == userToCreate.Id, userToCreate, new ReplaceOptions { IsUpsert = true});
             return userToCreate;
         }
 
-        public void Update(string id, User userIn) =>
+        public void Update(string id, MongoUser userIn) =>
             _users.ReplaceOne(user => user.Id == id, userIn);
 
     }
