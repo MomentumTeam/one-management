@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using os_server.Models;
 
 namespace os_server.Services
 {
@@ -12,6 +15,52 @@ namespace os_server.Services
 
         static ApplicationService(){
             client = new HttpClient();        
+        }
+
+        public static bool ChangeVlan(ChangeVlan changeVlanRequest)
+        {
+            try
+            {
+                var content = new StringContent(JsonConvert.SerializeObject(changeVlanRequest), Encoding.UTF8, "application/json");
+                string address = Config.GATE_API + "/api/Gate/vlan";
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, address);
+                request.Content = content;
+                var requestTask = Task.Run(() => client.SendAsync(request));
+                requestTask.Wait();
+                var response = requestTask.Result;
+                return true;
+                // var readTask = Task.Run(() => response.Content.ReadAsStringAsync());
+                //readTask.Wait();
+                //string contentString = readTask.Result;
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
+
+
+
+        }
+
+        public static string[] GetLocationOptions() {
+            try
+            {
+                string address = Config.GATE_API + "/api/Gate/location";
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, address);
+                var requestTask = Task.Run(() => client.SendAsync(request));
+                requestTask.Wait();
+                var response = requestTask.Result;
+                var readTask = Task.Run(() => response.Content.ReadAsStringAsync());
+                readTask.Wait();
+                string contentString = readTask.Result;
+                string[] locations = JsonConvert.DeserializeObject<string[]>(contentString);
+                return locations;
+
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
 
         public static string GetBitLockerPassword(string keyId)

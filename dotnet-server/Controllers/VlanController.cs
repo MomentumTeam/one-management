@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using os_server.Models;
+using os_server.Services;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,10 +15,21 @@ namespace os_server.Controllers
     public class VlanController : ControllerBase
     {
         // PUT api/<VlanController>/5
-        [HttpPut]
-        public IActionResult Put([FromBody] UpdateVlanRequest request)
+        [HttpPost]
+        public ActionResult<string> Post([FromBody] ChangeVlan request)
         {
-                return NoContent();
+            bool ret = ApplicationService.ChangeVlan(request);
+
+            return Ok();
          }
+
+        [HttpGet("locationOptions")]
+        public IEnumerable<string> Get()
+        {
+            string[] locationOptions = ApplicationService.GetLocationOptions();
+
+            return locationOptions;
+            //return new string[] { "location1", "location2", "location3", "location4" };     
+        }
     }
 }

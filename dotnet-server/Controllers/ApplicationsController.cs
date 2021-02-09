@@ -12,14 +12,7 @@ namespace os_server.Controllers
     [Route("api")]
     [ApiController]
     public class ApplicationsController : ControllerBase
-    {
-        // GET: api/<ApplicationsController>
-        [HttpGet]
-        [Route("locationOptions")]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "location1", "location2", "location3", "location4" };
-        }
+    { 
 
     }
 }

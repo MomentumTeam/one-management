@@ -47,20 +47,7 @@ function Vlan() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        let location, vlan;
-        
-        CONFIG.locationOptions.find(option => {
-            if (option.id == values.location) {
-                location = option.title;
-            }
-        });
-        CONFIG.vlanOptions.find(option => {
-            if (option.id == values.vlan) {
-                vlan = option.title;
-            }
-        });
-
-        const res = await apis.updateVlan(values.macAddress, location, vlan);
+        const res = await apis.updateVlan(values.macAddress, values.location, values.vlan);
         window.alert(res.data.message)
         resetForm()
     }

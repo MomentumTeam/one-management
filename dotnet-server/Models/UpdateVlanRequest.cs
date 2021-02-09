@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace os_server.Models
 {
-    public class UpdateVlanRequest
+    public class ChangeVlan
     {
-        public string MacAddress { get; set; }
-        public string Location { get; set; }
-        public string Vlan { get; set; }
+        public string mac { get; set; }
+        public string location { get; set; }
 
+        public string vlan { get; set; }
     }
 }

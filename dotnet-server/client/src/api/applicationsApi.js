@@ -38,9 +38,9 @@ const getLapsPassword = (computerName) => {
 const updateVlan = (macAddress, location, vlan) => {
     return new Promise((resolve, reject) => {
         axios
-            .put(`/api/Vlan`,
+            .post(`/api/Vlan`,
                 {
-                    macAddress: macAddress,
+                    mac: macAddress,
                     location: location,
                     vlan: vlan,
                 }
@@ -55,7 +55,7 @@ const updateVlan = (macAddress, location, vlan) => {
 const getLocationOptions = () => {
     return new Promise((resolve, reject) => {
         axios
-            .get(`/api/locationOptions`)
+            .get(`/api/vlan/locationOptions`)
             .then((res) => {
                 resolve(res.data);
             })

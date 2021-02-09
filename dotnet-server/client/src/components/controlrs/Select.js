@@ -22,6 +22,7 @@ const theme = createMuiTheme({
 export default function Select(props) {
     const classes = useStyles();
     const { name, label, value, onChange, options } = props;
+    console.log('options', options)
 
     return (
         <ThemeProvider theme={theme}>
@@ -35,7 +36,7 @@ export default function Select(props) {
                     <MenuItem value=""></MenuItem>
                     {
                         options.map(
-                            item => (<MenuItem key={item.id} value={item.id}>{item.title}</MenuItem>)
+                            item => (<MenuItem key={item} value={item}>{item}</MenuItem>)
                         )
                     }
                 </MuiSelect>
