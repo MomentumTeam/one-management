@@ -1,75 +1,96 @@
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import FilledInput from '@material-ui/core/FilledInput';
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import Paper from '@material-ui/core/Paper';
-import InputBase from '@material-ui/core/InputBase';
-import SearchIcon from '@material-ui/icons/Search';
-import IconButton from '@material-ui/core/IconButton';
-
-import Grid from '@material-ui/core/Grid';
-import { Autorenew } from '@material-ui/icons';
-import styles from './style.module.css';
+import React, { useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
+import Controls from "../Controls";
+import { Grid } from "@material-ui/core";
+import { useForm, Form } from "../UseForm";
+import FilledInput from "@material-ui/core/FilledInput";
+import FormControl from "@material-ui/core/FormControl";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import Input from "@material-ui/core/Input";
+import InputLabel from "@material-ui/core/InputLabel";
+import OutlinedInput from "@material-ui/core/OutlinedInput";
+import InputBase from "@material-ui/core/InputBase";
+import SearchIcon from "@material-ui/icons/Search";
+import IconButton from "@material-ui/core/IconButton";
+import SearchUser from "../SearchUser";
+import ResetPassword from "../ResetPassword";
+import { Autorenew } from "@material-ui/icons";
+import Button from "@material-ui/core/Button";
+import Divider from "@material-ui/core/Divider";
+import Modal from "../Modal";
+import styles from "./style.module.css";
+import LinkedBox from "../LinkedBox";
+import UserDetails from "../UserDetails";
+import AddGroup from "../AddGroup";
 const useStyles = makeStyles((theme) => ({
-    root: {
-        padding: '2px 4px',
-        display: 'flex',
-        alignItems: 'center',
-        direction: 'rtl',
-        width: '100%',
-        height: '100%'
-    },
-    input: {
-        marginLeft: theme.spacing(1),
-        flex: 1,
-    },
-    iconButton: {
-        padding: 10,
-    },
-    divider: {
-        height: 28,
-        margin: 4,
-    },
+  root: {
+    // backgroundColor: "blue",
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    // margin:"auto",
+    // direction: "rtl"
+  },
+  paper: {
+    // backgroundColor: "#D0D0D0",
+    width: "80%",
+    height: "80%",
+    background: "linear-gradient( #e6e6e6 90%, teal 10%)",
+  },
 }));
-function UserManagement() {
-    const classes = useStyles();
-    const [post, setPost] = useState({})
-    const submit = (e) => {
-        e.preventDefault()
-        console.log(e)
-    }
-    //   const handleChange = (event) => {
-    //     setPost(event.target.value);
-    //   };
 
-    return (
-        <div className={styles.gridContainer}>
+const initialFValues = {
+  input: "",
+};
+
+function UserManagement() {
+  const classes = useStyles();
+
+  const [user, setUser] = useState();
+
+  const submit = (e) => {
+    e.preventDefault();
+    console.log(e);
+  };
+  const { values, handleInputChange, resetForm } = useForm(initialFValues);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
+  return (
+    <div className={classes.root}>
+      <Paper elevation={24} classes={{ root: classes.paper }}>
+        <h1 className={styles.header}>ניהול משתמש</h1>
+        <div className={styles.flex}>
+          <div className={styles.gridContainer}>
             <div className={styles.search}>
-                <Paper component="form" onSubmit={submit} className={classes.root}>
-                    <InputBase
-                        className={classes.input}
-                        placeholder="חיפוש משתמש"
-                        inputProps={{ 'aria-label': 'חיפוש משתמש' }}
-                    />
-                    <IconButton type="submit" className={classes.iconButton} aria-label="search">
-                        <SearchIcon />
-                    </IconButton>
-                </Paper>
+              <SearchUser setUser={setUser} />
             </div>
-            <div className={styles.password}><Paper className={classes.root}></Paper></div>
+
+            <div className={styles.password}>
+              <ResetPassword user={user} />
+            </div>
             <div className={styles.userDisplay}>
-                <Paper className={classes.root}></Paper>
+              <UserDetails user={user} />
             </div>
-            <div className={styles.mark}><Paper className={classes.root}></Paper></div>
-            <div className={styles.addGroup}><Paper className={classes.root}></Paper></div>
-            <div className={styles.groups}><Paper className={classes.root}></Paper></div>
-            <div className={styles.users}><Paper className={classes.root}></Paper></div>
+            <div className={styles.mark}>
+              <LinkedBox isLinked={user} />
+            </div>
+            <div className={styles.addGroup}>
+              <AddGroup user={user} />
+            </div>
+            {/* <div className={styles.groups}>
+              <Paper className={classes.root}>ergfer</Paper>
+            </div> */}
+          </div>
         </div>
-    );
+      </Paper>
+    </div>
+  );
 }
 
-export default UserManagement
+export default UserManagement;
