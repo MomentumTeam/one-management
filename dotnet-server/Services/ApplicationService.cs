@@ -17,6 +17,27 @@ namespace os_server.Services
             client = new HttpClient();        
         }
 
+        public static UserOptionList[] SearchUsers(string userPrefix)
+        {
+            Task<string> t = Task<string>.Run(async () =>
+            {
+                try
+                {
+                    var response = await client.GetAsync(Config.GATE_API + "/api/options/" + userPrefix);
+                    string content = await response.Content.ReadAsStringAsync();
+                    return content;
+                }
+                catch (Exception e)
+                {
+                    return e.Message;
+                }
+            });
+            t.Wait();
+            string ret = t.Result;
+            UserOptionList[] userOptionListArray = JsonConvert.DeserializeObject<UserOptionList[]>(ret);
+            return userOptionListArray;
+        }
+
         public static bool ChangeVlan(ChangeVlan changeVlanRequest)
         {
             try
@@ -28,10 +49,10 @@ namespace os_server.Services
                 var requestTask = Task.Run(() => client.SendAsync(request));
                 requestTask.Wait();
                 var response = requestTask.Result;
+                //string[] locations = JsonConvert.DeserializeObject<string[]>(contentString);
+                //return locations;
+
                 return true;
-                // var readTask = Task.Run(() => response.Content.ReadAsStringAsync());
-                //readTask.Wait();
-                //string contentString = readTask.Result;
             }
             catch(Exception e)
             {

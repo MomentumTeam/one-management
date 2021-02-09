@@ -34,6 +34,21 @@ const getLapsPassword = (computerName) => {
             .catch((err) => reject(err));
     });
 }
+const searchUsers = (userPrefix) => {
+    return new Promise((resolve, reject) => {
+        axios
+            .get(`/api/userManagement`,
+            {
+                params: {
+                    userPrefix: userPrefix
+                }
+            })
+            .then((res) => {
+                resolve(res.data);
+            })
+            .catch((err) => reject(err));
+    });
+}
 
 const updateVlan = (macAddress, location, vlan) => {
     return new Promise((resolve, reject) => {
@@ -69,7 +84,8 @@ const apis = {
     getBitLockerPassword,
     getLapsPassword,
     updateVlan,
-    getLocationOptions
+    getLocationOptions,
+    searchUsers
 
 }
 

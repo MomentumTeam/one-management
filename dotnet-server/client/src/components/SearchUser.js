@@ -12,6 +12,8 @@ import Grid from "@material-ui/core/Grid";
 import SearchIcon from "@material-ui/icons/Search";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import apis from "../api/applicationsApi";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "60%",
@@ -51,19 +53,21 @@ export default function SearchUser({ setUser }) {
   };
 
   const submit = (e) => {
+    console.log("submit!");
     e.preventDefault();
-    console.log(domain, value);
-    //TODO get user
-    setUser(value);
+    const selectedUser = value;
+    // selectedUser.domain=domain;
+    console.log('value', value)
+    
+    
+    setUser(selectedUser);
   };
 
-  const fetchUsers = async (string) => {
+  const fetchUsers = async (userPrefix) => {
+    console.log("fetch users!");
     setOpen(true);
-    const response = await fetch(
-      "https://country.register.gov.uk/records.json?page-size=5000"
-    );
-    const countries = await response.json();
-    setOptions(Object.keys(countries).map((key) => countries[key].item[0]));
+    const searchedUsers = await apis.searchUsers(userPrefix);
+    setOptions(searchedUsers);
   };
 
   return (
@@ -81,9 +85,9 @@ export default function SearchUser({ setUser }) {
                   setOpen(false);
                 }}
                 getOptionSelected={(option, value) =>
-                  option.name === value.name
+                  option.displayName === value.displayName
                 }
-                getOptionLabel={(option) => option.name}
+                getOptionLabel={(option) => option.displayName}
                 options={options}
                 loading={loading}
                 inputValue={inputValue ?? ""}
