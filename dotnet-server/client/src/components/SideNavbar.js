@@ -170,7 +170,6 @@ export default function SideNavbar() {
                           </ListItem>
                         )
                       })}
-
                     </List>
                   </Collapse>
                 </>

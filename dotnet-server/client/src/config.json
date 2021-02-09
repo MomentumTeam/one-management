@@ -2,21 +2,9 @@
     "vlanOptions": [
         {
             "id": "1",
-            "title": "Development"
-        },
-        {
-            "id": "2",
-            "title": "Marketing"
-        },
-        {
-            "id": "3",
-            "title": "Accounting"
-        },
-        {
-            "id": "4",
-            "title": "HR"
+            "title": "150"
         }
-    ],
+    ],  
     "locationOptions": [
         {
             "id": "1",
@@ -91,6 +79,15 @@
             ]
         },
         {
+            "name": "AllowList",
+            "displayName": "Allow List",
+            "id": "5",
+            "type": "application",
+            "categories": [
+                "c"
+            ]
+        },
+        {
             "name": "Nova",
             "displayName": "Nova",
             "id": "6",
@@ -98,7 +95,7 @@
             "categories": [
                 "d"
             ],
-            "url":"http://www.google.com"
+            "url": "http://www.google.com"
         },
         {
             "name": "Sword",

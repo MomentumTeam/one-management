@@ -11,17 +11,17 @@ const importView = component =>
   );
 
 function Application({ match }) {
-  const { applicatinId } = match.params;
+  const { applicationName } = match.params;
   const [view, setView] = useState();
 
   useEffect(() => {
     function loadView() {
-      const View = importView(applicatinId);
+      const View = importView(applicationName);
       return <View />;
     }
     const el = loadView();
     setView(el)
-  }, [match.params.applicatinId]);
+  }, [match.params.applicationName]);
   return (
     <React.Suspense fallback="">
       <div className='container' style={{

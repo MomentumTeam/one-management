@@ -52,12 +52,24 @@ const updateVlan = (macAddress, location, vlan) => {
     });
 }
 
+const getLocationOptions = () => {
+    return new Promise((resolve, reject) => {
+        axios
+            .get(`/api/locationOptions`)
+            .then((res) => {
+                resolve(res.data);
+            })
+            .catch((err) => reject(err));
+    });
+}
+
 
 
 const apis = {
     getBitLockerPassword,
     getLapsPassword,
     updateVlan,
+    getLocationOptions
 
 }
 

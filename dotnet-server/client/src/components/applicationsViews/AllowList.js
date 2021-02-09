@@ -30,7 +30,7 @@ const initialFValues = {
     vlan: '',
 }
 
-function Vlan() {
+function AllowList() {
     const classes = useStyles();
     const [locationOptions, setLocationOptions] = useState([]);
 
@@ -60,8 +60,10 @@ function Vlan() {
             }
         });
 
-        const res = await apis.updateVlan(values.macAddress, location, vlan);
-        window.alert(res.data.message)
+        // const res = await apis.updateVlan(values.macAddress, location, vlan);
+        // window.alert(res.data.message)
+        window.alert("res.data.message")
+
         resetForm()
     }
 
@@ -69,7 +71,7 @@ function Vlan() {
     return (
         <div className={classes.root}>
             <Paper elevation={20} classes={{ root: classes.paper }}>
-                <h1>הכנסה ושינוי Vlan</h1>
+                <h1>Allow List</h1>
                 <Form onSubmit={handleSubmit} style={{ backgroundColor: "", }}>
                     <Grid container style={{ backgroundColor: "", }}
                         spacing={0}
@@ -88,7 +90,7 @@ function Vlan() {
                                 label="מיקום"
                                 value={values.location}
                                 onChange={handleInputChange}
-                                options={locationOptions}
+                                options={CONFIG.locationOptions}
                             />
                             <Controls.Select
                                 name="vlan"
@@ -114,4 +116,4 @@ function Vlan() {
     )
 }
 
-export default Vlan
+export default AllowList
