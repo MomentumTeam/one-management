@@ -29,11 +29,19 @@ namespace os_server.Controllers
         }
 
         [HttpGet("resetPassword")]
-        public string resetPassword([FromQuery] string userId)
+        public string ResetPassword([FromQuery] string userId)
         {
             string newPassword = ApplicationService.ResetPassword(userId);
             return newPassword;
         }
+
+        [HttpPut("unlock")]
+        public bool Unlock([FromBody] string userId)
+        {
+            bool result = ApplicationService.Unlock(userId);
+            return result;
+        }
+
 
         [HttpGet("search")]
         public UserOptionList[] GetSearch([FromQuery] string userPrefix)

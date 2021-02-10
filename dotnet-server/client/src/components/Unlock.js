@@ -32,8 +32,8 @@ export default function Unlock({ user }) {
   const handelClick = async (e) => {
     e.preventDefault();
     setLoading(true);
-    let newPassword = await apis.rese();
-    setPassword(newPassword);
+    //let newPassword = await apis.rese();
+    // setPassword(newPassword);
     setLoading(false);
     setOpen(true);
   };
@@ -56,7 +56,7 @@ export default function Unlock({ user }) {
       <Dialog open={open} onClose={handleClose}>
         <Alert severity="success">
           <AlertTitle>Success</AlertTitle>
-          הסיסמא החדשה {password}
+          Success
         </Alert>
       </Dialog>
     </div>

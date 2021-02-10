@@ -81,6 +81,29 @@ namespace os_server.Services
         }
 
 
+        public static bool Unlock(string userId)
+        {
+            try
+            {
+                var content = new StringContent(userId, Encoding.UTF8, "application/json");
+                string address = Config.GATE_API + "/api/Gate/unlock";
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, address);
+                request.Content = content;
+                var requestTask = Task.Run(() => client.SendAsync(request));
+                requestTask.Wait();
+                var response = requestTask.Result;
+                //string[] locations = JsonConvert.DeserializeObject<string[]>(contentString);
+                //return locations;
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+
 
         public static bool ChangeVlan(ChangeVlan changeVlanRequest)
         {
