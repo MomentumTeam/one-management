@@ -69,6 +69,15 @@ export default function UserDetails({ user }) {
           </ListItemAvatar>
           <ListItemText primary="SAM Account Name" secondary={user && user.sAMAccountName? user.sAMAccountName : ""}/>
         </ListItem>
+        <Divider variant="inset" component="li" />
+        <ListItem>
+          <ListItemAvatar>
+            <Avatar>
+              <LockIcon />
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText primary="Locked" secondary={user && user.locked? user.locked : ""}/>
+        </ListItem>
       </List>
     </Paper>
   );

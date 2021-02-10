@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useImperativeHandle } from "react";
 
 
 const getBitLockerPassword = (type, input) => {
@@ -49,6 +50,24 @@ const searchUsers = (userPrefix) => {
             .catch((err) => reject(err));
     });
 }
+
+const resetPassword = (userId) => {
+    console.log("userId=",userId);
+    return new Promise((resolve, reject) => {
+        axios
+            .get(`/api/userManagement/resetPassword`,
+            {
+                params: {
+                    "userId": userId
+                }
+            })
+            .then((res) => {
+                resolve(res.data);
+            })
+            .catch((err) => reject(err));
+    });
+}
+
 
 const getUserStatus = (samAccountName) => {
     return new Promise((resolve, reject) => {
@@ -102,7 +121,8 @@ const apis = {
     updateVlan,
     getLocationOptions,
     searchUsers,
-    getUserStatus
+    getUserStatus,
+    resetPassword
 
 }
 

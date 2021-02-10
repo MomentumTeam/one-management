@@ -24,6 +24,7 @@ import LinkedBox from "../LinkedBox";
 import UserDetails from "../UserDetails";
 import AddGroup from "../AddGroup";
 import { stubFalse } from "lodash";
+import Unlock from "../Unlock";
 const useStyles = makeStyles((theme) => ({
   root: {
     // backgroundColor: "blue",
@@ -79,7 +80,8 @@ function UserManagement() {
               <UserDetails user={user} />
             </div>
             <div className={styles.mark}>
-              <LinkedBox isLinked={false} />
+              {/* <LinkedBox isLinked={false} /> */}
+              <Unlock user={user}/>
             </div>
             <div className={styles.addGroup}>
               <AddGroup user={user} />

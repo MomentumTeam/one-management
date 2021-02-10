@@ -28,6 +28,13 @@ namespace os_server.Controllers
             return userStatus;
         }
 
+        [HttpGet("resetPassword")]
+        public string resetPassword([FromQuery] string userId)
+        {
+            string newPassword = ApplicationService.ResetPassword(userId);
+            return newPassword;
+        }
+
         [HttpGet("search")]
         public UserOptionList[] GetSearch([FromQuery] string userPrefix)
         {

@@ -4,7 +4,6 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Dialog from "@material-ui/core/Dialog";
 import { Alert, AlertTitle } from "@material-ui/lab";
 import apis from "../api/applicationsApi";
-import UserDetails from "./UserDetails";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -17,13 +16,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ResetPassword({ user }) {
+export default function Unlock({ user }) {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [password, setPassword] = useState(false);
   const classes = useStyles();
 
-  const resetPassword = async () => {
+  const unlockUser = async () => {
     // TODO http req
     return new Promise((res, rej) => {
       return setTimeout(() => res("1234567"), 2000);
@@ -33,8 +32,7 @@ export default function ResetPassword({ user }) {
   const handelClick = async (e) => {
     e.preventDefault();
     setLoading(true);
-    console.log("user=",user);
-    let newPassword = await apis.resetPassword(user.sAMAccountName);
+    let newPassword = await apis.rese();
     setPassword(newPassword);
     setLoading(false);
     setOpen(true);
@@ -52,7 +50,7 @@ export default function ResetPassword({ user }) {
         fullWidth
         disabled={!user}
       >
-        אפס סיסמא
+        Unlock
         {loading ? <CircularProgress color="inherit" size={20} /> : null}
       </Button>
       <Dialog open={open} onClose={handleClose}>
