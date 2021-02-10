@@ -19,12 +19,10 @@ const useStyles = makeStyles((theme) => ({
         width: "70%",
         height: "70%",
         background: 'linear-gradient( #e6e6e6 90%, teal 10%)'
-
     },
-
 }));
 
-const initialFValues = {
+const initialValues = {
     computerName: '',
 }
 
@@ -36,14 +34,13 @@ function LAPS() {
         values,
         handleInputChange,
         resetForm
-    } = useForm(initialFValues);
+    } = useForm(initialValues);
 
     const handleSubmit = async(e) => {
         e.preventDefault()
         const computerName = values.computerName;
         const res = await apis.getLapsPassword(computerName);
         setPassword(res.data.password);
-        // window.alert("good Job!");
         resetForm();
     }
 

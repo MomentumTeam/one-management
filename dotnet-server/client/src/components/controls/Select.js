@@ -22,7 +22,6 @@ const theme = createMuiTheme({
 export default function Select(props) {
     const classes = useStyles();
     const { name, label, value, onChange, options } = props;
-    console.log('options', options)
 
     return (
         <ThemeProvider theme={theme}>

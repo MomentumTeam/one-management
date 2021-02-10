@@ -40,7 +40,9 @@ function BitLocker() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const type = (values.searchType == 1) ? "keyID" : "computerName";
+
+        console.log(values.searchType)
+        const type = CONFIG.bitLockerItems.find((obj) => obj.id == values.searchType).title;
         const input = values.input;
         const res = await apis.getBitLockerPassword(type, input);
         setPassword(res.data.password);

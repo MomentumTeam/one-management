@@ -4,7 +4,6 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Dialog from "@material-ui/core/Dialog";
 import { Alert, AlertTitle } from "@material-ui/lab";
 import apis from "../api/applicationsApi";
-import UserDetails from "./UserDetails";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -33,8 +32,9 @@ export default function ResetPassword({ user }) {
   const handelClick = async (e) => {
     e.preventDefault();
     setLoading(true);
-    console.log("user=",user);
+
     let newPassword = await apis.resetPassword(user.sAMAccountName);
+
     setPassword(newPassword);
     setLoading(false);
     setOpen(true);

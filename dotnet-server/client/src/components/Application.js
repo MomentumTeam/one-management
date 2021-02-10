@@ -1,8 +1,5 @@
 import React, { lazy, useEffect, useState } from 'react';
-import { useSelector, useDispatch } from "react-redux";
-import { selectAll } from "../features/application/ApplicationSlice";
-import ApplicationList from "../features/application/ApplicationList";
-import styles from './applicationsViews/style.module.css';
+
 const importView = component =>
   lazy(() =>
     import(`./applicationsViews/${component}`).catch(() =>
@@ -19,15 +16,17 @@ function Application({ match }) {
       const View = importView(applicationName);
       return <View />;
     }
-    const el = loadView();
-    setView(el)
+
+    const viewToDisplay = loadView();
+    setView(viewToDisplay)
+
   }, [match.params.applicationName]);
+
   return (
     <React.Suspense fallback="">
-      <div className='container' style={{
-        width: "100%", height: "100%", fontSize: "large"
-        // backgroundColor:"yellow"
-      }}>{view}</div>
+      <div className='container' style={{ width: "100%", height: "100%", fontSize: "large" }}>
+        {view}
+      </div>
     </React.Suspense>
   );
 }

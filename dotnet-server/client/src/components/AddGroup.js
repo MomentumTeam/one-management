@@ -34,7 +34,6 @@ export default function AddGroup({ user }) {
     if (reason !== "escape") {
       // TODO save in server
     }
-    console.log(reason);
   };
 
   const onOpen = async (event, reason) => {

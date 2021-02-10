@@ -39,7 +39,6 @@ export default function SearchUser({ setUser }) {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    console.log(event, newValue);
   };
 
   const handleInputChange = (event, newInputValue) => {

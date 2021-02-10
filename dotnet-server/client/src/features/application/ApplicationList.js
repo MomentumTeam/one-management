@@ -24,8 +24,9 @@ const useStyles = makeStyles({
 
 function ApplicationList({ applicationList }) {
   const classes = useStyles();
-  console.log("applicationList: ", applicationList);
   const dispatch = useDispatch();
+
+  console.log("applicationList: ", applicationList);
 
   return (
     <div style={{ marginTop: 20, padding: 30 }}>
@@ -38,8 +39,8 @@ function ApplicationList({ applicationList }) {
                 onClick={() => {
                   dispatch(AddToHistory(application.id));
                   dispatch(updateHistory());
-                  if(application.name === "Nova" || application.name === "Sword"){
-                    window.open(application.url,'_blank');
+                  if (application.name === "Nova" || application.name === "Sword") {
+                    window.open(application.url, '_blank');
                   }
                 }}
                 className={classes.root}

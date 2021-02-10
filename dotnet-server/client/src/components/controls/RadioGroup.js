@@ -16,7 +16,6 @@ const GreenRadio = withStyles({
 export default function RadioGroup(props) {
 
     const { name, label, value, onChange, items } = props;
-    console.log('items: ', items);
 
     return (
         <FormControl>

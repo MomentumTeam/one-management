@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectFavorites } from "../features/application/ApplicationSlice";
 
 import ApplicationList from "../features/application/ApplicationList";

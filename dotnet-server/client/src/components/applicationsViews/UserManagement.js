@@ -25,6 +25,7 @@ import UserDetails from "../UserDetails";
 import AddGroup from "../AddGroup";
 import { stubFalse } from "lodash";
 import Unlock from "../Unlock";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     // backgroundColor: "blue",
@@ -44,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const initialFValues = {
+const initialValues = {
   input: "",
 };
 
@@ -55,9 +56,9 @@ function UserManagement() {
 
   const submit = (e) => {
     e.preventDefault();
-    console.log(e);
   };
-  const { values, handleInputChange, resetForm } = useForm(initialFValues);
+
+  const { values, handleInputChange, resetForm } = useForm(initialValues);
 
   const handleSubmit = (e) => {
     e.preventDefault();

@@ -13,7 +13,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { getUser } from "./features/user/userSlice";
 import AllApplications from "./components/AllApplications";
 import Application from "./components/Application";
-import Cookies from 'js-cookie';
 
 
 import { create } from 'jss';
@@ -29,12 +28,9 @@ const theme = createMuiTheme({
 
 function App() {
   const dispatch = useDispatch();
-  // const userObj = useSelector(selectUserObj);
   const loading = useSelector(selectLoading);
-  const cookie = Cookies.get('SignInSecret');
 
   useEffect(() => {
-    console.log("useEffect")
     dispatch(getUser());
   }, []);
 

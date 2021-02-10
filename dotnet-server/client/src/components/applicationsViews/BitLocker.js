@@ -5,7 +5,6 @@ import Controls from '../Controls';
 import { Grid, } from '@material-ui/core';
 import { useForm, Form } from '../UseForm';
 
-import CONFIG from '../../config.json';
 import apis from '../../api/applicationsApi';
 
 const useStyles = makeStyles((theme) => ({
@@ -23,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const initialFValues = {
+const initialValues = {
     searchType: '',
     input: '',
 }
@@ -36,15 +35,14 @@ function BitLocker() {
         values,
         handleInputChange,
         resetForm
-    } = useForm(initialFValues);
+    } = useForm(initialValues);
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const type = "keyID";
+        const type = CONFIG.bitLockerItems.find((item) => item.id == values.searchType).title;
         const input = values.input;
         const res = await apis.getBitLockerPassword(type, input);
         setPassword(res.data.password);
-        // window.alert("good Job!")
         resetForm()
     }
 

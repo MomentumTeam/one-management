@@ -2,7 +2,7 @@ import React from 'react'
 import VlanChange from "./categories/VlanChange";
 import PageHeader from "../../components/PageHeader";
 import PeopleOutlineTwoToneIcon from '@material-ui/icons/PeopleOutlineTwoTone';
-import { Paper,makeStyles } from '@material-ui/core';
+import { Paper, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
     pageContent: {
