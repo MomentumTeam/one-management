@@ -38,6 +38,30 @@ namespace os_server.Services
             return userOptionListArray;
         }
 
+
+        public static UserStatus GetUserStatus(string samAccountName)
+        {
+            Task<string> t = Task<string>.Run(async () =>
+            {
+                try
+                {
+                    var response = await client.GetAsync(Config.GATE_API + "/api/Gate/userStatus/" + samAccountName);
+                    string content = await response.Content.ReadAsStringAsync();
+                    return content;
+                }
+                catch (Exception e)
+                {
+                    return e.Message;
+                }
+            });
+            t.Wait();
+            string ret = t.Result;
+            UserStatus userStatus = JsonConvert.DeserializeObject<UserStatus>(ret);
+            return userStatus;
+        }
+
+
+
         public static bool ChangeVlan(ChangeVlan changeVlanRequest)
         {
             try

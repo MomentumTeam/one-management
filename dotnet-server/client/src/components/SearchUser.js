@@ -52,15 +52,13 @@ export default function SearchUser({ setUser }) {
     }
   };
 
-  const submit = (e) => {
+  const submit = async (e) => {
     console.log("submit!");
     e.preventDefault();
     const selectedUser = value;
     // selectedUser.domain=domain;
-    console.log('value', value)
-    
-    
-    setUser(selectedUser);
+    const userStatus = await apis.getUserStatus(selectedUser.samAcountName);
+    setUser(userStatus);
   };
 
   const fetchUsers = async (userPrefix) => {

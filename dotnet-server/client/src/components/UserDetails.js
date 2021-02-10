@@ -9,6 +9,11 @@ import ImageIcon from "@material-ui/icons/Image";
 import WorkIcon from "@material-ui/icons/Work";
 import BeachAccessIcon from "@material-ui/icons/BeachAccess";
 import Divider from "@material-ui/core/Divider";
+import FaceIcon from '@material-ui/icons/Face';
+import EmailIcon from '@material-ui/icons/Email';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import LockOpenIcon from '@material-ui/icons/LockOpen';
+import LockIcon from '@material-ui/icons/Lock';
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: "rgba(255, 255,255, 0)",
@@ -17,35 +22,52 @@ const useStyles = makeStyles((theme) => ({
 }));
 export default function UserDetails({ user }) {
   const classes = useStyles();
-
   return (
     <Paper variant="outlined" className={classes.root}>
       <List className={classes.root}>
         <ListItem>
           <ListItemAvatar>
             <Avatar>
-              <ImageIcon />
+              <FaceIcon />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary="Photos" secondary="Jan 9, 2014" />
+          <ListItemText primary="DisplayName" secondary={user && user.displayName? user.displayName : ""} />
         </ListItem>
         <Divider variant="inset" component="li" />
         <ListItem>
           <ListItemAvatar>
             <Avatar>
-              <WorkIcon />
+              <EmailIcon />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary="Work" secondary="Jan 7, 2014" />
+          <ListItemText primary="Email" secondary={user && user.mail? user.mail : ""} />
         </ListItem>
         <Divider variant="inset" component="li" />
         <ListItem>
           <ListItemAvatar>
             <Avatar>
-              <BeachAccessIcon />
+              <AccountCircleIcon />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary="Vacation" secondary="July 20, 2014" />
+          <ListItemText primary="userPrincipalName" secondary={user && user.userPrincipalName? user.userPrincipalName : ""} />
+        </ListItem>
+        <Divider variant="inset" component="li" />
+        <ListItem>
+          <ListItemAvatar>
+            <Avatar>
+              <LockOpenIcon />
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText primary="Password Status" secondary={user && user.passwordStatus? user.passwordStatus : ""} />
+        </ListItem>
+        <Divider variant="inset" component="li" />
+        <ListItem>
+          <ListItemAvatar>
+            <Avatar>
+              <AccountCircleIcon />
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText primary="SAM Account Name" secondary={user && user.sAMAccountName? user.sAMAccountName : ""}/>
         </ListItem>
       </List>
     </Paper>

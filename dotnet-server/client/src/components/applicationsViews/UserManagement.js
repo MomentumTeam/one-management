@@ -23,6 +23,7 @@ import styles from "./style.module.css";
 import LinkedBox from "../LinkedBox";
 import UserDetails from "../UserDetails";
 import AddGroup from "../AddGroup";
+import { stubFalse } from "lodash";
 const useStyles = makeStyles((theme) => ({
   root: {
     // backgroundColor: "blue",
@@ -78,7 +79,7 @@ function UserManagement() {
               <UserDetails user={user} />
             </div>
             <div className={styles.mark}>
-              <LinkedBox isLinked={user} />
+              <LinkedBox isLinked={false} />
             </div>
             <div className={styles.addGroup}>
               <AddGroup user={user} />

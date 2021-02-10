@@ -1,7 +1,7 @@
-import Input from "./controlrs/Input";
-import RadioGroup from "./controlrs/RadioGroup";
-import Select from "./controlrs/Select";
-import Button from "./controlrs/Button";
+import Input from "./controls/Input";
+import RadioGroup from "./controls/RadioGroup";
+import Select from "./controls/Select";
+import Button from "./controls/Button";
 
 const Controls = {
     Input,

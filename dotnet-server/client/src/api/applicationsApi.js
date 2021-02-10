@@ -37,10 +37,26 @@ const getLapsPassword = (computerName) => {
 const searchUsers = (userPrefix) => {
     return new Promise((resolve, reject) => {
         axios
-            .get(`/api/userManagement`,
+            .get(`/api/userManagement/search`,
             {
                 params: {
                     userPrefix: userPrefix
+                }
+            })
+            .then((res) => {
+                resolve(res.data);
+            })
+            .catch((err) => reject(err));
+    });
+}
+
+const getUserStatus = (samAccountName) => {
+    return new Promise((resolve, reject) => {
+        axios
+            .get(`/api/userManagement/userStatus`,
+            {
+                params: {
+                    samAccountName: samAccountName
                 }
             })
             .then((res) => {
@@ -85,7 +101,8 @@ const apis = {
     getLapsPassword,
     updateVlan,
     getLocationOptions,
-    searchUsers
+    searchUsers,
+    getUserStatus
 
 }
 

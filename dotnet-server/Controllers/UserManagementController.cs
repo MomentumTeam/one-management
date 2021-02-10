@@ -15,14 +15,21 @@ namespace os_server.Controllers
     public class UserManagementController : ControllerBase
     {
         // GET: api/<UserManagementController>
-    //    [HttpGet]
-    //    public IEnumerable<string> Get()
-    //    {
-    //        return new string[] { "value1", "value2" };
-    //    }
+        //    [HttpGet]
+        //    public IEnumerable<string> Get()
+        //    {
+        //        return new string[] { "value1", "value2" };
+        //    }
 
-        [HttpGet]
-        public UserOptionList[] Get([FromQuery] string userPrefix)
+        [HttpGet("userStatus")]
+        public UserStatus GetUserStatus([FromQuery] string samAccountName)
+        {
+            UserStatus userStatus = ApplicationService.GetUserStatus(samAccountName);
+            return userStatus;
+        }
+
+        [HttpGet("search")]
+        public UserOptionList[] GetSearch([FromQuery] string userPrefix)
         {
             UserOptionList[] usersList = ApplicationService.SearchUsers(userPrefix);
             return usersList;
