@@ -74,7 +74,7 @@ namespace os_server
 
             app.UseCors("CorsPolicy");
 
-            app.UseAuthentication();
+        //    app.UseAuthentication();
 
             app.UseAuthorization();
 
@@ -90,10 +90,10 @@ namespace os_server
             {
                 spa.Options.SourcePath = Path.Join(env.ContentRootPath, "client");
 
-                if (env.IsDevelopment())
-                {
+               // if (env.IsDevelopment())
+                //{
                     spa.UseReactDevelopmentServer(npmScript: "start");
-                }
+                //}
             });
         }
     }

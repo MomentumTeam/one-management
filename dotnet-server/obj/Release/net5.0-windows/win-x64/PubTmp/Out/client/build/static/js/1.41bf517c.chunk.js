@@ -1,0 +1,2 @@
+(this["webpackJsonpone-management"]=this["webpackJsonpone-management"]||[]).push([[1],{126:function(e,n,t){"use strict";t.r(n);var i=t(2);t(0);n.default=function(){return Object(i.jsx)("div",{children:Object(i.jsx)("h1",{children:"There is no view for the app yet"})})}}}]);
+//# sourceMappingURL=1.41bf517c.chunk.js.map
