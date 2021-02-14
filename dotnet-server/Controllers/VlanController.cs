@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using os_server.Models;
 using os_server.Services;
+using Newtonsoft.Json;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -24,11 +25,19 @@ namespace os_server.Controllers
          }
 
         [HttpGet("locationOptions")]
-        public IEnumerable<string> Get()
+        public IActionResult Get()
         {
-            string[] locationOptions = ApplicationService.GetLocationOptions();
+            try
+            {
+                string[] locationOptions = ApplicationService.GetLocationOptions();
 
-            return locationOptions;
+                return Ok(locationOptions);
+            }
+            catch(Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+
             //return new string[] { "location1", "location2", "location3", "location4" };     
         }
     }

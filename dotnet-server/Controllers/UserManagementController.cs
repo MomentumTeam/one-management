@@ -23,13 +23,13 @@ namespace os_server.Controllers
         //    }
 
         [HttpGet("userStatus")]
-        public async Task<IActionResult> GetUserStatus([FromQuery] string samAccountName)
+        public IActionResult GetUserStatus([FromQuery] string samAccountName)
         {
             try
             {
                 UserStatus userStatus = ApplicationService.GetUserStatus(samAccountName);
 
-                return Ok(JsonConvert.SerializeObject(userStatus));
+                return Ok(userStatus);
             }
             catch (Exception e)
             {

@@ -70,7 +70,13 @@ function UserManagement() {
       setUser(userStatus);
     }
     catch(e){
-      window.alert(e.toString());
+      if(e.response && e.response.data){
+        window.alert(e.response.data);
+      }
+      else{
+        window.alert(e.toString());
+      }
+      
     }
 
   };

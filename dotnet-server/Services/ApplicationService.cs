@@ -144,48 +144,41 @@ namespace os_server.Services
 
         public static bool ChangeVlan(ChangeVlan changeVlanRequest)
         {
-            try
-            {
-                var content = new StringContent(JsonConvert.SerializeObject(changeVlanRequest), Encoding.UTF8, "application/json");
-                string address = Config.GATE_API + "/api/Gate/vlan";
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, address);
-                request.Content = content;
-                var requestTask = Task.Run(() => client.SendAsync(request));
-                requestTask.Wait();
-                var response = requestTask.Result;
-                //string[] locations = JsonConvert.DeserializeObject<string[]>(contentString);
-                //return locations;
-
-                return true;
-            }
-            catch(Exception e)
-            {
-                return false;
-            }
-
+            return true; //TODO
 
 
         }
 
         public static string[] GetLocationOptions() {
+            Task<string[]> t = Task<string[]>.Run(async () =>
+            {
+                try
+                {
+                    var response = await client.GetAsync(Config.GATE_API + "/api/Gate/location/");
+                    string content = await response.Content.ReadAsStringAsync();
+                    if (response.StatusCode != HttpStatusCode.OK)
+                    {
+                        throw new Exception("Status "+ response.StatusCode+": "+content);
+                    }
+                    string[] locations = JsonConvert.DeserializeObject<string[]>(content);
+                    return locations;
+                }
+                catch (Exception e)
+                {
+                    throw;
+                }
+            });
             try
             {
-                string address = Config.GATE_API + "/api/Gate/location";
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, address);
-                var requestTask = Task.Run(() => client.SendAsync(request));
-                requestTask.Wait();
-                var response = requestTask.Result;
-                var readTask = Task.Run(() => response.Content.ReadAsStringAsync());
-                readTask.Wait();
-                string contentString = readTask.Result;
-                string[] locations = JsonConvert.DeserializeObject<string[]>(contentString);
-                return locations;
-
+                t.Wait();
+                string[] ret = t.Result;
+                return ret;
             }
-            catch (Exception e)
+            catch(Exception e)
             {
-                return null;
+                throw;
             }
+
         }
 
         public static ReturnDto GetBitLockerPassword(string type, string input)
