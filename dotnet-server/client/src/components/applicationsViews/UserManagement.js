@@ -27,21 +27,12 @@ import { stubFalse } from "lodash";
 import Unlock from "../Unlock";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    // backgroundColor: "blue",
-    width: "100%",
-    height: "100%",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    // margin:"auto",
-    // direction: "rtl"
-  },
   paper: {
     // backgroundColor: "#D0D0D0",
-    width: "80%",
-    height: "80%",
+    width: "100%",
+    height: "100%",
     background: "linear-gradient( #e6e6e6 90%, teal 10%)",
+
   },
 }));
 
@@ -65,35 +56,33 @@ function UserManagement() {
   };
 
   return (
-    <div className={classes.root}>
-      <Paper elevation={24} classes={{ root: classes.paper }}>
-        <h1 className={styles.header}>ניהול משתמש</h1>
-        <div className={styles.flex}>
-          <div className={styles.gridContainer}>
-            <div className={styles.search}>
-              <SearchUser setUser={setUser} />
-            </div>
+    <Paper elevation={24} classes={{ root: classes.paper }}>
+      <h1 >ניהול משתמש</h1>
+      <div className={styles.flex}>
+        <div className={styles.gridContainer}>
+          <div className={styles.search}>
+            <SearchUser setUser={setUser} />
+          </div>
 
-            <div className={styles.password}>
-              <ResetPassword user={user} />
-            </div>
-            <div className={styles.userDisplay}>
-              <UserDetails user={user} />
-            </div>
-            <div className={styles.mark}>
-              {/* <LinkedBox isLinked={false} /> */}
-              <Unlock user={user}/>
-            </div>
-            <div className={styles.addGroup}>
-              <AddGroup user={user} />
-            </div>
-            {/* <div className={styles.groups}>
+          <div className={styles.password}>
+            <ResetPassword user={user} />
+          </div>
+          <div className={styles.userDisplay}>
+            <UserDetails user={user} />
+          </div>
+          <div className={styles.mark}>
+            {/* <LinkedBox isLinked={false} /> */}
+            <Unlock user={user} />
+          </div>
+          <div className={styles.addGroup}>
+            <AddGroup user={user} />
+          </div>
+          {/* <div className={styles.groups}>
               <Paper className={classes.root}>ergfer</Paper>
             </div> */}
-          </div>
         </div>
-      </Paper>
-    </div>
+      </div>
+    </Paper>
   );
 }
 

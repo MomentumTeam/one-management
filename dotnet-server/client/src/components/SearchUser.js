@@ -111,27 +111,7 @@ export default function SearchUser({ setUser }) {
                 )}
               />
             </Grid>
-            <Grid item xs={12} sm={4}>
-              <FormControl fullWidth variant="outlined">
-                <InputLabel id="demo-simple-select-outlined-label">
-                  רשת
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-outlined-label"
-                  id="demo-simple-select-outlined"
-                  value={domain}
-                  onChange={(e) => setDomain(e.target.value)}
-                  label="רשת"
-                  fullWidth
-                >
-                  {domains.map((domain) => (
-                    <MenuItem key={domain.value} value={domain.value}>
-                      {domain.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Grid>
+         
             <Grid item xs={12} sm={1}>
               <IconButton
                 type="submit"

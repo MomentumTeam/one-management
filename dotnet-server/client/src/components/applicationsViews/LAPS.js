@@ -8,16 +8,9 @@ import { useForm, Form } from '../UseForm';
 import apis from '../../api/applicationsApi';
 
 const useStyles = makeStyles((theme) => ({
-    root: {
+    paper: {
         width: "100%",
         height: "100%",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-    },
-    paper: {
-        width: "70%",
-        height: "70%",
         background: 'linear-gradient( #e6e6e6 90%, teal 10%)'
     },
 }));
@@ -36,7 +29,7 @@ function LAPS() {
         resetForm
     } = useForm(initialValues);
 
-    const handleSubmit = async(e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         const computerName = values.computerName;
         const res = await apis.getLapsPassword(computerName);
@@ -44,42 +37,40 @@ function LAPS() {
         resetForm();
     }
 
-    const onReset=()=>{
+    const onReset = () => {
         resetForm();
         setPassword("");
     }
 
     return (
-        <div className={classes.root}>
-            <Paper elevation={24} classes={{ root: classes.paper }} >
-                <h1>Local Admin Password</h1>
-                <Form onSubmit={handleSubmit}>
-                    <Grid container spacing={0}
-                        direction="column"
-                        alignItems="center"
-                        justify="center">
-                        <Grid item xs={6}>
-                            <Controls.Input
-                                name="computerName"
-                                label="שם מחשב"
-                                value={values.computerName}
-                                onChange={handleInputChange}
-                            />
-                            <div>
-                                <Controls.Button
-                                    type="submit"
-                                    text="Submit" />
-                                <Controls.Button
-                                    text="Reset"
-                                    // color="default"
-                                    onClick={onReset} />
-                            </div>
-                        </Grid>
-                        <h4>סיסמא: {password} </h4>
+        <Paper elevation={24} classes={{ root: classes.paper }} >
+            <h1>Local Admin Password</h1>
+            <Form onSubmit={handleSubmit}>
+                <Grid container spacing={0}
+                    direction="column"
+                    alignItems="center"
+                    justify="center">
+                    <Grid item xs={6}>
+                        <Controls.Input
+                            name="computerName"
+                            label="שם מחשב"
+                            value={values.computerName}
+                            onChange={handleInputChange}
+                        />
+                        <div>
+                            <Controls.Button
+                                type="submit"
+                                text="Submit" />
+                            <Controls.Button
+                                text="Reset"
+                                // color="default"
+                                onClick={onReset} />
+                        </div>
                     </Grid>
-                </Form>
-            </Paper>
-        </div >
+                    <h4>סיסמא: {password} </h4>
+                </Grid>
+            </Form>
+        </Paper>
     )
 }
 

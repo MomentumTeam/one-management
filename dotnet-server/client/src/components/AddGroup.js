@@ -78,7 +78,6 @@ export default function AddGroup({ user }) {
           {option.title}
         </React.Fragment>
       )}
-      style={{ width: 500 }}
       renderInput={(params) => (
         <TextField
           {...params}

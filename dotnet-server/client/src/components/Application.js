@@ -1,11 +1,13 @@
 import React, { lazy, useEffect, useState } from 'react';
+import "../App.css";
+import AllowList from "./applicationsViews/AllowList";
+import BitLocker from "./applicationsViews/BitLocker";
+import LAPS from "./applicationsViews/LAPS";
+import NullView from "./applicationsViews/NullView";
+import UserManagement from "./applicationsViews/UserManagement";
+import VLAN from "./applicationsViews/VLAN";
+import styles from "./applicationsViews/style.module.css";
 
-const importView = component =>
-  lazy(() =>
-    import(`./applicationsViews/${component}`).catch(() =>
-      import(`./applicationsViews/NullView`)
-    )
-  );
 
 function Application({ match }) {
   const { applicationName } = match.params;
@@ -13,7 +15,31 @@ function Application({ match }) {
 
   useEffect(() => {
     function loadView() {
-      const View = importView(applicationName);
+      let View;
+
+      switch (applicationName) {
+        case "AllowList":
+          View = AllowList;
+          break;
+        case "BitLocker":
+          View = BitLocker;
+          break;
+        case "LAPS":
+          View = LAPS;
+          break;
+        case "NullView":
+          View = NullView;
+          break;
+        case "UserManagement":
+          View = UserManagement;
+          break;
+        case "VLAN":
+          View = VLAN;
+          break;
+        default:
+          View = NullView;
+      }
+
       return <View />;
     }
 
@@ -21,13 +47,11 @@ function Application({ match }) {
     setView(viewToDisplay)
 
   }, [match.params.applicationName]);
-
+  console.log('styles', styles)
   return (
-    <React.Suspense fallback="">
-      <div className='container' style={{ width: "100%", height: "100%", fontSize: "large" }}>
-        {view}
-      </div>
-    </React.Suspense>
+    <div className="applicationPaperContainer">
+      {view}
+    </div>
   );
 }
 

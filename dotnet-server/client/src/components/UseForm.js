@@ -27,13 +27,7 @@ export function useForm(initialValues) {
 
 const useStyles = makeStyles(theme => ({
     root: {
-        backgroundColor: "",
-        height: "50%",
-        width: "50%",
-        marginTop: "5%",
-        display: "inline-block",
-        position: "relative",
-
+        marginTop: "10%"
     }
 }))
 

@@ -8,6 +8,7 @@
 .header {
   font-size: 1.5vw;
 }
+
 .gridContainer {
   width: 80%;
   height: 70%;
@@ -17,31 +18,38 @@
   grid-template-rows: 0.7fr 0.7fr 0.7fr 0.7fr 2.2fr 1fr;
   gap: 1% 1%;
   grid-template-areas:
-    "search search search"
-    "userDisplay password password"
-    "userDisplay mark mark"
-    "userDisplay addGroup addGroup"
-    "userDisplay groups groups"
-    "userDisplay groups groups";
+  "search search search"
+  "userDisplay password password"
+  "userDisplay mark mark"
+  "userDisplay addGroup addGroup"
+  "userDisplay groups groups"
+  "userDisplay groups groups";
 }
+
 .search {
   grid-area: search;
 }
+
 .password {
   grid-area: password;
 }
+
 .userDisplay {
   grid-area: userDisplay;
 }
+
 .mark {
   grid-area: mark;
 }
+
 .addGroup {
   grid-area: addGroup;
 }
+
 .groups {
   grid-area: groups;
 }
+
 .users {
   grid-area: users;
   background-color: aquamarine;
