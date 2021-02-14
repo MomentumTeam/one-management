@@ -44,9 +44,7 @@ export default function SearchUser({ setUser }) {
 
   const handleInputChange = (event, newInputValue) => {
     setInputValue(newInputValue);
-    //newInputValue.length > 2 ? setOpen(true) : setOpen(false)
 
-    //TODO get users for autocomplete
     if (newInputValue.length > 2) {
       fetchUsers(newInputValue);
     }
@@ -56,16 +54,28 @@ export default function SearchUser({ setUser }) {
     console.log("submit!");
     e.preventDefault();
     const selectedUser = value;
-    // selectedUser.domain=domain;
-    const userStatus = await apis.getUserStatus(selectedUser.samAcountName);
-    setUser(userStatus);
+    console.log("selectedUser",selectedUser);
+    try{
+      const userStatus = await apis.getUserStatus(selectedUser.samAcountName);
+      console.log("userStatus = ",userStatus);
+      setUser(userStatus);
+    }
+    catch(e){
+      window.alert(e.toString());
+    }
+
   };
 
   const fetchUsers = async (userPrefix) => {
     console.log("fetch users!");
     setOpen(true);
-    const searchedUsers = await apis.searchUsers(userPrefix);
-    setOptions(searchedUsers);
+    try{
+      const searchedUsers = await apis.searchUsers(userPrefix);
+      setOptions(searchedUsers);
+    }
+    catch(e){
+      window.alert(e.toString());
+    }    
   };
 
   return (
@@ -83,9 +93,9 @@ export default function SearchUser({ setUser }) {
                   setOpen(false);
                 }}
                 getOptionSelected={(option, value) =>
-                  option.displayName === value.displayName
+                  option.optionToDisplay === value.optionToDisplay
                 }
-                getOptionLabel={(option) => option.displayName}
+                getOptionLabel={(option) => option.optionToDisplay}
                 options={options}
                 loading={loading}
                 inputValue={inputValue ?? ""}
@@ -112,7 +122,7 @@ export default function SearchUser({ setUser }) {
                 )}
               />
             </Grid>
-            <Grid item xs={12} sm={4}>
+            {/* <Grid item xs={12} sm={4}>
               <FormControl fullWidth variant="outlined">
                 <InputLabel id="demo-simple-select-outlined-label">
                   רשת
@@ -132,7 +142,7 @@ export default function SearchUser({ setUser }) {
                   ))}
                 </Select>
               </FormControl>
-            </Grid>
+            </Grid> */}
             <Grid item xs={12} sm={1}>
               <IconButton
                 type="submit"

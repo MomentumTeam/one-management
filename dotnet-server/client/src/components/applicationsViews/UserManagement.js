@@ -25,11 +25,12 @@ import UserDetails from "../UserDetails";
 import AddGroup from "../AddGroup";
 import { stubFalse } from "lodash";
 import Unlock from "../Unlock";
+import apis from "../../api/applicationsApi";
 const useStyles = makeStyles((theme) => ({
   root: {
     // backgroundColor: "blue",
     width: "100%",
-    height: "100%",
+    height: "120%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -63,6 +64,17 @@ function UserManagement() {
     e.preventDefault();
   };
 
+  const loadUser = async () => {
+    try{
+      const userStatus = await apis.getUserStatus(user.sAMAccountName);
+      setUser(userStatus);
+    }
+    catch(e){
+      window.alert(e.toString());
+    }
+
+  };
+
   return (
     <div className={classes.root}>
       <Paper elevation={24} classes={{ root: classes.paper }}>
@@ -74,14 +86,14 @@ function UserManagement() {
             </div>
 
             <div className={styles.password}>
-              <ResetPassword user={user} />
+              <ResetPassword user={user} loadUser={loadUser}/>
             </div>
             <div className={styles.userDisplay}>
               <UserDetails user={user} />
             </div>
             <div className={styles.mark}>
               {/* <LinkedBox isLinked={false} /> */}
-              <Unlock user={user}/>
+              <Unlock user={user} loadUser={loadUser}/>
             </div>
             <div className={styles.addGroup}>
               <AddGroup user={user} />

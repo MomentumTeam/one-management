@@ -13,7 +13,7 @@ const getBitLockerPassword = (type, input) => {
                 }
             )
             .then((res) => {
-                resolve(res);
+                resolve(res.data);
             })
             .catch((err) => reject(err));
     });
@@ -30,7 +30,7 @@ const getLapsPassword = (computerName) => {
                 }
             )
             .then((res) => {
-                resolve(res);
+                resolve(res.data);
             })
             .catch((err) => reject(err));
     });
@@ -44,6 +44,17 @@ const searchUsers = (userPrefix) => {
                     userPrefix: userPrefix
                 }
             })
+            .then((res) => {
+                resolve(res.data);
+            })
+            .catch((err) => reject(err));
+    });
+}
+
+const unlock = (userId) => {
+    return new Promise((resolve, reject) => {
+        axios
+            .put(`/api/userManagement/unlock`,{userId: userId})
             .then((res) => {
                 resolve(res.data);
             })
@@ -122,7 +133,8 @@ const apis = {
     getLocationOptions,
     searchUsers,
     getUserStatus,
-    resetPassword
+    resetPassword,
+    unlock
 
 }
 

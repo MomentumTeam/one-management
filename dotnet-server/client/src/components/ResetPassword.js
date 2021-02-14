@@ -17,25 +17,29 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ResetPassword({ user }) {
+export default function ResetPassword({ user , loadUser }) {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [password, setPassword] = useState(false);
   const classes = useStyles();
 
-  const resetPassword = async () => {
-    // TODO http req
-    return new Promise((res, rej) => {
-      return setTimeout(() => res("1234567"), 2000);
-    });
-  };
 
   const handelClick = async (e) => {
     e.preventDefault();
     setLoading(true);
     console.log("user=",user);
-    let newPassword = await apis.resetPassword(user.sAMAccountName);
-    setPassword(newPassword);
+    try{
+      let ret = await apis.resetPassword(user.sAMAccountName);
+      if(ret.status == true){
+        setPassword(ret.log);
+        loadUser();
+      }
+      window.alert(ret.log);
+    }
+    catch(e){
+      window.alert(e.toString());
+    }
+
     setLoading(false);
     setOpen(true);
   };
@@ -55,12 +59,12 @@ export default function ResetPassword({ user }) {
         אפס סיסמא
         {loading ? <CircularProgress color="inherit" size={20} /> : null}
       </Button>
-      <Dialog open={open} onClose={handleClose}>
+      {/* <Dialog open={open} onClose={handleClose}>
         <Alert severity="success">
           <AlertTitle>Success</AlertTitle>
           הסיסמא החדשה {password}
         </Alert>
-      </Dialog>
+      </Dialog> */}
     </div>
   );
 }

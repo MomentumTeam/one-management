@@ -16,10 +16,18 @@ namespace os_server.Controllers
     {
         // GET: api/<BitLockerController>
         [HttpGet]
-        public PasswordGetResponse Get([FromQuery] BitLockerGetRequest request)
+        public ReturnDto Get([FromQuery] BitLockerGetRequest request)
         {
-            string password = ApplicationService.GetBitLockerPassword(request.Input);
-            return new PasswordGetResponse(password);
+            try
+            {
+                ReturnDto returnDto = ApplicationService.GetBitLockerPassword(request.Type, request.Input);
+                return returnDto;
+            }
+            catch(Exception e)
+            {
+                return new ReturnDto(false, e.Message);
+            }
+            
         }
     }
 }
