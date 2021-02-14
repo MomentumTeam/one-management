@@ -7,16 +7,26 @@ export const getUser = createAsyncThunk("user/getUser", async () => {
 });
 
 export const updateFavorites = createAsyncThunk("user/updateFavorites", async (_, { getState }) => {
-  const { favorites } = getState().user;
-  console.log("updateFavorites: favorites:", favorites);
-  const user = await updateUserInServer({ Favorites: favorites });
-  return user;
+  try{
+    const { favorites } = getState().user;
+    const user = await updateUserInServer({ Favorites: favorites });
+    return user;
+  }
+  catch(e){
+    throw e;
+  }
+
 });
 
 export const updateHistory = createAsyncThunk("user/updateHistory", async (_, { getState }) => {
-  const { history } = getState().user;
-  const user = await updateUserInServer({ History: history });
-  return user;
+  try{
+    const { history } = getState().user;
+    const user = await updateUserInServer({ History: history });
+    return user;
+  }
+  catch(e){
+    throw e;
+  }
 });
 
 export const userSlice = createSlice({
@@ -34,7 +44,6 @@ export const userSlice = createSlice({
       state.history = [action.payload, ...state.history];
       state.history = state.history.slice(0, Math.min(3, state.history.length));
       console.log("state.history after=",state.history);
-      console.log("AddToHistory:", state.history);
     },
     AddToFavorites: (state, action) => {
       console.log("state.favorites before:", state.favorites);
@@ -60,17 +69,7 @@ export const userSlice = createSlice({
     [getUser.rejected]: (state, action) => {
       console.log("getUser rejected!");
       console.log(action.error);
-    },
-    [updateFavorites.fulfilled]: (state, action) => {
-      console.log("updateFavorites Fulfilled!");
-      console.log(action.payload);
-      state.favorites = action.payload.favorites;
-    },
-    [updateHistory.fulfilled]: (state, action) => {
-      console.log("updateHistory Fulfilled!");
-      console.log(action.payload);
-      state.history = action.payload.history;
-    },
+    }
   },
 });
 

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Authorization;
+using System;
 
 namespace os_server.Controllers
 {
@@ -22,54 +23,93 @@ namespace os_server.Controllers
         [HttpGet]
         public ActionResult<UserResponse> Get()
         {
-            string userId = HttpContext.User.Identity.Name;
-          
-            MongoUser mongoUser = _userService.Get(userId);
 
-            if (mongoUser == null)
+            UserResponse response;
+            if (HttpContext.User == null || HttpContext.User.Identity == null || HttpContext.User.Identity.Name == null)
             {
-                mongoUser = new MongoUser(userId);
-                _userService.Create(mongoUser);
+                response = new UserResponse();
+                return response;
             }
+            string userId = HttpContext.User.Identity.Name;
+            if (!UserService.MongoIsUp)
+            {
+                response = new UserResponse();
+                response.UserObj.UserId = userId;
+                return response;
+            }
+            try
+            {
+                MongoUser mongoUser = _userService.Get(userId);
 
-            User user = new User();
-            user.UserId = userId;
-            UserResponse response = new UserResponse();
-            response.InitFields(mongoUser, user);
+                if (mongoUser == null)
+                {
+                    mongoUser = new MongoUser(userId);
+                    _userService.Create(mongoUser);
+                }
 
-            return response;
+                User user = new User();
+                user.UserId = userId;
+                response = new UserResponse();
+                response.InitFields(mongoUser, user);
+
+                return response;
+            }
+            catch (Exception)
+            {
+                response = new UserResponse();
+                response.UserObj.UserId = userId;
+                return response;
+            }
         }
 
         [HttpPut]
         public ActionResult<UserResponse> Update([FromBody] MongoUser userIn)
         {
+            UserResponse response;
+            if (HttpContext.User == null || HttpContext.User.Identity == null || HttpContext.User.Identity.Name == null)
+            {
+                response = new UserResponse();
+                return response;
+            }
+
             string userId = HttpContext.User.Identity.Name;
-            var mongoUser = _userService.Get(userId);
-
-            if (mongoUser == null)
+            if (!UserService.MongoIsUp)
             {
-                mongoUser = new MongoUser(userId);
-                _userService.Create(mongoUser);
+                response = new UserResponse();
+                response.UserObj.UserId = userId;
+                return response;
             }
-
-            userIn.Id = userId;
-            if(userIn.Favorites == null)
+            try
             {
-                userIn.Favorites = mongoUser.Favorites;
+                var mongoUser = _userService.Get(userId);
+
+                if (mongoUser == null)
+                {
+                    mongoUser = new MongoUser(userId);
+                    _userService.Create(mongoUser);
+                }
+
+                userIn.Id = userId;
+                if (userIn.Favorites == null)
+                {
+                    userIn.Favorites = mongoUser.Favorites;
+                }
+                if (userIn.History == null)
+                {
+                    userIn.History = mongoUser.History;
+                }
+                _userService.Update(userId, userIn);
+                User user = new User();
+                user.UserId = userId;
+                response = new UserResponse();
+                response.InitFields(mongoUser, user);
+                return response;
             }
-            if (userIn.History == null)
+            catch (Exception)
             {
-                userIn.History = mongoUser.History;
+                response = new UserResponse();
+                return response;
             }
-
-            _userService.Update(userId, userIn);
-            User user = new User();
-            user.UserId = userId;
-            UserResponse response = new UserResponse();
-            response.InitFields(mongoUser, user);
-
-
-            return response ;
         }
     }
 }

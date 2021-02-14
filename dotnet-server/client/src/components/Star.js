@@ -15,7 +15,7 @@ function Star({ item }) {
     const star = favorites.includes(item.id) ? (
       <StarIcon
         onClick={() => {
-          console.log("clicked on star to add to favorites");
+          console.log("clicked on star to remove from favorites");
           dispatch(RemoveFromFavorites(item.id));
           dispatch(updateFavorites(favorites));
         }}
