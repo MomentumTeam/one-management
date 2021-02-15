@@ -1,26 +1,19 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Controls from '../Controls';
 import { Grid, } from '@material-ui/core';
 import { useForm, Form } from '../UseForm';
+import styles from "./style.module.css";
 
 import CONFIG from '../../config.json';
 import apis from '../../api/applicationsApi';
 
 const useStyles = makeStyles((theme) => ({
-    root: {
+    paper: {
         width: "100%",
         height: "100%",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-    },
-    paper: {
-        width: "70%",
-        height: "70%",
         background: 'linear-gradient( #e6e6e6 90%, teal 10%)'
-
     },
 }));
 
@@ -34,7 +27,7 @@ function AllowList() {
         values,
         handleInputChange,
         resetForm
-    } = useForm(initialFValues);
+    } = useForm(initialValues);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -84,9 +77,9 @@ function AllowList() {
                             </div>
                         </Grid>
                     </Grid>
-                </Form>
-            </Paper>
-        </div>
+                </Grid>
+            </Form>
+        </Paper>
     )
 }
 

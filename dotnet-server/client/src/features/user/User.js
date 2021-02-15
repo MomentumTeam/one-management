@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { selectHistory, selectFavorites, selectUserObj, GetUser } from "./userSlice";
-console.log("selectUserObj: ", selectUserObj);
+import React from "react";
+import { useSelector } from "react-redux";
+import { selectUserObj } from "./userSlice";
 
 function User() {
   const userObj = useSelector(selectUserObj);
+  
   return (
     <div>
       <b

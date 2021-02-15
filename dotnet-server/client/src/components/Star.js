@@ -9,9 +9,8 @@ function Star({ item }) {
   const favorites = useSelector(selectFavorites);
   if (item.type !== "application") {
     return null;
-  } else {
-    console.log("favorites : ",favorites);
-
+  }
+  else {
     const star = favorites.includes(item.id) ? (
       <StarIcon
         onClick={() => {
@@ -21,14 +20,15 @@ function Star({ item }) {
         }}
       />
     ) : (
-      <StarBorderIcon
-        onClick={() => {
-          console.log("clicked on star to add to favorites");
-          dispatch(AddToFavorites(item.id));
-          dispatch(updateFavorites(favorites));
-        }}
-      />
-    );
+        <StarBorderIcon
+          onClick={() => {
+            console.log("clicked on star to add to favorites");
+            dispatch(AddToFavorites(item.id));
+            dispatch(updateFavorites(favorites));
+          }}
+        />
+      );
+
     return star;
   }
 }

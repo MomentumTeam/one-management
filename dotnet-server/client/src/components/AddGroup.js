@@ -34,7 +34,6 @@ export default function AddGroup({ user }) {
     if (reason !== "escape") {
       // TODO save in server
     }
-    console.log(reason);
   };
 
   const onOpen = async (event, reason) => {
@@ -79,7 +78,6 @@ export default function AddGroup({ user }) {
           {option.title}
         </React.Fragment>
       )}
-      style={{ width: 500 }}
       renderInput={(params) => (
         <TextField
           {...params}

@@ -4,7 +4,6 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Dialog from "@material-ui/core/Dialog";
 import { Alert, AlertTitle } from "@material-ui/lab";
 import apis from "../api/applicationsApi";
-import UserDetails from "./UserDetails";
 
 const useStyles = makeStyles((theme) => ({
   paper: {

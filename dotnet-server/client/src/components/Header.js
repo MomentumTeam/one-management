@@ -1,6 +1,5 @@
 import React from "react";
 import Search from "./Search";
-import { makeStyles } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
 import { selectUserObj } from "../features/user/userSlice";
 
@@ -17,7 +16,7 @@ function Header() {
           paddingTop: "1%",
         }}
       >
-        שלום {userObj.userId}
+        {userObj.userId}
       </b>
       <Search />
     </div>

@@ -14,12 +14,14 @@ import EmailIcon from '@material-ui/icons/Email';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import LockIcon from '@material-ui/icons/Lock';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: "rgba(255, 255,255, 0)",
     height: "115%",
   },
 }));
+
 export default function UserDetails({ user }) {
   const classes = useStyles();
   return (
@@ -32,7 +34,7 @@ export default function UserDetails({ user }) {
               <LockIcon />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary="Name" secondary={user && user.name? user.name : ""}/>
+          <ListItemText primary="DisplayName" secondary={user && user.displayName ? user.displayName : ""} />
         </ListItem>
         <Divider variant="inset" component="li" />
         <ListItem>
@@ -41,7 +43,7 @@ export default function UserDetails({ user }) {
               <FaceIcon />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary="DisplayName" secondary={user && user.dispalyName? user.dispalyName : ""} />
+          <ListItemText primary="Email" secondary={user && user.mail ? user.mail : ""} />
         </ListItem>
         <Divider variant="inset" component="li" />
         <ListItem>
@@ -50,7 +52,7 @@ export default function UserDetails({ user }) {
               <AccountCircleIcon />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary="userPrincipalName" secondary={user && user.userPrincipalName? user.userPrincipalName : ""} />
+          <ListItemText primary="userPrincipalName" secondary={user && user.userPrincipalName ? user.userPrincipalName : ""} />
         </ListItem>
         <Divider variant="inset" component="li" />
         <ListItem>
@@ -59,7 +61,7 @@ export default function UserDetails({ user }) {
               <AccountCircleIcon />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary="SAM-Account Name" secondary={user && user.sAMAccountName? user.sAMAccountName : ""}/>
+          <ListItemText primary="Password Status" secondary={user && user.passwordStatus ? user.passwordStatus : ""} />
         </ListItem>
         <Divider variant="inset" component="li" />
         <ListItem>
@@ -68,18 +70,7 @@ export default function UserDetails({ user }) {
               <EmailIcon />
             </Avatar>
           </ListItemAvatar>
-          
-          <ListItemText primary="Email" secondary={user && user.mail? user.mail : ""} />
-        </ListItem>
-
-        <Divider variant="inset" component="li" />
-        <ListItem>
-          <ListItemAvatar>
-            <Avatar>
-              <LockOpenIcon />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText primary="Password Status" secondary={user && user.passwordStatus? user.passwordStatus : ""} />
+          <ListItemText primary="SAM Account Name" secondary={user && user.sAMAccountName ? user.sAMAccountName : ""} />
         </ListItem>
 
         <Divider variant="inset" component="li" />
@@ -89,7 +80,7 @@ export default function UserDetails({ user }) {
               <LockIcon />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary="Locked" secondary={user && user.locked? user.locked : ""}/>
+          <ListItemText primary="Locked" secondary={user && user.locked ? user.locked : ""} />
         </ListItem>
       </List>
     </Paper>

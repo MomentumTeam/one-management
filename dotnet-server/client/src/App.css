@@ -1,41 +1,61 @@
 .App {
   text-align: center;
-  /* display: flex;
-  flex-direction: row-reverse;  */
 }
 
 .grid-container {
+  margin-left: auto;
+  margin-right: auto;
   width: 100vw;
   height: 100vh;
   display: grid;
-  grid-template-columns: 0.4fr 1.6fr;
+  grid-template-columns: 0.3fr 1.7fr;
   grid-template-rows: 0.2fr 2.7fr 0.1fr;
   gap: 0px 0px;
-  grid-template-areas:
-    "SideNavBar Header "
-    "SideNavBar Content "
-    "Footer Footer";
-
-  overflow: hidden;
-  /* min-width: "50%";
-        min-height: "30%" */
+  grid-template-areas: "SideNavBar Header " "SideNavBar Content " "Footer Footer";
 }
+
 .Header {
   grid-area: Header;
   background-color: black;
 }
+
 .Content {
   grid-area: Content;
-  overflow-y: scroll;
-  background-color: pink;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
 .Footer {
   grid-area: Footer;
   background-color: teal;
 }
+
 .SideNavBar {
   grid-area: SideNavBar;
   background-color: black;
   color: aliceblue;
-  overflow-y: scroll;
+  width: 300px;
+}
+
+.applicationPaperContainer {
+  font-size: large; 
+  width: 50vw; height: 60vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media only screen and (max-width: 1000px)  {
+  .applicationPaperContainer {
+    width: 500px; height: 500px;
+    margin: 20px;
+  }
+}
+
+@media only screen and (max-height: 650px)  {
+  .applicationPaperContainer {
+    width: 500px; height: 500px;
+    margin: 20px;
+  }
 }

@@ -2,8 +2,8 @@ import axios from "axios";
 
 export const getUserFromServer = () => {
   return new Promise((resolve, reject) => {
-    axios(`/api/users`,{ 
-      withCredentials:true,
+    axios(`/api/users`, {
+      withCredentials: true,
     })
       .then((res) => {
         resolve(res.data);
@@ -22,14 +22,14 @@ export const updateUserInServer = (user) => {
       headers: {
         'Content-Type': 'application/json'
       }
-  })
-  .then(function (response) {
-      resolve(response.data)
-  })
-  .catch(function (error) {
-      reject(error);
+    })
+      .then(function (response) {
+        resolve(response.data)
+      })
+      .catch(function (error) {
+        reject(error);
+      });
+
   });
-  
-});
 };
 
