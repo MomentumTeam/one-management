@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const initialFValues = {
+const initialValues = {
     macAddress: ''
 }
 
@@ -50,7 +50,6 @@ function AllowList() {
 
 
     return (
-        <div className={classes.root}>
             <Paper elevation={20} classes={{ root: classes.paper }}>
                 <h1>Allow List</h1>
                 <Form onSubmit={handleSubmit} style={{ backgroundColor: "", }}>
@@ -77,7 +76,6 @@ function AllowList() {
                             </div>
                         </Grid>
                     </Grid>
-                </Grid>
             </Form>
         </Paper>
     )

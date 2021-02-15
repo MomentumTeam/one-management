@@ -25,6 +25,7 @@ import UserDetails from "../UserDetails";
 import AddGroup from "../AddGroup";
 import { stubFalse } from "lodash";
 import Unlock from "../Unlock";
+import apis from "../../api/applicationsApi";
 
 const useStyles = makeStyles((theme) => ({
   paper: {

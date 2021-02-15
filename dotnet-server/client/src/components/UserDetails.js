@@ -34,7 +34,7 @@ export default function UserDetails({ user }) {
               <LockIcon />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary="DisplayName" secondary={user && user.displayName ? user.displayName : ""} />
+          <ListItemText primary="DisplayName" secondary={user && user.dispalyName ? user.dispalyName : ""} />
         </ListItem>
         <Divider variant="inset" component="li" />
         <ListItem>

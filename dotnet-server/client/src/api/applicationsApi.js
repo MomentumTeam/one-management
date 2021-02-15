@@ -57,12 +57,12 @@ const updateVlan = (macAddress, location, vlan) => {
     return new Promise((resolve, reject) => {
         axios
             .post(`/api/Vlan`, {
-                mac: macAddress,
+                macAddress: macAddress,
                 location: location,
                 vlan: vlan,
             })
             .then((res) => {
-                resolve(res);
+                resolve(res.data);
             })
             .catch((err) => reject(err));
     });

@@ -36,6 +36,7 @@ export default function ResetPassword({ user , loadUser }) {
       window.alert(ret.log);
     }
     catch(e){
+      console.log("blablabla");
       window.alert(e.toString());
     }
 
