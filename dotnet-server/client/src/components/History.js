@@ -1,7 +1,8 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectHistory } from "../features/application/ApplicationSlice";
 import ApplicationList from "../features/application/ApplicationList";
+
 function History({ match }) {
   const applications = useSelector(selectHistory);
 

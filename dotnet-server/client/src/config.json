@@ -115,18 +115,8 @@
             "type": "category"
         },
         {
-            "displayName": "ניהול רשת",
-            "id": "c",
-            "type": "category"
-        },
-        {
             "displayName": "הרשאות ומידור",
             "id": "d",
-            "type": "category"
-        },
-        {
-            "displayName": "ניהול מייל",
-            "id": "e",
             "type": "category"
         }
     ]

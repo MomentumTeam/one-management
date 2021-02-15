@@ -57,13 +57,7 @@ const routes = [
         id: "d",
         icon: <DesktopWindows />,
         link: "/categories/d",
-      },
-      {
-        name: "ניהול מייל",
-        id: "e",
-        icon: <Email />,
-        link: "/categories/e",
-      },
+      }
     ],
   },
   {
@@ -174,7 +168,6 @@ export default function SideNavbar() {
                   </Collapse>
                 </>
               }
-
             </div>
           );
         })}

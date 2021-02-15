@@ -42,7 +42,7 @@ function Vlan() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         let location, vlan;
-        
+
         CONFIG.locationOptions.find(option => {
             if (option.id == values.location) {
                 location = option.title;
@@ -64,13 +64,13 @@ function Vlan() {
         <div className={classes.root}>
             <Paper elevation={20} classes={{ root: classes.paper }}>
                 <h1>הכנסה ושינוי Vlan</h1>
-                <Form onSubmit={handleSubmit} style={{ backgroundColor: "", }}>
-                    <Grid container style={{ backgroundColor: "", }}
+                <Form onSubmit={handleSubmit}>
+                    <Grid container
                         spacing={0}
                         direction="column"
                         alignItems="center"
                         justify="center">
-                        <Grid item xs={6} style={{ backgroundColor: "" }} >
+                        <Grid item xs={6}>
                             <Controls.Input
                                 name="macAddress"
                                 label="כתובת Mac"

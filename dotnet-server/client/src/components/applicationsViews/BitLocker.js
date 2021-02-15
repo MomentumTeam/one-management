@@ -4,26 +4,19 @@ import Paper from '@material-ui/core/Paper';
 import Controls from '../Controls';
 import { Grid, } from '@material-ui/core';
 import { useForm, Form } from '../UseForm';
+import styles from "./style.module.css";
 
-import CONFIG from '../../config.json';
 import apis from '../../api/applicationsApi';
 
 const useStyles = makeStyles((theme) => ({
-    root: {
+    paper: {
         width: "100%",
         height: "100%",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-    },
-    paper: {
-        width: "70%",
-        height: "70%",
-        background: 'linear-gradient( #e6e6e6 90%, teal 10%)',
+        background: 'linear-gradient( #e6e6e6 90%, teal 10%)'
     },
 }));
 
-const initialFValues = {
+const initialValues = {
     searchType: '',
     input: '',
 }
@@ -36,11 +29,12 @@ function BitLocker() {
         values,
         handleInputChange,
         resetForm
-    } = useForm(initialFValues);
+    } = useForm(initialValues);
 
     const handleSubmit = async (e) => {
+        // const type = CONFIG.bitLockerItems.find((item) => item.id == values.searchType).title;
         e.preventDefault()
-        const type = "keyID";
+        const type = "computerName";
         const input = values.input;
         const res = await apis.getBitLockerPassword(type, input);
         setPassword(res.data.password);
@@ -54,36 +48,36 @@ function BitLocker() {
     }
 
     return (
-        <div className={classes.root}>
-            <Paper elevation={20} classes={{ root: classes.paper }}>
-                <h1>BitLocker Password</h1>
-                <Form onSubmit={handleSubmit}>
-                    <Grid container spacing={0}
-                        direction="column"
-                        alignItems="center"
-                        justify="center">
-                        <Grid item xs={6}>
-                            <Controls.Input
-                                name="input"
-                                label="keyId"
-                                value={values.input}
-                                onChange={handleInputChange}
-                            />
-                            <div>
-                                <Controls.Button
-                                    type="submit"
-                                    text="submit" />
-                                <Controls.Button
-                                    text="Reset"
-                                    // color="default"
-                                    onClick={onReset} />
-                            </div>
-                            <h4>סיסמא: {password} </h4>
-                        </Grid>
+        // <div className={classes.root}>
+        <Paper elevation={20} classes={{ root: classes.paper }}>
+            <h1>BitLocker Password</h1>
+            <Form onSubmit={handleSubmit}>
+                <Grid container spacing={0}
+                    direction="column"
+                    alignItems="center"
+                    justify="center">
+                    <Grid item xs={6}>
+                        <Controls.Input
+                            name="input"
+                            label="שם מחשב"
+                            value={values.input}
+                            onChange={handleInputChange}
+                        />
+                        <div>
+                            <Controls.Button
+                                type="submit"
+                                text="submit" />
+                            <Controls.Button
+                                text="Reset"
+                                // color="default"
+                                onClick={onReset} />
+                        </div>
+                        <h4>סיסמא: {password} </h4>
                     </Grid>
-                </Form>
-            </Paper>
-        </div >
+                </Grid>
+            </Form>
+        </Paper>
+        // </div >
     )
 }
 

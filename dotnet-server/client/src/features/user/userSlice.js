@@ -29,11 +29,11 @@ export const userSlice = createSlice({
   },
   reducers: {
     AddToHistory: (state, action) => {
-      console.log("state.history before=",state.history);
+      console.log("state.history before=", state.history);
       state.history = state.history.filter((item) => item !== action.payload);
       state.history = [action.payload, ...state.history];
       state.history = state.history.slice(0, Math.min(3, state.history.length));
-      console.log("state.history after=",state.history);
+      console.log("state.history after=", state.history);
       console.log("AddToHistory:", state.history);
     },
     AddToFavorites: (state, action) => {

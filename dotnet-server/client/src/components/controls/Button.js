@@ -16,10 +16,6 @@ const theme = createMuiTheme({
     palette: {
         primary: teal,
     },
-
-    // textAlign: "center",
-    // direction: 'rtl',
-
 });
 
 export default function Button(props) {
