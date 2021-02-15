@@ -82,7 +82,7 @@ export default function SearchUser({ setUser }) {
       <div>
         <form onSubmit={submit} noValidate>
           <Grid container spacing={1}>
-            <Grid item xs={12} sm={7}>
+            <Grid item xs={12} sm={10}>
               <Autocomplete
                 open={open}
                 // onOpen={() => {
@@ -112,7 +112,7 @@ export default function SearchUser({ setUser }) {
                         <React.Fragment>
                           {loading ? (
                             <CircularProgress color="inherit" size={20} />
-                          ) : null}
+                          ) : null }
                           {params.InputProps.endAdornment}
                         </React.Fragment>
                       ),
@@ -121,10 +121,11 @@ export default function SearchUser({ setUser }) {
                 )}
               />
             </Grid>
-            <Grid item xs={12} sm={1}>
+            <Grid item xs={12} sm={2}>
               <IconButton
                 type="submit"
-                variant="filled"
+                // variant="filled"
+                variant="outlined"
                 className={classes.iconButton}
                 aria-label="search"
               >

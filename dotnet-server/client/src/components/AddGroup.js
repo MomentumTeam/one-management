@@ -5,134 +5,84 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import apis from "../api/applicationsApi";
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 export default function AddGroup({ user }) {
-  const [userGroups, setUserGroups] = useState([]);
-  const [groups, setGroups] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [open, setOpen] = React.useState(false);
+  const [options, setOptions] = React.useState([]);
+  const [inputValue, setInputValue] = useState("");
+  const [value, setValue] = useState(options[0]);
+  const loading = open && options.length === 0;
 
-  const onChange = (event, value, reason) => {
-    setUserGroups(value);
+  const fetchGropus = async (groupPrefix) => {
+    setOpen(true);
+    try{
+      const groups = await apis.searchGroup(groupPrefix);
+      setOptions(groups);
+    }
+    catch(e){
+      window.alert(e.toString());
+    }    
   };
 
-  const getUserGroup = async () => {
-    // TODO http req
-    return new Promise((res, rej) => {
-      return setTimeout(() => res([top100Films[0], top100Films[11]]), 2000);
-    });
+  const saveGroup = async (group) => {
+    try{
+      const groups = await apis.saveGroup(group);
+    }
+    catch(e){
+      window.alert(e.toString());
+    }    
   };
 
-  const fetchGroups = () => {
-    return new Promise((res, rej) => {
-      return setTimeout(() => res(top100Films), 2000);
-    });
-  };
-  const onClose = (event, reason) => {
-    if (reason !== "escape") {
-      // TODO save in server
+  const handleInputChange = (event, newInputValue) => {
+    setInputValue(newInputValue);
+
+    if (newInputValue.length > 2) {
+      fetchGropus(newInputValue);
     }
   };
 
-  const onOpen = async (event, reason) => {
-    setLoading(true);
-    let groupsList = await fetchGroups();
-    setGroups(groupsList);
-    setLoading(false);
-  };
-
-  useEffect(async () => {
-    if (user) {
-      setLoading(true);
-      let defaultValue = await getUserGroup();
-      setUserGroups(defaultValue);
-      setLoading(false);
+  const  handleChange = (event, value, reason) => {
+    if(reason === "select-option"){
+        saveGroup(value)
     }
-  }, [user]);
+  }
+
+
 
   return (
     <Autocomplete
-      multiple
-      limitTags={2}
-      id="checkboxes-tags-demo"
-      options={groups}
-      onOpen={onOpen}
-      disableCloseOnSelect
-      disableClearable
-      onChange={onChange}
-      onClose={onClose}
-      loading={loading}
-      disabled={!user}
-      value={userGroups ?? []}
-      getOptionLabel={(option) => option.title}
-      renderOption={(option, { selected }) => (
-        <React.Fragment>
-          <Checkbox
-            icon={icon}
-            checkedIcon={checkedIcon}
-            style={{ marginRight: 8 }}
-            checked={selected}
-          />
-          {option.title}
-        </React.Fragment>
-      )}
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          variant="outlined"
-          label="קבוצות"
-          placeholder="ערוך קבוצות"
-          InputProps={{
-            ...params.InputProps,
-            endAdornment: (
-              <React.Fragment>
-                {loading ? (
-                  <CircularProgress color="inherit" size={20} />
-                ) : null}
-                {params.InputProps.endAdornment}
-              </React.Fragment>
-            ),
-          }}
-        />
-      )}
+    open={open}
+    onClose={() => {
+      setOpen(false);
+    }}
+    getOptionSelected={(option, value) => option.name === value.name}
+    getOptionLabel={(option) => option.name}
+    options={options}
+    loading={loading}
+    inputValue={inputValue ?? ""}
+    onInputChange={handleInputChange}
+    value={value ?? ""}
+    onChange={handleChange}
+    renderInput={(params) => (
+      <TextField
+        {...params}
+        label="Asynchronous"
+        variant="outlined"
+        InputProps={{
+          ...params.InputProps,
+          endAdornment: (
+            <React.Fragment>
+              {loading ? <CircularProgress color="inherit" size={20} /> : null}
+              {params.InputProps.endAdornment}
+            </React.Fragment>
+          ),
+        }}
+      />
+    )}
     />
   );
 }
-
-// Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
-const top100Films = [
-  { title: "The Shawshank Redemption", year: 1994 },
-  { title: "The Godfather", year: 1972 },
-  { title: "The Godfather: Part II", year: 1974 },
-  { title: "The Dark Knight", year: 2008 },
-  { title: "12 Angry Men", year: 1957 },
-  { title: "Schindler's List", year: 1993 },
-  { title: "Pulp Fiction", year: 1994 },
-  { title: "The Lord of the Rings: The Return of the King", year: 2003 },
-  { title: "The Good, the Bad and the Ugly", year: 1966 },
-  { title: "Fight Club", year: 1999 },
-  { title: "The Lord of the Rings: The Fellowship of the Ring", year: 2001 },
-  { title: "Star Wars: Episode V - The Empire Strikes Back", year: 1980 },
-  { title: "Forrest Gump", year: 1994 },
-  { title: "Inception", year: 2010 },
-  { title: "The Lord of the Rings: The Two Towers", year: 2002 },
-  { title: "One Flew Over the Cuckoo's Nest", year: 1975 },
-  { title: "Goodfellas", year: 1990 },
-  { title: "The Matrix", year: 1999 },
-  { title: "Seven Samurai", year: 1954 },
-  { title: "Star Wars: Episode IV - A New Hope", year: 1977 },
-  { title: "City of God", year: 2002 },
-  { title: "Se7en", year: 1995 },
-  { title: "The Silence of the Lambs", year: 1991 },
-  { title: "It's a Wonderful Life", year: 1946 },
-  { title: "Life Is Beautiful", year: 1997 },
-  { title: "The Usual Suspects", year: 1995 },
-  { title: "Léon: The Professional", year: 1994 },
-  { title: "Spirited Away", year: 2001 },
-  { title: "Saving Private Ryan", year: 1998 },
-  { title: "Once Upon a Time in the West", year: 1968 },
-  { title: "American History X", year: 1998 },
-  { title: "Interstellar", year: 2014 },
-];

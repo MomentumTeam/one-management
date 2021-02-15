@@ -23,6 +23,7 @@ import styles from "./style.module.css";
 import LinkedBox from "../LinkedBox";
 import UserDetails from "../UserDetails";
 import AddGroup from "../AddGroup";
+import GroupList from "../GroupList";
 import { stubFalse } from "lodash";
 import Unlock from "../Unlock";
 import apis from "../../api/applicationsApi";
@@ -95,9 +96,9 @@ function UserManagement() {
             <div className={styles.addGroup}>
               <AddGroup user={user} />
             </div>
-            {/* <div className={styles.groups}>
-              <Paper className={classes.root}>ergfer</Paper>
-            </div> */}
+            <div className={styles.groups}>
+              <GroupList user={user}/>
+            </div>
         </div>
       </div>
     </Paper>

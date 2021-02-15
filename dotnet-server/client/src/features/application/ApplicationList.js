@@ -29,7 +29,7 @@ function ApplicationList({ applicationList }) {
   console.log("applicationList: ", applicationList);
 
   return (
-    <div style={{ marginTop: 20, padding: 30 }}>
+    <div style={{ marginTop: 20, padding: 30, alignSelf: "flex-start" }}>
       <Grid container spacing={4} justify="center">
         {applicationList.map((application) => (
           <Grid item key={application.id}>

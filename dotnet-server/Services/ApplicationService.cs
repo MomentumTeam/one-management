@@ -51,7 +51,68 @@ namespace os_server.Services
             }
         }
 
-        public static ReturnDto ResetPassword(string user)
+        public static GroupOptionList[] SearchGroups(string groupPrefix)
+        {
+            Task<GroupOptionList[]> t = Task<GroupOptionList[]>.Run(async () =>
+            {
+                try
+                {
+                    var response = await client.GetAsync(Config.GATE_API + "/api/options/group/" + groupPrefix);
+                    string content = await response.Content.ReadAsStringAsync();
+                    if (response.StatusCode != HttpStatusCode.OK)
+                    {
+                        return new GroupOptionList[] { };
+                    }
+
+                    GroupOptionList[] array = JsonConvert.DeserializeObject<GroupOptionList[]>(content);
+                    return array;
+                }
+                catch (Exception)
+                {
+                    return new GroupOptionList[] { };
+                }
+            });
+            try
+            {
+                t.Wait();
+                GroupOptionList[] ret = t.Result;
+                return ret;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+
+        public static ReturnDto AddGroup(GroupChange GroupChange)
+        {
+            Task<ReturnDto> t = Task<ReturnDto>.Run(async () =>
+            {
+                try
+                {
+                    var response = await client.PutAsync(Config.GATE_API + "/api/Gate/group/" + GroupChange, null);
+                    string content = await response.Content.ReadAsStringAsync();
+                    ReturnDto ret = JsonConvert.DeserializeObject<ReturnDto>(content);
+                    return ret;
+                }
+                catch (Exception e)
+                {
+                    return new ReturnDto(false, e.Message);
+                }
+            });
+            try
+            {
+                t.Wait();
+                ReturnDto ret = t.Result;
+                return ret;
+            }
+            catch (Exception e)
+            {
+                return new ReturnDto(false, e.Message);
+            }
+
+        }
+            public static ReturnDto ResetPassword(string user)
         {
             Task<ReturnDto> t = Task<ReturnDto>.Run(async () =>
             {

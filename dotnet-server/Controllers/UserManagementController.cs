@@ -84,5 +84,36 @@ namespace os_server.Controllers
             }
 
         }
+
+        [HttpGet("searchGroup")]
+        public GroupOptionList[] GetGroup([FromQuery] string groupPrefix)
+        {
+            try
+            {
+                GroupOptionList[] gropusList = ApplicationService.SearchGroups(groupPrefix);
+                return gropusList;
+            }
+            catch (Exception)
+            {
+                return new GroupOptionList[] { };
+            }
+
+        }
+
+        [HttpPut("addGroup")]
+        public ReturnDto AddGroup([FromBody] String group)
+        {
+            try
+            {
+                ReturnDto result = ApplicationService.AddGroup(group);
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                return new ReturnDto(false, e.Message);
+            }
+
+        }
     }
 }
