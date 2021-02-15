@@ -36,9 +36,23 @@ function BitLocker() {
         e.preventDefault()
         const type = "computerName";
         const input = values.input;
-        const res = await apis.getBitLockerPassword(type, input);
-        setPassword(res.data.password);
-        // window.alert("good Job!")
+        if(!input || !input.replace(/\s/g, '').length){
+            window.alert("Value cannot be empty!");
+        }
+        else{
+            try{
+                const res = await apis.getBitLockerPassword(type, input);
+                if(res.status == true){
+                    setPassword(res.log);
+                }
+                else{
+                    window.alert(res.log);
+                }
+            }
+            catch(e){
+                window.alert(e.toString())
+            }
+        }
         resetForm()
     }
 

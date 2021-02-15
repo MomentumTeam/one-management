@@ -25,6 +25,7 @@ import UserDetails from "../UserDetails";
 import AddGroup from "../AddGroup";
 import { stubFalse } from "lodash";
 import Unlock from "../Unlock";
+import apis from "../../api/applicationsApi";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -55,6 +56,23 @@ function UserManagement() {
     e.preventDefault();
   };
 
+  const loadUser = async () => {
+    try{
+      const userStatus = await apis.getUserStatus(user.sAMAccountName);
+      setUser(userStatus);
+    }
+    catch(e){
+      if(e.response && e.response.data){
+        window.alert(e.response.data);
+      }
+      else{
+        window.alert(e.toString());
+      }
+      
+    }
+
+  };
+
   return (
     <Paper elevation={24} classes={{ root: classes.paper }}>
       <h1 >ניהול משתמש</h1>
@@ -64,20 +82,20 @@ function UserManagement() {
             <SearchUser setUser={setUser} />
           </div>
 
-          <div className={styles.password}>
-            <ResetPassword user={user} />
-          </div>
-          <div className={styles.userDisplay}>
-            <UserDetails user={user} />
-          </div>
-          <div className={styles.mark}>
-            {/* <LinkedBox isLinked={false} /> */}
-            <Unlock user={user} />
-          </div>
-          <div className={styles.addGroup}>
-            <AddGroup user={user} />
-          </div>
-          {/* <div className={styles.groups}>
+            <div className={styles.password}>
+              <ResetPassword user={user} loadUser={loadUser}/>
+            </div>
+            <div className={styles.userDisplay}>
+              <UserDetails user={user} />
+            </div>
+            <div className={styles.mark}>
+              {/* <LinkedBox isLinked={false} /> */}
+              <Unlock user={user} loadUser={loadUser}/>
+            </div>
+            <div className={styles.addGroup}>
+              <AddGroup user={user} />
+            </div>
+            {/* <div className={styles.groups}>
               <Paper className={classes.root}>ergfer</Paper>
             </div> */}
         </div>

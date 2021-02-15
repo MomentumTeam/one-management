@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,175 +20,272 @@ namespace os_server.Services
 
         public static UserOptionList[] SearchUsers(string userPrefix)
         {
-            Task<string> t = Task<string>.Run(async () =>
+            Task<UserOptionList[]> t = Task<UserOptionList[]>.Run(async () =>
             {
                 try
                 {
                     var response = await client.GetAsync(Config.GATE_API + "/api/options/" + userPrefix);
                     string content = await response.Content.ReadAsStringAsync();
-                    return content;
+                    if(response.StatusCode != HttpStatusCode.OK)
+                    {
+                        return new UserOptionList[] { };
+                    }
+
+                    UserOptionList[] array = JsonConvert.DeserializeObject<UserOptionList[]>(content);
+                    return array;
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
-                    return e.Message;
+                    return new UserOptionList[] { };
                 }
             });
-            t.Wait();
-            string ret = t.Result;
-            UserOptionList[] userOptionListArray = JsonConvert.DeserializeObject<UserOptionList[]>(ret);
-            return userOptionListArray;
+            try
+            {
+                t.Wait();
+                UserOptionList[] ret = t.Result;
+                return ret;
+            }
+            catch(Exception e)
+            {
+                throw;
+            }
         }
 
-        public static string ResetPassword(string user)
+        public static ReturnDto ResetPassword(string user)
         {
-            Task<string> t = Task<string>.Run(async () =>
+            Task<ReturnDto> t = Task<ReturnDto>.Run(async () =>
             {
                 try
                 {
                     var response = await client.PutAsync(Config.GATE_API + "/api/Gate/password/" + user, null);
                     string content = await response.Content.ReadAsStringAsync();
-                    return content;
+                    ReturnDto ret = JsonConvert.DeserializeObject<ReturnDto>(content);
+                    return ret;
                 }
                 catch (Exception e)
                 {
-                    return e.Message;
+                    return new ReturnDto(false, e.Message);
                 }
             });
-            t.Wait();
-            string ret = t.Result;
-            return ret;
+            try
+            {
+                t.Wait();
+                ReturnDto ret = t.Result;
+                return ret;
+            }
+            catch (Exception e)
+            {
+                return new ReturnDto(false, e.Message);
+            }
+
         }
 
 
         public static UserStatus GetUserStatus(string samAccountName)
         {
-            Task<string> t = Task<string>.Run(async () =>
+            Task<UserStatus> t = Task<UserStatus>.Run(async () =>
             {
                 try
                 {
                     var response = await client.GetAsync(Config.GATE_API + "/api/Gate/userStatus/" + samAccountName);
                     string content = await response.Content.ReadAsStringAsync();
-                    return content;
+                    if(response.StatusCode != HttpStatusCode.OK)
+                    {
+                        throw new Exception(content);
+                    }
+                    UserStatus ret = JsonConvert.DeserializeObject<UserStatus>(content);
+                    return ret;
                 }
                 catch (Exception e)
                 {
-                    return e.Message;
+                    throw;
                 }
             });
-            t.Wait();
-            string ret = t.Result;
-            UserStatus userStatus = JsonConvert.DeserializeObject<UserStatus>(ret);
-            return userStatus;
-        }
-
-
-        public static bool Unlock(string userId)
-        {
             try
             {
-                var content = new StringContent(userId, Encoding.UTF8, "application/json");
-                string address = Config.GATE_API + "/api/Gate/unlock";
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, address);
-                request.Content = content;
-                var requestTask = Task.Run(() => client.SendAsync(request));
-                requestTask.Wait();
-                var response = requestTask.Result;
-                //string[] locations = JsonConvert.DeserializeObject<string[]>(contentString);
-                //return locations;
-
-                return true;
-            }
-            catch (Exception e)
-            {
-                return false;
-            }
-        }
-
-
-
-        public static bool ChangeVlan(ChangeVlan changeVlanRequest)
-        {
-            try
-            {
-                var content = new StringContent(JsonConvert.SerializeObject(changeVlanRequest), Encoding.UTF8, "application/json");
-                string address = Config.GATE_API + "/api/Gate/vlan";
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, address);
-                request.Content = content;
-                var requestTask = Task.Run(() => client.SendAsync(request));
-                requestTask.Wait();
-                var response = requestTask.Result;
-                //string[] locations = JsonConvert.DeserializeObject<string[]>(contentString);
-                //return locations;
-
-                return true;
+                t.Wait();
+                UserStatus ret = t.Result;
+                return ret;
             }
             catch(Exception e)
             {
-                return false;
+                throw;
             }
 
+        }
+
+
+        public static ReturnDto Unlock(string userId)
+        {
+            Task<ReturnDto> t = Task<ReturnDto>.Run(async () =>
+            {
+                try
+                {
+                    var response = await client.PutAsync(Config.GATE_API + "/api/Gate/unlock/" + userId, null);
+                    string content = await response.Content.ReadAsStringAsync();
+                    if(response.StatusCode != HttpStatusCode.OK)
+                    {
+                        return new ReturnDto(false, content);
+                    }
+                    ReturnDto returnDto = JsonConvert.DeserializeObject<ReturnDto>(content);
+                    return returnDto;
+                }
+                catch (Exception e)
+                {
+                    return new ReturnDto(false, e.Message);
+                }
+            });
+            t.Wait();
+            ReturnDto ret = t.Result;
+            return ret;
+        }
+
+
+
+
+        public static ReturnDto AddMac(string macAddress)
+        {
+            Task<ReturnDto> t = Task<ReturnDto>.Run(async () =>
+            {
+                try
+                {
+                    var response = await client.PostAsync(Config.GATE_API + "/api/Gate/mac/"+ macAddress, null);
+                    string content = await response.Content.ReadAsStringAsync();
+                    if (response.StatusCode != HttpStatusCode.OK)
+                    {
+                        throw new Exception("Status " + response.StatusCode + ": " + content);
+                    }
+                    ReturnDto returnDto = JsonConvert.DeserializeObject<ReturnDto>(content);
+                    return returnDto;
+                }
+                catch (Exception e)
+                {
+                    throw;
+                }
+            });
+            try
+            {
+                t.Wait();
+                ReturnDto ret = t.Result;
+                return ret;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+
+
+        }
+
+
+
+        public static ReturnDto ChangeVlan(ChangeVlan changeVlanRequest)
+        {
+            Task<ReturnDto> t = Task<ReturnDto>.Run(async () =>
+            {
+                try
+                {
+                    string content = JsonConvert.SerializeObject(changeVlanRequest);
+                    HttpContent httpContent = new StringContent(content, UnicodeEncoding.UTF8, "application/json");
+                    var response = await client.PostAsync(Config.GATE_API + "/api/Gate/vlan", httpContent);
+                    string responseContent = await response.Content.ReadAsStringAsync();
+                    if (response.StatusCode != HttpStatusCode.OK)
+                    {
+                        throw new Exception("Status " + response.StatusCode + ": " + content);
+                    }
+                    ReturnDto returnDto = JsonConvert.DeserializeObject<ReturnDto>(responseContent);
+                    return returnDto;
+                }
+                catch (Exception e)
+                {
+                    throw;
+                }
+            });
+            try
+            {
+                t.Wait();
+                ReturnDto ret = t.Result;
+                return ret;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
 
 
         }
 
         public static string[] GetLocationOptions() {
-            try
-            {
-                string address = Config.GATE_API + "/api/Gate/location";
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, address);
-                var requestTask = Task.Run(() => client.SendAsync(request));
-                requestTask.Wait();
-                var response = requestTask.Result;
-                var readTask = Task.Run(() => response.Content.ReadAsStringAsync());
-                readTask.Wait();
-                string contentString = readTask.Result;
-                string[] locations = JsonConvert.DeserializeObject<string[]>(contentString);
-                return locations;
-
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
-        }
-
-        public static string GetBitLockerPassword(string keyId)
-        {
-            Task<string> t = Task<string>.Run(async () =>
+            Task<string[]> t = Task<string[]>.Run(async () =>
             {
                 try
                 {
-                    var response = await client.GetAsync(Config.GATE_API+ "/api/Gate/Bitlocker/" + keyId);
+                    var response = await client.GetAsync(Config.GATE_API + "/api/Gate/location/");
                     string content = await response.Content.ReadAsStringAsync();
-                    return content;
+                    if (response.StatusCode != HttpStatusCode.OK)
+                    {
+                        throw new Exception("Status "+ response.StatusCode+": "+content);
+                    }
+                    string[] locations = JsonConvert.DeserializeObject<string[]>(content);
+                    return locations;
                 }
                 catch (Exception e)
                 {
-                    return e.Message;
+                    throw;
+                }
+            });
+            try
+            {
+                t.Wait();
+                string[] ret = t.Result;
+                return ret;
+            }
+            catch(Exception e)
+            {
+                throw;
+            }
+
+        }
+
+        public static ReturnDto GetBitLockerPassword(string type, string input)
+        {
+            Task<ReturnDto> t = Task<ReturnDto>.Run(async () =>
+            {
+                try
+                {
+                    var response = await client.GetAsync(Config.GATE_API+ "/api/Gate/Bitlocker/" + input);
+                    string content = await response.Content.ReadAsStringAsync();
+                    ReturnDto returnDto = JsonConvert.DeserializeObject<ReturnDto>(content);
+                    return returnDto;
+                }
+                catch (Exception e)
+                {
+                    return new ReturnDto(false, e.Message);
                 }
             });
             t.Wait();
-           string ret = t.Result;
+            ReturnDto ret = t.Result;
             return ret;
         }
 
-        public static string GetLapsPassword(string computerName)
+        public static ReturnDto GetLapsPassword(string computerName)
         {
-            Task<string> t = Task<string>.Run(async () =>
+            Task<ReturnDto> t = Task<ReturnDto>.Run(async () =>
             {
                 try
                 {
                     var response = await client.GetAsync(Config.GATE_API + "/api/Gate/laps/" + computerName);
                     string content = await response.Content.ReadAsStringAsync();
-                    return content;
+                    ReturnDto returnDto = JsonConvert.DeserializeObject<ReturnDto>(content);
+                    return returnDto;
                 }
                 catch (Exception e)
                 {
-                    return e.Message;
+                    return new ReturnDto(false, e.Message);
                 }
             });
             t.Wait();
-            string ret = t.Result;
+            ReturnDto ret = t.Result;
             return ret;
         }
     }

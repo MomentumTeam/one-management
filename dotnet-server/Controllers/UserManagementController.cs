@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using os_server.Models;
 using os_server.Services;
 using System;
@@ -22,32 +23,66 @@ namespace os_server.Controllers
         //    }
 
         [HttpGet("userStatus")]
-        public UserStatus GetUserStatus([FromQuery] string samAccountName)
+        public IActionResult GetUserStatus([FromQuery] string samAccountName)
         {
-            UserStatus userStatus = ApplicationService.GetUserStatus(samAccountName);
-            return userStatus;
+            try
+            {
+                UserStatus userStatus = ApplicationService.GetUserStatus(samAccountName);
+
+                return Ok(userStatus);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500,e.Message);
+            }
+
         }
 
         [HttpGet("resetPassword")]
-        public string ResetPassword([FromQuery] string userId)
+        public ReturnDto ResetPassword([FromQuery] string userId)
         {
-            string newPassword = ApplicationService.ResetPassword(userId);
-            return newPassword;
+            try
+            {
+                ReturnDto ret = ApplicationService.ResetPassword(userId);
+                return ret;
+            }
+            catch(Exception e)
+            {
+                return new ReturnDto(false, e.Message);
+            }
+
         }
 
         [HttpPut("unlock")]
-        public bool Unlock([FromBody] string userId)
+        public ReturnDto Unlock([FromBody] UnlockRequest request)
         {
-            bool result = ApplicationService.Unlock(userId);
-            return result;
+            try
+            {
+                ReturnDto result = ApplicationService.Unlock(request.UserId);
+
+                return result;
+            }
+            catch(Exception e)
+            {
+                return new ReturnDto(false, e.Message);
+            }
+
         }
 
 
         [HttpGet("search")]
         public UserOptionList[] GetSearch([FromQuery] string userPrefix)
         {
-            UserOptionList[] usersList = ApplicationService.SearchUsers(userPrefix);
-            return usersList;
+            try
+            {
+                UserOptionList[] usersList = ApplicationService.SearchUsers(userPrefix);
+                return usersList;
+            }
+            catch (Exception)
+            {
+                return new UserOptionList[] { };
+            }
+
         }
     }
 }

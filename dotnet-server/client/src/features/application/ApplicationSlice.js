@@ -20,9 +20,15 @@ export const selectFavorites = (state) =>
   });
 
 export const selectHistory = (state) => [
-  ...state.application.applications.filter((item) => {
-    return state.user.history.includes(item.id);
-  }),
+  // ...state.application.applications.filter((item) => {
+  //   return state.user.history.includes(item.id);
+  // }),
+  ...state.user.history.map((id) => {
+    
+    const elem = state.application.applications.find((element) => element.id === id);
+    return elem;
+  
+  })
 ];
 
 export const selectByCategorie = (id) => (state) => {

@@ -18,7 +18,7 @@ import LockIcon from '@material-ui/icons/Lock';
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: "rgba(255, 255,255, 0)",
-    height: "100%",
+    height: "115%",
   },
 }));
 
@@ -27,19 +27,20 @@ export default function UserDetails({ user }) {
   return (
     <Paper variant="outlined" className={classes.root}>
       <List className={classes.root}>
+
         <ListItem>
           <ListItemAvatar>
             <Avatar>
-              <FaceIcon />
+              <LockIcon />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary="DisplayName" secondary={user && user.displayName ? user.displayName : ""} />
+          <ListItemText primary="DisplayName" secondary={user && user.dispalyName ? user.dispalyName : ""} />
         </ListItem>
         <Divider variant="inset" component="li" />
         <ListItem>
           <ListItemAvatar>
             <Avatar>
-              <EmailIcon />
+              <FaceIcon />
             </Avatar>
           </ListItemAvatar>
           <ListItemText primary="Email" secondary={user && user.mail ? user.mail : ""} />
@@ -57,7 +58,7 @@ export default function UserDetails({ user }) {
         <ListItem>
           <ListItemAvatar>
             <Avatar>
-              <LockOpenIcon />
+              <AccountCircleIcon />
             </Avatar>
           </ListItemAvatar>
           <ListItemText primary="Password Status" secondary={user && user.passwordStatus ? user.passwordStatus : ""} />
@@ -66,11 +67,12 @@ export default function UserDetails({ user }) {
         <ListItem>
           <ListItemAvatar>
             <Avatar>
-              <AccountCircleIcon />
+              <EmailIcon />
             </Avatar>
           </ListItemAvatar>
           <ListItemText primary="SAM Account Name" secondary={user && user.sAMAccountName ? user.sAMAccountName : ""} />
         </ListItem>
+
         <Divider variant="inset" component="li" />
         <ListItem>
           <ListItemAvatar>

@@ -31,10 +31,25 @@ function LAPS() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const computerName = values.computerName;
-        const res = await apis.getLapsPassword(computerName);
-        setPassword(res.data.password);
-        resetForm();
+        const input = values.computerName;
+        if(!input || !input.replace(/\s/g, '').length){
+            window.alert("Value cannot be empty!");
+        }
+        else{
+            try{
+                const res = await apis.getLapsPassword(input);
+                if(res.status == true){
+                    setPassword(res.log);
+                }
+                else{
+                    window.alert(res.log);
+                }
+            }
+            catch(e){
+                window.alert(e.toString())
+            }
+        }
+        resetForm()
     }
 
     const onReset = () => {

@@ -10,7 +10,7 @@ const getBitLockerPassword = (type, input) => {
                 },
             })
             .then((res) => {
-                resolve(res);
+                resolve(res.data);
             })
             .catch((err) => reject(err));
     });
@@ -25,7 +25,7 @@ const getLapsPassword = (computerName) => {
                 },
             })
             .then((res) => {
-                resolve(res);
+                resolve(res.data);
             })
             .catch((err) => reject(err));
     });
@@ -42,16 +42,27 @@ const getLocationOptions = () => {
     });
 };
 
+const unlock = (userId) => {
+    return new Promise((resolve, reject) => {
+        axios
+            .put(`/api/userManagement/unlock`,{userId: userId})
+            .then((res) => {
+                resolve(res.data);
+            })
+            .catch((err) => reject(err));
+    });
+}
+
 const updateVlan = (macAddress, location, vlan) => {
     return new Promise((resolve, reject) => {
         axios
             .post(`/api/Vlan`, {
-                mac: macAddress,
+                macAddress: macAddress,
                 location: location,
                 vlan: vlan,
             })
             .then((res) => {
-                resolve(res);
+                resolve(res.data);
             })
             .catch((err) => reject(err));
     });
@@ -71,6 +82,21 @@ const searchUsers = (userPrefix) => {
             .catch((err) => reject(err));
     });
 };
+
+const addMac = (macAddress) => {
+    return new Promise((resolve, reject) => {
+        axios
+            .post(`/api/allowList`,
+                {
+                    macAddress: macAddress
+                }
+            )
+            .then((res) => {
+                resolve(res.data);
+            })
+            .catch((err) => reject(err));
+    });
+}
 
 const getUserStatus = (samAccountName) => {
     return new Promise((resolve, reject) => {
@@ -111,6 +137,9 @@ const apis = {
     searchUsers,
     getUserStatus,
     resetPassword,
-};
+    unlock,
+    addMac
+
+}
 
 export default apis;

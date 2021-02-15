@@ -11,6 +11,14 @@ namespace os_server.Models
         public string[] Favorites { get; set; }
         public string[] History { get; set; }
 
+        public UserResponse()
+        {
+            this.UserObj = new User();
+            this.UserObj.UserId = "Unknown";
+            this.Favorites = new string[] { };
+            this.History = new string[] { };
+        }
+
         public void InitFields(MongoUser mongoUser, User user)
         {
             this.UserObj = user;

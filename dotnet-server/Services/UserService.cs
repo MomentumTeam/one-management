@@ -9,26 +9,62 @@ namespace os_server.Services
     public class UserService
     {
         private readonly IMongoCollection<MongoUser> _users;
+        public static bool MongoIsUp = true;
 
         public UserService(IUsersDatabaseSettings settings)
         {
-            var client = new MongoClient(settings.ConnectionString);
-            var database = client.GetDatabase(settings.DatabaseName);
+            try
+            {
+                var client = new MongoClient(settings.ConnectionString);
+                client.ListDatabaseNames();
+                var database = client.GetDatabase(settings.DatabaseName);
 
-            _users = database.GetCollection<MongoUser>(settings.UsersCollectionName);
+                _users = database.GetCollection<MongoUser>(settings.UsersCollectionName);
+            }
+            catch(Exception)
+            {
+                MongoIsUp = false;
+            }
+
         }
 
-        public MongoUser Get(string id) =>
-            _users.Find<MongoUser>(user => user.Id.Equals(id)).FirstOrDefault();
+        public MongoUser Get(string id){
+            try{
+                MongoUser ret = _users.Find<MongoUser>(user => user.Id.Equals(id)).FirstOrDefault();
+                return ret;
+            }
+            catch(Exception ex){
+                throw;
+            }
+        }
+
 
         public MongoUser Create(MongoUser userToCreate)
         {
-            _users.ReplaceOne((user) => user.Id == userToCreate.Id, userToCreate, new ReplaceOptions { IsUpsert = true});
-            return userToCreate;
+            try
+            {
+                _users.ReplaceOne((user) => user.Id == userToCreate.Id, userToCreate, new ReplaceOptions { IsUpsert = true });
+                return userToCreate;
+            }
+            catch(Exception e)
+            {
+                throw;
+            }
+
         }
 
-        public void Update(string id, MongoUser userIn) =>
-            _users.ReplaceOne(user => user.Id == id, userIn);
+        public void Update(string id, MongoUser userIn)
+        {
+            try
+            {
+                _users.ReplaceOne(user => user.Id == id, userIn);
+            }
+            catch(Exception e)
+            {
+                throw;
+            }
+        }
+            
 
     }
 }

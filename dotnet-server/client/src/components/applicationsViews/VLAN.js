@@ -29,8 +29,19 @@ function Vlan() {
     const [locationOptions, setLocationOptions] = useState([]);
 
     useEffect(async () => {
-        const options = await apis.getLocationOptions();
-        setLocationOptions(options);
+        try{
+            const options = await apis.getLocationOptions();
+            setLocationOptions(options);
+        }
+        catch(e){
+            if(e.response && e.response.data){
+                window.alert(e.response.data);
+              }
+              else{
+                window.alert(e.toString());
+              }
+        }
+
     }, []);
 
     const {
@@ -41,9 +52,21 @@ function Vlan() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const res = await apis.updateVlan(values.macAddress, values.location, values.vlan);
-        window.alert(res.data.message)
-        resetForm()
+        try{
+            const res = await apis.updateVlan(values.macAddress, values.location, values.vlan);
+            window.alert(res.log);
+        }
+        catch(e){
+            if(e.response && e.response.data){
+                window.alert(e.response.data);
+              }
+              else{
+                window.alert(e.toString());
+              }
+        }
+        
+
+        resetForm();
     }
 
 

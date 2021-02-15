@@ -16,24 +16,34 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Unlock({ user }) {
+export default function Unlock({ user , loadUser}) {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [password, setPassword] = useState(false);
   const classes = useStyles();
 
   const unlockUser = async () => {
-    // TODO http req
-    return new Promise((res, rej) => {
-      return setTimeout(() => res("1234567"), 2000);
-    });
+    try{
+      const response = await apis.unlock(user.sAMAccountName);
+      window.alert(response.log);
+      if(response.status == true){
+        loadUser();
+      }
+    }
+    catch(e){
+      if(e.response && e.response.data){
+        window.alert(e.response.data);
+      }
+      else{
+        window.alert(e.toString());
+      }
+    }
   };
 
   const handelClick = async (e) => {
     e.preventDefault();
     setLoading(true);
-    //let newPassword = await apis.rese();
-    // setPassword(newPassword);
+    await unlockUser();
     setLoading(false);
     setOpen(true);
   };
@@ -53,12 +63,12 @@ export default function Unlock({ user }) {
         Unlock
         {loading ? <CircularProgress color="inherit" size={20} /> : null}
       </Button>
-      <Dialog open={open} onClose={handleClose}>
+      {/* <Dialog open={open} onClose={handleClose}>
         <Alert severity="success">
           <AlertTitle>Success</AlertTitle>
           Success
         </Alert>
-      </Dialog>
+      </Dialog> */}
     </div>
   );
 }
