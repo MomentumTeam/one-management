@@ -96,18 +96,33 @@ const getUserStatus = (samAccountName) => {
     });
 }
 
+const addMac = (macAddress) => {
+    return new Promise((resolve, reject) => {
+        axios
+            .post(`/api/allowList`,
+                {
+                    macAddress: macAddress
+                }
+            )
+            .then((res) => {
+                resolve(res.data);
+            })
+            .catch((err) => reject(err));
+    });
+}
+
 const updateVlan = (macAddress, location, vlan) => {
     return new Promise((resolve, reject) => {
         axios
             .post(`/api/Vlan`,
                 {
-                    mac: macAddress,
+                    macAddress: macAddress,
                     location: location,
                     vlan: vlan,
                 }
             )
             .then((res) => {
-                resolve(res);
+                resolve(res.data);
             })
             .catch((err) => reject(err));
     });
@@ -134,7 +149,8 @@ const apis = {
     searchUsers,
     getUserStatus,
     resetPassword,
-    unlock
+    unlock,
+    addMac
 
 }
 

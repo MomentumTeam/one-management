@@ -17,11 +17,19 @@ namespace os_server.Controllers
     {
         // PUT api/<VlanController>/5
         [HttpPost]
-        public ActionResult<string> Post([FromBody] ChangeVlan request)
+        public IActionResult Post([FromBody] ChangeVlan request)
         {
-            bool ret = ApplicationService.ChangeVlan(request);
+            try
+            {
+                ReturnDto ret = ApplicationService.ChangeVlan(request);
 
-            return Ok();
+                return Ok(ret);
+            }
+            catch(Exception e)
+            {
+                return StatusCode(500, new ReturnDto(false, e.Message));
+            }
+
          }
 
         [HttpGet("locationOptions")]

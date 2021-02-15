@@ -25,20 +25,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const initialFValues = {
-    macAddress: '',
-    location: '',
-    vlan: '',
+    macAddress: ''
 }
 
 function AllowList() {
     const classes = useStyles();
-    const [locationOptions, setLocationOptions] = useState([]);
-
-    useEffect(async () => {
-        const options = await apis.getLocationOptions();
-        setLocationOptions(options);
-    }, []);
-
     const {
         values,
         handleInputChange,
@@ -47,24 +38,21 @@ function AllowList() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        let location, vlan;
+        try{
+            const res = await apis.addMac(values.macAddress);
+            window.alert(res.log);
+        }
+        catch(e){
+            if(e.response && e.response.data){
+                window.alert(e.response.data);
+              }
+              else{
+                window.alert(e.toString());
+              }
+        }
         
-        CONFIG.locationOptions.find(option => {
-            if (option.id == values.location) {
-                location = option.title;
-            }
-        });
-        CONFIG.vlanOptions.find(option => {
-            if (option.id == values.vlan) {
-                vlan = option.title;
-            }
-        });
 
-        // const res = await apis.updateVlan(values.macAddress, location, vlan);
-        // window.alert(res.data.message)
-        window.alert("res.data.message")
-
-        resetForm()
+        resetForm();
     }
 
 
@@ -84,20 +72,6 @@ function AllowList() {
                                 label="כתובת Mac"
                                 value={values.macAddress}
                                 onChange={handleInputChange}
-                            />
-                            <Controls.Select
-                                name="location"
-                                label="מיקום"
-                                value={values.location}
-                                onChange={handleInputChange}
-                                options={CONFIG.locationOptions}
-                            />
-                            <Controls.Select
-                                name="vlan"
-                                label="Vlan"
-                                value={values.vlan}
-                                onChange={handleInputChange}
-                                options={CONFIG.vlanOptions}
                             />
                             <div>
                                 <Controls.Button

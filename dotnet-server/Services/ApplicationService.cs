@@ -142,9 +142,75 @@ namespace os_server.Services
 
 
 
-        public static bool ChangeVlan(ChangeVlan changeVlanRequest)
+
+        public static ReturnDto AddMac(string macAddress)
         {
-            return true; //TODO
+            Task<ReturnDto> t = Task<ReturnDto>.Run(async () =>
+            {
+                try
+                {
+                    var response = await client.PostAsync(Config.GATE_API + "/api/Gate/mac/"+ macAddress, null);
+                    string content = await response.Content.ReadAsStringAsync();
+                    if (response.StatusCode != HttpStatusCode.OK)
+                    {
+                        throw new Exception("Status " + response.StatusCode + ": " + content);
+                    }
+                    ReturnDto returnDto = JsonConvert.DeserializeObject<ReturnDto>(content);
+                    return returnDto;
+                }
+                catch (Exception e)
+                {
+                    throw;
+                }
+            });
+            try
+            {
+                t.Wait();
+                ReturnDto ret = t.Result;
+                return ret;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+
+
+        }
+
+
+
+        public static ReturnDto ChangeVlan(ChangeVlan changeVlanRequest)
+        {
+            Task<ReturnDto> t = Task<ReturnDto>.Run(async () =>
+            {
+                try
+                {
+                    string content = JsonConvert.SerializeObject(changeVlanRequest);
+                    HttpContent httpContent = new StringContent(content, UnicodeEncoding.UTF8, "application/json");
+                    var response = await client.PostAsync(Config.GATE_API + "/api/Gate/vlan", httpContent);
+                    string responseContent = await response.Content.ReadAsStringAsync();
+                    if (response.StatusCode != HttpStatusCode.OK)
+                    {
+                        throw new Exception("Status " + response.StatusCode + ": " + content);
+                    }
+                    ReturnDto returnDto = JsonConvert.DeserializeObject<ReturnDto>(responseContent);
+                    return returnDto;
+                }
+                catch (Exception e)
+                {
+                    throw;
+                }
+            });
+            try
+            {
+                t.Wait();
+                ReturnDto ret = t.Result;
+                return ret;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
 
 
         }

@@ -18,6 +18,7 @@ namespace os_server.Models
         public string mail { get; set; }
         public string ex1 { get; set; }
         public string ex2 { get; set; }
+        public string[] groups { get; set; }
 
         public UserStatus()
         {
