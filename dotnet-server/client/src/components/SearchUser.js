@@ -69,7 +69,7 @@ export default function SearchUser({ setUser }) {
       setUser(userStatus);
     }
     catch (e) {
-      setAlert({ severity: "error", message: e.toString()});
+      setAlert({ severity: "error", message: e.toString() });
     }
 
   };
@@ -88,14 +88,14 @@ export default function SearchUser({ setUser }) {
 
   return (
     <div>
-      <Snackbar open={alert.severity!=""} autoHideDuration={5000} onClose={handleCloseAlert}>
+      <Snackbar open={alert.severity != ""} autoHideDuration={5000} onClose={handleCloseAlert}>
         <Controls.Alert onClose={handleCloseAlert} severity={alert.severity}>
           {alert.message}
         </Controls.Alert>
       </Snackbar>
       <form onSubmit={submit} noValidate>
         <Grid container spacing={1}>
-          <Grid item xs={12} sm={7}>
+          <Grid item xs={12} sm={10}>
             <Autocomplete
               open={open}
               // onOpen={() => {
@@ -134,10 +134,11 @@ export default function SearchUser({ setUser }) {
               )}
             />
           </Grid>
-          <Grid item xs={12} sm={1}>
+          <Grid item xs={12} sm={2}>
             <IconButton
               type="submit"
-              variant="filled"
+              // variant="filled"
+              variant="outlined"
               className={classes.iconButton}
               aria-label="search"
             >
@@ -146,6 +147,6 @@ export default function SearchUser({ setUser }) {
           </Grid>
         </Grid>
       </form>
-    </div>
+    </div >
   );
 }

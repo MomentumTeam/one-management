@@ -83,6 +83,47 @@ const searchUsers = (userPrefix) => {
     });
 };
 
+const searchGroup = (groupPrefix) => {
+    return new Promise((resolve, reject) => {
+        axios
+            .get(`/api/userManagement/searchGroup`, {
+                params: {
+                    groupPrefix,
+                },
+            })
+            .then((res) => {
+                resolve(res.data);
+            })
+            .catch((err) => reject(err));
+    });
+};
+
+const addGroup = (group) => {
+    return new Promise((resolve, reject) => {
+        axios
+            .patch(`/api/userManagement/addGroup`, {
+                ...group
+            })
+            .then((res) => {
+                resolve(res.data);
+            })
+            .catch((err) => reject(err));
+    });
+};
+
+const removeGroup = (group) => {
+    return new Promise((resolve, reject) => {
+        axios
+            .delete(`/api/userManagement/removeGroup`, {
+                data:{...group}
+            })
+            .then((res) => {
+                resolve(res.data);
+            })
+            .catch((err) => reject(err));
+    });
+};
+
 const addMac = (macAddress) => {
     return new Promise((resolve, reject) => {
         axios
@@ -153,6 +194,9 @@ const apis = {
     resetPassword,
     unlock,
     addMac,
+    searchGroup,
+    addGroup,
+    removeGroup,
     changeDisplayName
 
 }

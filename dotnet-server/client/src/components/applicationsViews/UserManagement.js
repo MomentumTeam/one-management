@@ -23,6 +23,7 @@ import styles from "./style.module.css";
 import LinkedBox from "../LinkedBox";
 import UserDetails from "../UserDetails";
 import AddGroup from "../AddGroup";
+import GroupList from "../GroupList";
 import { stubFalse } from "lodash";
 import Unlock from "../Unlock";
 import apis from "../../api/applicationsApi";
@@ -81,22 +82,22 @@ function UserManagement() {
             <SearchUser setUser={setUser} />
           </div>
 
-          <div className={styles.password}>
-            <ResetPassword user={user} loadUser={loadUser} />
-          </div>
-          <div className={styles.userDisplay}>
-            <UserDetails user={user} />
-          </div>
-          <div className={styles.mark}>
-            {/* <LinkedBox isLinked={false} /> */}
-            <Unlock user={user} loadUser={loadUser} />
-          </div>
-          <div className={styles.addGroup}>
-            <AddGroup user={user} />
-          </div>
-          {/* <div className={styles.groups}>
-              <Paper className={classes.root}>ergfer</Paper>
-            </div> */}
+            <div className={styles.password}>
+              <ResetPassword user={user} loadUser={loadUser}/>
+            </div>
+            <div className={styles.userDisplay}>
+              <UserDetails user={user} />
+            </div>
+            <div className={styles.mark}>
+              {/* <LinkedBox isLinked={false} /> */}
+              <Unlock user={user} loadUser={loadUser}/>
+            </div>
+            <div className={styles.addGroup}>
+              <AddGroup user={user} setUser={setUser}/>
+            </div>
+            <div className={styles.groups}>
+              <GroupList user={user} setUser={setUser}/>
+            </div>
         </div>
       </div>
     </Paper>

@@ -102,5 +102,52 @@ namespace os_server.Controllers
             }
 
         }
+
+        [HttpGet("searchGroup")]
+        public GroupOptionList[] GetGroup([FromQuery] string groupPrefix)
+        {
+            try
+            {
+                GroupOptionList[] gropusList = ApplicationService.SearchGroups(groupPrefix);
+                return gropusList;
+            }
+            catch (Exception)
+            {
+                return new GroupOptionList[] { };
+            }
+
+        }
+
+        [HttpPatch("addGroup")]
+        public ReturnDto AddGroup([FromBody] GroupChange groupChange)
+        {
+            try
+            {
+                ReturnDto result = ApplicationService.AddGroup(groupChange);
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                return new ReturnDto(false, e.Message);
+            }
+
+        }
+
+        [HttpDelete("removeGroup")]
+        public ReturnDto RemoveGroup([FromBody] GroupChange groupChange)
+        {
+            try
+            {
+                ReturnDto result = ApplicationService.RemoveGroup(groupChange);
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                return new ReturnDto(false, e.Message);
+            }
+
+        }
     }
 }

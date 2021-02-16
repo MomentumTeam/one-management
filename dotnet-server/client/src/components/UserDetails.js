@@ -22,7 +22,18 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
     overflowY: "scroll",
     overflowX: "hidden",
-
+    '&::-webkit-scrollbar': {
+      width: '5px',  
+      height: '5px',            
+    },
+    '&::-webkit-scrollbar-track': {
+      background: '#D3D3D3'        
+    },
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: 'teal',
+      borderRadius: '20px',
+      // border: '1px solid white',
+    },
   },
 }));
 
@@ -31,7 +42,6 @@ export default function UserDetails({ user }) {
   return (
     <Paper variant="outlined" className={classes.root} >
       <List >
-
         <ListItem >
           <ListItemAvatar>
             <Avatar>
