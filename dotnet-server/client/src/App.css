@@ -39,24 +39,32 @@
 }
 
 .applicationPaperContainer {
-  font-size: large; 
-  width: 50vw; height: 60vh;
+  font-size: large;
+  width: 50vw;
+  height: 60vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-
-@media only screen and (max-width: 1000px)  {
+@media only screen and (max-width: 1000px) {
   .applicationPaperContainer {
-    width: 500px; height: 500px;
+    width: 500px;
+    height: 500px;
     margin: 20px;
   }
 }
 
-@media only screen and (max-height: 650px)  {
+@media only screen and (max-height: 650px) {
   .applicationPaperContainer {
-    width: 500px; height: 500px;
+    width: 500px;
+    height: 500px;
     margin: 20px;
   }
 }
+
+/* .cardsContainer {
+  margin-top: 20;
+  padding: 30;
+  align-self: flex-start;
+} */

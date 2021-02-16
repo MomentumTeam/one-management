@@ -1,12 +1,8 @@
 {
   "version": 2,
-<<<<<<< HEAD
-  "dgSpecHash": "E7W8o4yWpweKzNQonr3pzQnF8P4swzT0+B5wjPhLH9cPFR4DNiqR/2yv1c6HhaNCy4eWrkTq6htSaLxA74IFtw==",
-=======
   "dgSpecHash": "oLqZhV4yC+dxmIgW4xwWCi/l3wURqZuVX9OPkXtjB9P+R7HYRgI958g4kLTA3Awqg2NcF7fhlhMJiR2fScAptA==",
->>>>>>> a4f9fab56df48ab423722bdcd191b90f13523dd9
   "success": true,
-  "projectFilePath": "C:\\Users\\barak\\Desktop\\project\\one-management\\dotnet-server\\os-server.csproj",
+  "projectFilePath": "C:\\Users\\barak\\Desktop\\one-management\\dotnet-server\\os-server.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\barak\\.nuget\\packages\\dnsclient\\1.3.1\\dnsclient.1.3.1.nupkg.sha512",
     "C:\\Users\\barak\\.nuget\\packages\\microsoft.aspnetcore.connections.abstractions\\3.1.5\\microsoft.aspnetcore.connections.abstractions.3.1.5.nupkg.sha512",
@@ -119,5 +115,12 @@
     "C:\\Users\\barak\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\barak\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Users\\barak\\Desktop\\one-management\\dotnet-server\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }

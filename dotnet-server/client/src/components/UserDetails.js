@@ -127,6 +127,16 @@ export default function UserDetails({ user }) {
           <ListItemText primary="Ex2" secondary={user && user.ex2 ? user.ex2 : ""} />
         </ListItem>
 
+        <Divider variant="inset" component="li" />
+        <ListItem>
+          <ListItemAvatar>
+            <Avatar>
+              <LockIcon />
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText primary="Locked" secondary={user && user.locked ? user.locked : ""} />
+        </ListItem>
+
 
 
 

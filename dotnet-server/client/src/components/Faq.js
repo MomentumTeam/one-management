@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: "10%",
         color: "pink",
         fontSize: "200%",
+        alignSelf: "flex-start"
     },
     question: {
         fontSize: "70%",

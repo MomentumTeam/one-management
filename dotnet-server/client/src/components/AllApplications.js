@@ -6,7 +6,7 @@ import ApplicationList from "../features/application/ApplicationList";
 function AllApplications({ match }) {
   const applications = useSelector(selectAll);
   return (
-    <div style={{ alignSelf: "flex-start" }}>
+    <div style={{ marginTop: 20, padding: 30, alignSelf: "flex-start" }}>
       <ApplicationList applicationList={applications} />
     </div>
   );
