@@ -14,7 +14,7 @@ const initialValues = {
 
 function Vlan() {
     const [locationOptions, setLocationOptions] = useState([]);
-    const [alert, setAlert] = useState([false, "", ""]);  //Alert- [true/false, "severity" ,"message"]
+    const [alert, setAlert] = useState({ severity: '', message: '' });  //Alert- [true/false, "severity" ,"message"]
 
     const {
         values,
@@ -38,7 +38,7 @@ function Vlan() {
     }, []);
 
     const handleCloseAlert = (event, reason) => {
-        setAlert([false, "", ""]);
+        setAlert({ severity: '', message: '' });
     };
 
     const handleSubmit = async (e) => {
@@ -46,18 +46,18 @@ function Vlan() {
         try {
             const res = await apis.updateVlan(values.macAddress, values.location, values.vlan);
             if (res.status) {
-                setAlert([true, "success", res.log]);
+                setAlert({ severity: 'success', message: res.log });
             }
             else {
-                setAlert([true, "error", res.log]);
+                setAlert({ severity: 'error', message: res.log });
             }
         }
         catch (e) {
             if (e.response && e.response.data) {
-                setAlert([true, "error", e.response.data]);
+                setAlert({ severity: "error", message: e.response.data });
             }
             else {
-                setAlert([true, "error", e.toString()]);
+                setAlert({ severity: "error", message: e.toString() });
             }
         }
         resetForm();
@@ -65,9 +65,9 @@ function Vlan() {
 
     return (
         <div className={styles.rootDiv}>
-            <Snackbar open={alert[0]} autoHideDuration={10000} onClose={handleCloseAlert}>
-                <Controls.Alert onClose={handleCloseAlert} severity={alert[1]}>
-                    {alert[2]}
+            <Snackbar open={alert.severity != ""} autoHideDuration={5000} onClose={handleCloseAlert}>
+                <Controls.Alert onClose={handleCloseAlert} severity={alert.severity}>
+                    {alert.message}
                 </Controls.Alert>
             </Snackbar>
             <Paper elevation={20} classes={{ root: styles.paper }}>
@@ -95,7 +95,7 @@ function Vlan() {
                                 onChange={handleInputChange}
                                 options={locationOptions}
                             />
-                      
+
                             <Controls.Select
                                 name="vlan"
                                 label="Vlan"

@@ -15,7 +15,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function AlertDialogSlide(props) {
 
-    const { open, title, content, buttonName, handleClose, input,handleClick,onChange} = props;
+    const { open, title, content, buttonName, handleClose, input, handleClick, onChange } = props;
 
     return (
         <Dialog
@@ -28,18 +28,21 @@ export default function AlertDialogSlide(props) {
         >
             <DialogTitle id="alert-dialog-slide-title">{title}</DialogTitle>
             <DialogContent>
-                <DialogContentText id="alert-dialog-slide-description">
-                    {content}
-                </DialogContentText>
-                {input[0] ? <TextField
+                {content ?
+                    <DialogContentText id="alert-dialog-slide-description">
+                        {content}
+                    </DialogContentText> : null
+                }
+                {input ? <TextField
                     autoFocus
                     required
                     margin="dense"
+                    value={input.value}
                     // id="displayName"
-                    label={input[1]}
+                    label={input.placeHolder}
                     onChange={onChange}
                     fullWidth
-                /> :null}
+                /> : null}
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleClick} color="primary">

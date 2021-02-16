@@ -20,9 +20,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ChangeDisplayName({ user, loadUser }) {
     const [loading, setLoading] = useState(false);
-    const [open, setOpen] = useState(false);
     const [newDisplayName, setNewDisplayName] = useState('');
-    const classes = useStyles();
     const [alert, setAlert] = useState([false, '', '']);  //Alert- [true/false, "severity" ,"message"]
     const [dialog, setDialog] = useState([false, '']);  //dialog- [true/false, "content"]
 
@@ -31,19 +29,17 @@ export default function ChangeDisplayName({ user, loadUser }) {
     };
 
     const onChange = (e) => {
-        setNewDisplayName(e.target);
+        setNewDisplayName(e.target.value);
     };
 
-    const handleSubmit = () => {
-        console.log("handleSubmit")
+    const handleSubmit = async () => {
         try {
-            // const response = await apis.setNewDisplayName(newDisaplyName);
-            // if (response.status) {
-            // setAlert([true, "success", res.log]);
-            // loadUser();
-            // }
+            const response = await apis.changeDisplayName(user.name, user.dispalyName);
 
-            setAlert([true, "success", "good"]);
+            if (response.status) {
+                setAlert([true, "success", response.log]);
+                loadUser();
+            }
         }
         catch (e) {
             if (e.response && e.response.data) {
@@ -53,10 +49,12 @@ export default function ChangeDisplayName({ user, loadUser }) {
                 setAlert([true, "error", e.toString()]);
             }
         }
+        setNewDisplayName('');
         setDialog([false, '']);
     };
 
     const handleClose = () => {
+        setNewDisplayName('');
         setDialog([false, '']);
     };
 
@@ -69,9 +67,9 @@ export default function ChangeDisplayName({ user, loadUser }) {
 
     return (
         <div>
-            <Snackbar open={alert[0]} autoHideDuration={10000} onClose={handleCloseAlert}>
-                <Controls.Alert onClose={handleCloseAlert} severity={alert[1]}>
-                    {alert[2]}
+            <Snackbar open={alert.severity != ""} autoHideDuration={5000} onClose={handleCloseAlert}>
+                <Controls.Alert onClose={handleCloseAlert} severity={alert.severity}>
+                    {alert.message}
                 </Controls.Alert>
             </Snackbar>
             <Button
@@ -84,17 +82,14 @@ export default function ChangeDisplayName({ user, loadUser }) {
                 Unlock
         {loading ? <CircularProgress color="inherit" size={20} /> : null}
             </Button>
-
             <Controls.AlertDialogSlide
                 open={dialog[0]}
                 title={dialog[1]}
-                content=""
-                buttonName="סגור"
+                buttonName="שנה"
                 handleClose={handleClose}
-                input={[true, "New Display Name"]}
+                input={{ placeHolder: "New Display Name", value: newDisplayName }}
                 handleClick={handleSubmit}
                 onChange={onChange}
-
             />
         </div>
     );

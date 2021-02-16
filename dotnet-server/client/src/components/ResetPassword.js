@@ -23,10 +23,10 @@ export default function ResetPassword({ user, loadUser }) {
   const [dialog, setDialog] = useState([false, '']);  //dialog- [true/false, "content"]
   const [password, setPassword] = useState(false);
   const classes = useStyles();
-  const [alert, setAlert] = useState([false, '', '']);  //Alert- [true/false, "severity" ,"message"]
+  const [alert, setAlert] = useState({ severity: '', message: '' });  //Alert- [true/false, "severity" ,"message"]
 
   const handleCloseAlert = (event, reason) => {
-    setAlert([false, '', '']);
+    setAlert({ severity: '', message: '' });
   };
 
   const handleClose = () => {
@@ -48,18 +48,18 @@ export default function ResetPassword({ user, loadUser }) {
     }
     catch (e) {
       console.log("blablabla");
-      setAlert([true, "error", e.toString()]);
+      setAlert({ severity: "error", message: e.toString() });
     }
 
     setLoading(false);
   };
 
- 
+
   return (
     <div>
-      <Snackbar open={alert[0]} autoHideDuration={10000} onClose={handleCloseAlert}>
-        <Controls.Alert onClose={handleCloseAlert} severity={alert[1]}>
-          {alert[2]}
+      <Snackbar open={alert.severity!=""} autoHideDuration={5000} onClose={handleCloseAlert}>
+        <Controls.Alert onClose={handleCloseAlert} severity={alert.severity}>
+          {alert.message}
         </Controls.Alert>
       </Snackbar>
       <Button
@@ -67,9 +67,8 @@ export default function ResetPassword({ user, loadUser }) {
         onClick={handelClick}
         color="primary"
         fullWidth
-        disabled={!user}
-      >
-        אפס סיסמא
+        disabled={!user}>       
+         אפס סיסמא
         {loading ? <CircularProgress color="inherit" size={20} /> : null}
       </Button>
       <Controls.AlertDialogSlide
@@ -78,7 +77,6 @@ export default function ResetPassword({ user, loadUser }) {
         content={dialog[1]}
         buttonName="סגור"
         handleClose={handleClose}
-        input={false}
         handleClick={handleClose}
       />
     </div>

@@ -58,20 +58,18 @@ function UserManagement() {
   };
 
   const loadUser = async () => {
-    try{
+    try {
       const userStatus = await apis.getUserStatus(user.sAMAccountName);
       setUser(userStatus);
     }
-    catch(e){
-      if(e.response && e.response.data){
+    catch (e) {
+      if (e.response && e.response.data) {
         window.alert(e.response.data);
       }
-      else{
+      else {
         window.alert(e.toString());
       }
-      
     }
-
   };
 
   return (
@@ -83,20 +81,20 @@ function UserManagement() {
             <SearchUser setUser={setUser} />
           </div>
 
-            <div className={styles.password}>
-              <ResetPassword user={user} loadUser={loadUser}/>
-            </div>
-            <div className={styles.userDisplay}>
-              <UserDetails user={user} />
-            </div>
-            <div className={styles.mark}>
-              {/* <LinkedBox isLinked={false} /> */}
-              <Unlock user={user} loadUser={loadUser}/>
-            </div>
-            <div className={styles.addGroup}>
-              <AddGroup user={user} />
-            </div>
-            {/* <div className={styles.groups}>
+          <div className={styles.password}>
+            <ResetPassword user={user} loadUser={loadUser} />
+          </div>
+          <div className={styles.userDisplay}>
+            <UserDetails user={user} />
+          </div>
+          <div className={styles.mark}>
+            {/* <LinkedBox isLinked={false} /> */}
+            <Unlock user={user} loadUser={loadUser} />
+          </div>
+          <div className={styles.addGroup}>
+            <AddGroup user={user} />
+          </div>
+          {/* <div className={styles.groups}>
               <Paper className={classes.root}>ergfer</Paper>
             </div> */}
         </div>

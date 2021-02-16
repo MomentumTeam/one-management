@@ -37,12 +37,12 @@ export default function SearchUser({ setUser }) {
   const [value, setValue] = useState(options[0]);
   const [domain, setDomain] = useState("");
   const loading = open && options.length === 0;
-  const [alert, setAlert] = useState([false, '', '']);  //Alert- [true/false, "severity" ,"message"]
+  const [alert, setAlert] = useState({ severity: '', message: '' });  //Alert- [true/false, "severity" ,"message"]
 
   const classes = useStyles();
 
   const handleCloseAlert = (event, reason) => {
-    setAlert([false, '', '']);
+    setAlert({ severity: '', message: '' });
   };
 
 
@@ -69,7 +69,7 @@ export default function SearchUser({ setUser }) {
       setUser(userStatus);
     }
     catch (e) {
-      setAlert([true, "error", e.toString()]);
+      setAlert({ severity: "error", message: e.toString()});
     }
 
   };
@@ -88,9 +88,9 @@ export default function SearchUser({ setUser }) {
 
   return (
     <div>
-      <Snackbar open={alert[0]} autoHideDuration={10000} onClose={handleCloseAlert}>
-        <Controls.Alert onClose={handleCloseAlert} severity={alert[1]}>
-          {alert[2]}
+      <Snackbar open={alert.severity!=""} autoHideDuration={5000} onClose={handleCloseAlert}>
+        <Controls.Alert onClose={handleCloseAlert} severity={alert.severity}>
+          {alert.message}
         </Controls.Alert>
       </Snackbar>
       <form onSubmit={submit} noValidate>

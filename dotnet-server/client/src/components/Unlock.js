@@ -23,10 +23,10 @@ export default function Unlock({ user, loadUser }) {
   const [open, setOpen] = useState(false);
   const [password, setPassword] = useState(false);
   const classes = useStyles();
-  const [alert, setAlert] = useState([false, '', '']);  //Alert- [true/false, "severity" ,"message"]
+  const [alert, setAlert] = useState({ severity: '', message: '' });  //Alert- [true/false, "severity" ,"message"]
 
   const handleCloseAlert = (event, reason) => {
-    setAlert([false, '', '']);
+    setAlert({ severity: '', message: '' });
   };
 
 
@@ -40,10 +40,10 @@ export default function Unlock({ user, loadUser }) {
     }
     catch (e) {
       if (e.response && e.response.data) {
-        setAlert([true, "error", e.response.data]);
+        setAlert({ severity: "error", message: e.response.data });
       }
       else {
-        setAlert([true, "error", e.toString()]);
+        setAlert({ severity: "error", message: e.toString()});
       }
     }
   };
@@ -51,16 +51,16 @@ export default function Unlock({ user, loadUser }) {
   const handelClick = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const res=await unlockUser();
-    setAlert([true, "success", res.log]);
+    const res = await unlockUser();
+    setAlert({ severity: 'success', message: res.log });
     setLoading(false);
   };
 
   return (
     <div>
-      <Snackbar open={alert[0]} autoHideDuration={10000} onClose={handleCloseAlert}>
-        <Controls.Alert onClose={handleCloseAlert} severity={alert[1]}>
-          {alert[2]}
+      <Snackbar open={alert.severity!=""} autoHideDuration={5000} onClose={handleCloseAlert}>
+        <Controls.Alert onClose={handleCloseAlert} severity={alert.severity}>
+        {alert.message}
         </Controls.Alert>
       </Snackbar>
       <Button

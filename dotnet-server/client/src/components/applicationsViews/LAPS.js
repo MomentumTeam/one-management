@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid,Snackbar,Paper, } from '@material-ui/core';
+import { Grid, Snackbar, Paper, } from '@material-ui/core';
 import Controls from '../Controls';
 import { useForm, Form } from '../UseForm';
 import apis from '../../api/applicationsApi';
@@ -11,7 +11,7 @@ const initialValues = {
 
 function LAPS() {
     const [password, setPassword] = useState('');
-    const [alert, setAlert] = useState([false, '', '']);  //Alert- [true/false, "severity" ,"message"]
+    const [alert, setAlert] = useState({ severity: '', message: '' });  //Alert- [true/false, "severity" ,"message"]
 
     const {
         values,
@@ -20,7 +20,7 @@ function LAPS() {
     } = useForm(initialValues);
 
     const handleCloseAlert = (event, reason) => {
-        setAlert([false, '', '']);
+        setAlert({ severity: '', message: '' });
     };
 
     const handleSubmit = async (e) => {
@@ -34,14 +34,14 @@ function LAPS() {
                 const res = await apis.getLapsPassword(input);
                 if (res.status) {
                     setPassword(res.log);
-                    setAlert([true, "success", res.log]);
+                    setAlert({ severity: 'success', message: res.log });
                 }
                 else {
-                    setAlert([true, "error", res.log]);
+                    setAlert({ severity: 'error', message: res.log });
                 }
             }
             catch (e) {
-                setAlert([true, "error", e.toString()]);
+                setAlert({ severity: "error", message: e.toString() });
             }
         }
         resetForm()
@@ -54,9 +54,9 @@ function LAPS() {
 
     return (
         <div className={styles.rootDiv}>
-            <Snackbar open={alert[0]} autoHideDuration={10000} onClose={handleCloseAlert}>
-                <Controls.Alert onClose={handleCloseAlert} severity={alert[1]}>
-                    {alert[2]}
+            <Snackbar open={alert.severity != ""} autoHideDuration={5000} onClose={handleCloseAlert}>
+                <Controls.Alert onClose={handleCloseAlert} severity={alert.severity}>
+                    {alert.message}
                 </Controls.Alert>
             </Snackbar>
             <Paper elevation={24} classes={{ root: styles.paper }} >

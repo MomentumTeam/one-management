@@ -69,6 +69,24 @@ namespace os_server.Controllers
 
         }
 
+        [HttpPut("displayname")]
+        public ReturnDto changeDisplayName([FromBody] DisplayName request)
+        {
+            try
+            {
+                ReturnDto result = ApplicationService.changeDisplayName(request);
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                return new ReturnDto(false, e.Message);
+            }
+
+        }
+
+
+
 
         [HttpGet("search")]
         public UserOptionList[] GetSearch([FromQuery] string userPrefix)
