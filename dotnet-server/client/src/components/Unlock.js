@@ -4,6 +4,8 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Dialog from "@material-ui/core/Dialog";
 import { Alert, AlertTitle } from "@material-ui/lab";
 import apis from "../api/applicationsApi";
+import { Snackbar } from '@material-ui/core';
+import Controls from "./Controls";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -16,26 +18,32 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Unlock({ user , loadUser}) {
+export default function Unlock({ user, loadUser }) {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [password, setPassword] = useState(false);
   const classes = useStyles();
+  const [alert, setAlert] = useState({ severity: '', message: '' });  //Alert- [true/false, "severity" ,"message"]
+
+  const handleCloseAlert = (event, reason) => {
+    setAlert({ severity: '', message: '' });
+  };
+
 
   const unlockUser = async () => {
-    try{
+    try {
       const response = await apis.unlock(user.sAMAccountName);
-      window.alert(response.log);
-      if(response.status == true){
+      if (response.status) {
         loadUser();
       }
+      return response;
     }
-    catch(e){
-      if(e.response && e.response.data){
-        window.alert(e.response.data);
+    catch (e) {
+      if (e.response && e.response.data) {
+        setAlert({ severity: "error", message: e.response.data });
       }
-      else{
-        window.alert(e.toString());
+      else {
+        setAlert({ severity: "error", message: e.toString()});
       }
     }
   };
@@ -43,16 +51,18 @@ export default function Unlock({ user , loadUser}) {
   const handelClick = async (e) => {
     e.preventDefault();
     setLoading(true);
-    await unlockUser();
+    const res = await unlockUser();
+    setAlert({ severity: 'success', message: res.log });
     setLoading(false);
-    setOpen(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
   return (
     <div>
+      <Snackbar open={alert.severity!=""} autoHideDuration={5000} onClose={handleCloseAlert}>
+        <Controls.Alert onClose={handleCloseAlert} severity={alert.severity}>
+        {alert.message}
+        </Controls.Alert>
+      </Snackbar>
       <Button
         variant="outlined"
         onClick={handelClick}
@@ -63,12 +73,7 @@ export default function Unlock({ user , loadUser}) {
         Unlock
         {loading ? <CircularProgress color="inherit" size={20} /> : null}
       </Button>
-      {/* <Dialog open={open} onClose={handleClose}>
-        <Alert severity="success">
-          <AlertTitle>Success</AlertTitle>
-          Success
-        </Alert>
-      </Dialog> */}
+
     </div>
   );
 }

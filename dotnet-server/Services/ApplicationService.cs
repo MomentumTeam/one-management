@@ -14,8 +14,9 @@ namespace os_server.Services
     {
         public static HttpClient client;
 
-        static ApplicationService(){
-            client = new HttpClient();        
+        static ApplicationService()
+        {
+            client = new HttpClient();
         }
 
         public static UserOptionList[] SearchUsers(string userPrefix)
@@ -26,7 +27,7 @@ namespace os_server.Services
                 {
                     var response = await client.GetAsync(Config.GATE_API + "/api/options/" + userPrefix);
                     string content = await response.Content.ReadAsStringAsync();
-                    if(response.StatusCode != HttpStatusCode.OK)
+                    if (response.StatusCode != HttpStatusCode.OK)
                     {
                         return new UserOptionList[] { };
                     }
@@ -45,7 +46,7 @@ namespace os_server.Services
                 UserOptionList[] ret = t.Result;
                 return ret;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw;
             }
@@ -89,7 +90,7 @@ namespace os_server.Services
                 {
                     var response = await client.GetAsync(Config.GATE_API + "/api/Gate/userStatus/" + samAccountName);
                     string content = await response.Content.ReadAsStringAsync();
-                    if(response.StatusCode != HttpStatusCode.OK)
+                    if (response.StatusCode != HttpStatusCode.OK)
                     {
                         throw new Exception(content);
                     }
@@ -107,7 +108,7 @@ namespace os_server.Services
                 UserStatus ret = t.Result;
                 return ret;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw;
             }
@@ -123,7 +124,7 @@ namespace os_server.Services
                 {
                     var response = await client.PutAsync(Config.GATE_API + "/api/Gate/unlock/" + userId, null);
                     string content = await response.Content.ReadAsStringAsync();
-                    if(response.StatusCode != HttpStatusCode.OK)
+                    if (response.StatusCode != HttpStatusCode.OK)
                     {
                         return new ReturnDto(false, content);
                     }
@@ -140,6 +141,32 @@ namespace os_server.Services
             return ret;
         }
 
+        public static ReturnDto changeDisplayName(DisplayName displayNameRequest)
+        {
+            Task<ReturnDto> t = Task<ReturnDto>.Run(async () =>
+            {
+                try
+                {
+                    string content = JsonConvert.SerializeObject(displayNameRequest);
+                    HttpContent httpContent = new StringContent(content, UnicodeEncoding.UTF8, "application/json");
+                    var response = await client.PutAsync(Config.GATE_API + "/api/Gate/displayName/", httpContent);
+                    string responseContent = await response.Content.ReadAsStringAsync();
+                    if (response.StatusCode != HttpStatusCode.OK)
+                    {
+                        return new ReturnDto(false, content);
+                    }
+                    ReturnDto returnDto = JsonConvert.DeserializeObject<ReturnDto>(responseContent);
+                    return returnDto;
+                }
+                catch (Exception e)
+                {
+                    return new ReturnDto(false, e.Message);
+                }
+            });
+            t.Wait();
+            ReturnDto ret = t.Result;
+            return ret;
+        }
 
 
 
@@ -149,7 +176,7 @@ namespace os_server.Services
             {
                 try
                 {
-                    var response = await client.PostAsync(Config.GATE_API + "/api/Gate/mac/"+ macAddress, null);
+                    var response = await client.PostAsync(Config.GATE_API + "/api/Gate/mac/" + macAddress, null);
                     string content = await response.Content.ReadAsStringAsync();
                     if (response.StatusCode != HttpStatusCode.OK)
                     {
@@ -215,7 +242,8 @@ namespace os_server.Services
 
         }
 
-        public static string[] GetLocationOptions() {
+        public static string[] GetLocationOptions()
+        {
             Task<string[]> t = Task<string[]>.Run(async () =>
             {
                 try
@@ -224,7 +252,7 @@ namespace os_server.Services
                     string content = await response.Content.ReadAsStringAsync();
                     if (response.StatusCode != HttpStatusCode.OK)
                     {
-                        throw new Exception("Status "+ response.StatusCode+": "+content);
+                        throw new Exception("Status " + response.StatusCode + ": " + content);
                     }
                     string[] locations = JsonConvert.DeserializeObject<string[]>(content);
                     return locations;
@@ -240,7 +268,7 @@ namespace os_server.Services
                 string[] ret = t.Result;
                 return ret;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw;
             }
@@ -253,7 +281,7 @@ namespace os_server.Services
             {
                 try
                 {
-                    var response = await client.GetAsync(Config.GATE_API+ "/api/Gate/Bitlocker/" + input);
+                    var response = await client.GetAsync(Config.GATE_API + "/api/Gate/Bitlocker/" + input);
                     string content = await response.Content.ReadAsStringAsync();
                     ReturnDto returnDto = JsonConvert.DeserializeObject<ReturnDto>(content);
                     return returnDto;
@@ -290,4 +318,4 @@ namespace os_server.Services
         }
     }
 
-    }
+}
