@@ -16,7 +16,7 @@
 
 .Header {
   grid-area: Header;
-  background-color: black;
+  background-color: #001121;
 }
 
 .Content {
@@ -33,7 +33,7 @@
 
 .SideNavBar {
   grid-area: SideNavBar;
-  background-color: black;
+  background-color: #001121;
   color: aliceblue;
   width: 300px;
 }

@@ -1,6 +1,10 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "E7W8o4yWpweKzNQonr3pzQnF8P4swzT0+B5wjPhLH9cPFR4DNiqR/2yv1c6HhaNCy4eWrkTq6htSaLxA74IFtw==",
+=======
+  "dgSpecHash": "oLqZhV4yC+dxmIgW4xwWCi/l3wURqZuVX9OPkXtjB9P+R7HYRgI958g4kLTA3Awqg2NcF7fhlhMJiR2fScAptA==",
+>>>>>>> a4f9fab56df48ab423722bdcd191b90f13523dd9
   "success": true,
   "projectFilePath": "C:\\Users\\barak\\Desktop\\project\\one-management\\dotnet-server\\os-server.csproj",
   "expectedPackageFiles": [

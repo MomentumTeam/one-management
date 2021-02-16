@@ -1,12 +1,11 @@
 import React from 'react';
-import { useHistory,useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { makeStyles ,ThemeProvider,createMuiTheme, } from '@material-ui/core/styles';
+import { makeStyles, ThemeProvider, createMuiTheme, } from '@material-ui/core/styles';
 import { selectAll } from "../features/application/ApplicationSlice";
 import { useSelector } from "react-redux";
 import { teal } from '@material-ui/core/colors';
-
 
 const useStyles = makeStyles(theme => ({
     outlinedInput: {
@@ -14,7 +13,6 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: "white",
         margin: theme.spacing(2),
     },
-    
 }));
 
 const theme = createMuiTheme({
@@ -43,9 +41,13 @@ export default function Search() {
         if (e.keyCode === 13) {
             const app = applications.find(app => app.displayName == value);
             const path = `/${app.type}/${app.name}`;
-            if (path != location.pathname) {
+            if (app.name === "Nova" || app.name === "Sword") {
+                window.open(app.url, '_blank');
+            }
+            else if (path != location.pathname) {
                 history.push(path);
             }
+            
         }
     };
 

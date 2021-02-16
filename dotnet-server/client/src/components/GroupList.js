@@ -28,12 +28,12 @@ const useStyles = makeStyles((theme) => ({
       height: '5px',            
     },
     '&::-webkit-scrollbar-track': {
-      background: 'rgba(255, 255, 255, 0)'        
+      background: '#D3D3D3'   
     },
     '&::-webkit-scrollbar-thumb': {
       backgroundColor: 'teal',
       borderRadius: '20px',
-      border: '1px solid white',
+      // border: '1px solid white',
     },
     backgroundColor: "rgba(255, 255,255, 0)",
   },

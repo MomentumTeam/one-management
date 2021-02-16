@@ -8,7 +8,7 @@ function Categories({ match }) {
   const applications = useSelector(selectByCategorie(categorieId));
 
   return (
-    <div>
+    <div style={{ marginTop: 20, padding: 30, alignSelf: "flex-start" }}>
       <ApplicationList applicationList={applications} />
     </div>
   );

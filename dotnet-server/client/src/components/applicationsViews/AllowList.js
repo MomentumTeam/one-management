@@ -1,64 +1,61 @@
 import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
+import { Grid, Snackbar, Paper, } from '@material-ui/core';
 import Controls from '../Controls';
-import { Grid, } from '@material-ui/core';
 import { useForm, Form } from '../UseForm';
-import styles from "./style.module.css";
-
-import CONFIG from '../../config.json';
 import apis from '../../api/applicationsApi';
-
-const useStyles = makeStyles((theme) => ({
-    paper: {
-        width: "100%",
-        height: "100%",
-        background: 'linear-gradient( #e6e6e6 90%, teal 10%)'
-    },
-}));
+import styles from "./style.module.css";
 
 const initialValues = {
     macAddress: ''
 }
 
 function AllowList() {
-    const classes = useStyles();
+    const [alert, setAlert] = useState({ severity: '', message: '' });  //Alert- [true/false, "severity" ,"message"]
+
     const {
         values,
         handleInputChange,
         resetForm
     } = useForm(initialValues);
 
+    const handleCloseAlert = (event, reason) => {
+        setAlert({ severity: '', message: '' });
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try{
+        try {
             const res = await apis.addMac(values.macAddress);
-            window.alert(res.log);
+            setAlert({ severity: 'success', message: res.log });
         }
-        catch(e){
-            if(e.response && e.response.data){
-                window.alert(e.response.data);
-              }
-              else{
-                window.alert(e.toString());
-              }
+        catch (e) {
+            if (e.response && e.response.data) {
+                setAlert({ severity: "error", message: e.response.data });
+            }
+            else {
+                setAlert({ severity: "error", message: e.toString() });
+            }
         }
-        
-
         resetForm();
     }
 
 
     return (
-            <Paper elevation={20} classes={{ root: classes.paper }}>
+        <div className={styles.rootDiv}>
+            <Snackbar open={alert.severity != ""} autoHideDuration={5000} onClose={handleCloseAlert}>
+                <Controls.Alert onClose={handleCloseAlert} severity={alert.severity}>
+                    {alert.message}
+                </Controls.Alert>
+            </Snackbar>
+            <Paper elevation={20} classes={{ root: styles.paper }}>
                 <h1>Allow List</h1>
-                <Form onSubmit={handleSubmit} style={{ backgroundColor: "", }}>
-                    <Grid container style={{ backgroundColor: "", }}
+                <Form onSubmit={handleSubmit}>
+                    <Grid container
                         spacing={0}
                         direction="column"
                         alignItems="center"
                         justify="center">
-                        <Grid item xs={6} style={{ backgroundColor: "" }} >
+                        <Grid item xs={6}  >
                             <Controls.Input
                                 name="macAddress"
                                 label="כתובת Mac"
@@ -76,9 +73,10 @@ function AllowList() {
                             </div>
                         </Grid>
                     </Grid>
-            </Form>
-        </Paper>
+                </Form>
+            </Paper>
+        </div>
     )
 }
 
-export default AllowList
+export default AllowList;

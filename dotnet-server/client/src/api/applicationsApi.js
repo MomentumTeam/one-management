@@ -45,7 +45,7 @@ const getLocationOptions = () => {
 const unlock = (userId) => {
     return new Promise((resolve, reject) => {
         axios
-            .put(`/api/userManagement/unlock`,{userId: userId})
+            .put(`/api/userManagement/unlock`, { userId: userId })
             .then((res) => {
                 resolve(res.data);
             })
@@ -169,6 +169,20 @@ const resetPassword = (userId) => {
     });
 };
 
+const changeDisplayName = (userName, displayname) => {
+    return new Promise((resolve, reject) => {
+        axios
+            .put(`/api/userManagement/displayname`, {
+                userName: userName,
+                Displayname: displayname,
+            })
+            .then((res) => {
+                resolve(res.data);
+            })
+            .catch((err) => reject(err));
+    });
+};
+
 
 const apis = {
     getBitLockerPassword,
@@ -182,7 +196,8 @@ const apis = {
     addMac,
     searchGroup,
     addGroup,
-    removeGroup
+    removeGroup,
+    changeDisplayName
 
 }
 

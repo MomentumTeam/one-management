@@ -27,6 +27,7 @@ import GroupList from "../GroupList";
 import { stubFalse } from "lodash";
 import Unlock from "../Unlock";
 import apis from "../../api/applicationsApi";
+import ChangeDisplayName from "../ChangeDisplayName";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -58,20 +59,18 @@ function UserManagement() {
   };
 
   const loadUser = async () => {
-    try{
+    try {
       const userStatus = await apis.getUserStatus(user.sAMAccountName);
       setUser(userStatus);
     }
-    catch(e){
-      if(e.response && e.response.data){
+    catch (e) {
+      if (e.response && e.response.data) {
         window.alert(e.response.data);
       }
-      else{
+      else {
         window.alert(e.toString());
       }
-      
     }
-
   };
 
   return (

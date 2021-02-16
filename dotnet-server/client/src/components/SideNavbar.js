@@ -17,7 +17,7 @@ import HelpIcon from "@material-ui/icons/Help";
 import HomeIcon from "@material-ui/icons/Home";
 import { withStyles } from "@material-ui/core/styles";
 import { NavLink, Route } from "react-router-dom";
-import oneAmanLogo2 from "../img/oneAmanLogo2.png";
+import liora from "../img/liora.png";
 
 const routes = [
   {
@@ -66,6 +66,7 @@ const routes = [
     icon: <HelpIcon />,
   },
 ];
+
 const useStyles = makeStyles((theme) => ({
   root: {
     // width: "100%",
@@ -128,7 +129,7 @@ export default function SideNavbar() {
   return (
     <div>
 
-      <img src={oneAmanLogo2} style={{ width: "50%", marginTop: "10%" }} />
+      <img src={liora} style={{ width: "70%", marginTop: "10%" }} />
 
       <List
         component="nav"
