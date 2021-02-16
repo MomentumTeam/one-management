@@ -84,15 +84,17 @@ namespace os_server.Services
             }
         }
 
-        public static ReturnDto AddGroup(GroupChange GroupChange)
+        public static ReturnDto AddGroup(GroupChange groupChange)
         {
             Task<ReturnDto> t = Task<ReturnDto>.Run(async () =>
             {
                 try
                 {
-                    var response = await client.PutAsync(Config.GATE_API + "/api/Gate/group/" + GroupChange, null);
-                    string content = await response.Content.ReadAsStringAsync();
-                    ReturnDto ret = JsonConvert.DeserializeObject<ReturnDto>(content);
+                    string content = JsonConvert.SerializeObject(groupChange);
+                    HttpContent httpContent = new StringContent(content, UnicodeEncoding.UTF8, "application/json");
+                    var response = await client.PatchAsync(Config.GATE_API + "/api/Gate/group" , httpContent);
+                    string res = await response.Content.ReadAsStringAsync();
+                    ReturnDto ret = JsonConvert.DeserializeObject<ReturnDto>(res);
                     return ret;
                 }
                 catch (Exception e)
@@ -112,7 +114,41 @@ namespace os_server.Services
             }
 
         }
-            public static ReturnDto ResetPassword(string user)
+
+        public static ReturnDto RemoveGroup(GroupChange groupChange)
+        {
+            Task<ReturnDto> t = Task<ReturnDto>.Run(async () =>
+            {
+                try
+                {
+                    var request = new HttpRequestMessage(HttpMethod.Delete, Config.GATE_API + "/api/Gate/group");
+                    request.Content = new StringContent(JsonConvert.SerializeObject(groupChange), Encoding.UTF8, "application/json");
+                    var response = await client.SendAsync(request);
+
+                    //var response = await client.DeleteAsync(Config.GATE_API + "/api/Gate/group", httpContent);
+                    string res = await response.Content.ReadAsStringAsync();
+                    ReturnDto ret = JsonConvert.DeserializeObject<ReturnDto>(res);
+                    return ret;
+                }
+                catch (Exception e)
+                {
+                    return new ReturnDto(false, e.Message);
+                }
+            });
+            try
+            {
+                t.Wait();
+                ReturnDto ret = t.Result;
+                return ret;
+            }
+            catch (Exception e)
+            {
+                return new ReturnDto(false, e.Message);
+            }
+
+        }
+
+        public static ReturnDto ResetPassword(string user)
         {
             Task<ReturnDto> t = Task<ReturnDto>.Run(async () =>
             {

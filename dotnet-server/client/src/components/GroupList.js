@@ -16,6 +16,7 @@ import Typography from '@material-ui/core/Typography';
 import FolderIcon from '@material-ui/icons/Folder';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Paper from '@material-ui/core/Paper';
+import apis from "../api/applicationsApi";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,16 +30,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function generate(element) {
-  return [0, 1, 2].map((value) =>
-    React.cloneElement(element, {
-      key: value,
-    }),
-  );
-}
 
-export default function GroupList({user}) {
+export default function GroupList({user, setUser}) {
   const classes = useStyles();
+
+  const deleteGroup = async (group) => {
+    try{
+      let groupToDelete = {userName: user.sAMAccountName, group}
+      const resp = await apis.removeGroup(groupToDelete);
+      console.log(resp)
+      setUser({...user, groups: user.groups.filter( item => item !== group)})
+    }
+    catch(e){
+      window.alert(e.toString());
+    }    
+  };
 
   return (
     <Paper variant="outlined"  className={classes.root}>
@@ -46,14 +52,14 @@ export default function GroupList({user}) {
         <Grid item xs={12} md={12}>
           <div className={classes.demo}>
             <List dense={true}>
-              {user.groups.map((item) => {
+              {user.groups.map((item, index) => {
                   return (
-                    <ListItem>
+                    <ListItem key={index}>
                       <ListItemText
                         primary={item}
                       />
                       <ListItemSecondaryAction>
-                        <IconButton edge="end" aria-label="delete">
+                        <IconButton edge="end" aria-label="delete" onClick={() => deleteGroup(item)}>
                           <DeleteIcon />
                         </IconButton>
                       </ListItemSecondaryAction>

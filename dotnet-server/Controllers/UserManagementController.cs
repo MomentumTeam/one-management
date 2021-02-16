@@ -100,12 +100,28 @@ namespace os_server.Controllers
 
         }
 
-        [HttpPut("addGroup")]
-        public ReturnDto AddGroup([FromBody] String group)
+        [HttpPatch("addGroup")]
+        public ReturnDto AddGroup([FromBody] GroupChange groupChange)
         {
             try
             {
-                ReturnDto result = ApplicationService.AddGroup(group);
+                ReturnDto result = ApplicationService.AddGroup(groupChange);
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                return new ReturnDto(false, e.Message);
+            }
+
+        }
+
+        [HttpDelete("removeGroup")]
+        public ReturnDto RemoveGroup([FromBody] GroupChange groupChange)
+        {
+            try
+            {
+                ReturnDto result = ApplicationService.RemoveGroup(groupChange);
 
                 return result;
             }

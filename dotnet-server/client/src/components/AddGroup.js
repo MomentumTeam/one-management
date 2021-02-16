@@ -6,11 +6,12 @@ import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import apis from "../api/applicationsApi";
+import { isNull } from "lodash";
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
-export default function AddGroup({ user }) {
+export default function AddGroup({ user, setUser }) {
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState([]);
   const [inputValue, setInputValue] = useState("");
@@ -30,7 +31,11 @@ export default function AddGroup({ user }) {
 
   const saveGroup = async (group) => {
     try{
-      const groups = await apis.saveGroup(group);
+      let groupToAdd = {userName: user.sAMAccountName, group: group.samAcountName}
+      const resp = await apis.addGroup(groupToAdd);
+      setInputValue(null)
+      setValue(null)
+      setUser({...user, groups: [...user.groups, group.samAcountName]})
     }
     catch(e){
       window.alert(e.toString());

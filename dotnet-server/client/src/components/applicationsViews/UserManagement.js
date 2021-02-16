@@ -94,10 +94,10 @@ function UserManagement() {
               <Unlock user={user} loadUser={loadUser}/>
             </div>
             <div className={styles.addGroup}>
-              <AddGroup user={user} />
+              <AddGroup user={user} setUser={setUser}/>
             </div>
             <div className={styles.groups}>
-              <GroupList user={user}/>
+              <GroupList user={user} setUser={setUser}/>
             </div>
         </div>
       </div>

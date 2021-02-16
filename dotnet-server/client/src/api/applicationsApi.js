@@ -98,11 +98,24 @@ const searchGroup = (groupPrefix) => {
     });
 };
 
-const saveGroup = (group) => {
+const addGroup = (group) => {
     return new Promise((resolve, reject) => {
         axios
-            .post(`/api/userManagement/group`, {
-                group : group
+            .patch(`/api/userManagement/addGroup`, {
+                ...group
+            })
+            .then((res) => {
+                resolve(res.data);
+            })
+            .catch((err) => reject(err));
+    });
+};
+
+const removeGroup = (group) => {
+    return new Promise((resolve, reject) => {
+        axios
+            .delete(`/api/userManagement/removeGroup`, {
+                data:{...group}
             })
             .then((res) => {
                 resolve(res.data);
@@ -168,7 +181,8 @@ const apis = {
     unlock,
     addMac,
     searchGroup,
-    saveGroup
+    addGroup,
+    removeGroup
 
 }
 
