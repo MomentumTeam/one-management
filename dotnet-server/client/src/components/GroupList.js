@@ -22,7 +22,19 @@ const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: "rgba(255, 255,255, 0)",
   },
-  demo: {
+  demo: {   
+    '&::-webkit-scrollbar': {
+      width: '5px',  
+      height: '5px',            
+    },
+    '&::-webkit-scrollbar-track': {
+      background: 'rgba(255, 255, 255, 0)'        
+    },
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: 'teal',
+      borderRadius: '20px',
+      border: '1px solid white',
+    },
     backgroundColor: "rgba(255, 255,255, 0)",
   },
   title: {
@@ -38,7 +50,6 @@ export default function GroupList({user, setUser}) {
     try{
       let groupToDelete = {userName: user.sAMAccountName, group}
       const resp = await apis.removeGroup(groupToDelete);
-      console.log(resp)
       setUser({...user, groups: user.groups.filter( item => item !== group)})
     }
     catch(e){
@@ -50,7 +61,8 @@ export default function GroupList({user, setUser}) {
     <Paper variant="outlined"  className={classes.root}>
         {user ? 
         <Grid item xs={12} md={12}>
-          <div className={classes.demo}>
+          <div className={classes.demo} style={{maxHeight: 200, overflow: 'auto'}}>
+            {user.groups.length > 0 ? 
             <List dense={true}>
               {user.groups.map((item, index) => {
                   return (
@@ -66,7 +78,7 @@ export default function GroupList({user, setUser}) {
                     </ListItem>
                   )
                   })}
-            </List>
+            </List> : "אין קבוצות מקושרות"}
           </div>
         </Grid>
 : null}

@@ -6,7 +6,6 @@ import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import apis from "../api/applicationsApi";
-import { isNull } from "lodash";
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -72,10 +71,11 @@ export default function AddGroup({ user, setUser }) {
     onInputChange={handleInputChange}
     value={value ?? ""}
     onChange={handleChange}
+    disabled={!user}
     renderInput={(params) => (
       <TextField
         {...params}
-        label="Asynchronous"
+        label="הוסף קבוצה"
         variant="outlined"
         InputProps={{
           ...params.InputProps,
