@@ -40,16 +40,12 @@ export const userSlice = createSlice({
 
   reducers: {
     AddToHistory: (state, action) => {
-      console.log("state.history before=", state.history);
       state.history = state.history.filter((item) => item !== action.payload);
       state.history = [action.payload, ...state.history];
       state.history = state.history.slice(0, Math.min(3, state.history.length));
-      console.log("state.history after=", state.history);
     },
     AddToFavorites: (state, action) => {
-      console.log("state.favorites before:", state.favorites);
       state.favorites = [action.payload, ...state.favorites];
-      console.log("state.favorites after:", state.favorites);
     },
     RemoveFromFavorites: (state, action) => {
       state.favorites = state.favorites.filter((favorite) => favorite !== action.payload);
@@ -58,8 +54,6 @@ export const userSlice = createSlice({
 
   extraReducers: {
     [getUser.fulfilled]: (state, action) => {
-      console.log("getUser Fulfilled!");
-      console.log(action.payload);
       state.userObj = action.payload.userObj;
       state.favorites = action.payload.favorites;
       state.history = action.payload.history;
@@ -69,8 +63,6 @@ export const userSlice = createSlice({
       state.loading = true;
     },
     [getUser.rejected]: (state, action) => {
-      console.log("getUser rejected!");
-      console.log(action.error);
     }
   }
 });
