@@ -53,7 +53,7 @@ function App() {
                 </div>
                 <div class="Content"
                   style={{
-                    backgroundImage: `url(${background})`
+                    backgroundImage: `url(${background}`
                   }}
                 >
                   <Switch>

@@ -68,7 +68,7 @@ export default function Unlock({ user, loadUser }) {
         onClick={handelClick}
         color="primary"
         fullWidth
-        disabled={!user}
+        disabled={(!user) || (user.locked === "true")}
       >
         Unlock
         {loading ? <CircularProgress color="inherit" size={20} /> : null}

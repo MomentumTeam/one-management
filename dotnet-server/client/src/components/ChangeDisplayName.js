@@ -21,11 +21,11 @@ const useStyles = makeStyles((theme) => ({
 export default function ChangeDisplayName({ user, loadUser }) {
     const [loading, setLoading] = useState(false);
     const [newDisplayName, setNewDisplayName] = useState('');
-    const [alert, setAlert] = useState([false, '', '']);  //Alert- [true/false, "severity" ,"message"]
+    const [alert, setAlert] = useState({ severity: '', message: '' });  //Alert- [true/false, "severity" ,"message"]
     const [dialog, setDialog] = useState([false, '']);  //dialog- [true/false, "content"]
 
     const handleCloseAlert = (event, reason) => {
-        setAlert([false, '', '']);
+        setAlert({ severity: '', message: '' });
     };
 
     const onChange = (e) => {
@@ -37,16 +37,16 @@ export default function ChangeDisplayName({ user, loadUser }) {
             const response = await apis.changeDisplayName(user.name, user.dispalyName);
 
             if (response.status) {
-                setAlert([true, "success", response.log]);
+                setAlert({ severity: 'success', message: response.log });
                 loadUser();
             }
         }
         catch (e) {
             if (e.response && e.response.data) {
-                setAlert([true, "error", e.response.data]);
+                setAlert({ severity: "error", message: e.response.data });
             }
             else {
-                setAlert([true, "error", e.toString()]);
+                setAlert({ severity: "error", message: e.toString() });
             }
         }
         setNewDisplayName('');

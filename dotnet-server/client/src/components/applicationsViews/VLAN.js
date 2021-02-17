@@ -29,10 +29,10 @@ function Vlan() {
         }
         catch (e) {
             if (e.response && e.response.data) {
-                setAlert([true, "error", e.response.data]);
+                setAlert({ severity: 'error', message: e.response.data });
             }
             else {
-                setAlert([true, "error", e.toString()]);
+                setAlert({ severity: 'error', message: e.toString()});
             }
         }
     }, []);

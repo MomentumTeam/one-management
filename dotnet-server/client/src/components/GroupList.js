@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -17,18 +17,20 @@ import FolderIcon from '@material-ui/icons/Folder';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Paper from '@material-ui/core/Paper';
 import apis from "../api/applicationsApi";
+import { Snackbar } from '@material-ui/core';
+import Controls from "./Controls";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: "rgba(255, 255,255, 0)",
   },
-  demo: {   
+  demo: {
     '&::-webkit-scrollbar': {
-      width: '5px',  
-      height: '5px',            
+      width: '5px',
+      height: '5px',
     },
     '&::-webkit-scrollbar-track': {
-      background: '#D3D3D3'   
+      background: '#D3D3D3'
     },
     '&::-webkit-scrollbar-thumb': {
       backgroundColor: 'teal',
@@ -43,45 +45,79 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function GroupList({user, setUser}) {
+export default function GroupList({ user, setUser }) {
   const classes = useStyles();
+  const [dialog, setDialog] = useState([false, '']);  //dialog- [true/false, "content"]
+  const [alert, setAlert] = useState({ severity: '', message: '' });  //Alert- [true/false, "severity" ,"message"]
+  const [group, setGroupToDelete] = useState();
 
-  const deleteGroup = async (group) => {
-    try{
-      let groupToDelete = {userName: user.sAMAccountName, group}
-      const resp = await apis.removeGroup(groupToDelete);
-      setUser({...user, groups: user.groups.filter( item => item !== group)})
+  const handleClose = () => {
+    setDialog([false, '']);
+  };
+
+  const handleCloseAlert = (event, reason) => {
+    setAlert({ severity: '', message: '' });
+  };
+
+  const deleteGroup = async () => {
+    try {
+      let groupToDelete = { userName: user.sAMAccountName, group }
+      const response = await apis.removeGroup(groupToDelete);
+      setUser({ ...user, groups: user.groups.filter(item => item !== group) })
+      setDialog([false, '']);
+      setAlert({ severity: 'success', message: response.log });
     }
-    catch(e){
-      window.alert(e.toString());
-    }    
+    catch (e) {
+      setAlert({ severity: "error", message: e.toString() });
+    }
+  };
+
+  const openDialog = async (deleteGroupName) => {
+    setGroupToDelete(deleteGroupName);
+    setDialog([true, `אישור מחיקת קבוצה ${deleteGroupName}`]);
   };
 
   return (
-    <Paper variant="outlined"  className={classes.root}>
-        {user ? 
-        <Grid item xs={12} md={12}>
-          <div className={classes.demo} style={{maxHeight: 200, overflow: 'auto'}}>
-            {user.groups.length > 0 ? 
-            <List dense={true}>
-              {user.groups.map((item, index) => {
-                  return (
-                    <ListItem key={index}>
-                      <ListItemText
-                        primary={item}
-                      />
-                      <ListItemSecondaryAction>
-                        <IconButton edge="end" aria-label="delete" onClick={() => deleteGroup(item)}>
-                          <DeleteIcon />
-                        </IconButton>
-                      </ListItemSecondaryAction>
-                    </ListItem>
-                  )
+    <div>
+      <Snackbar open={alert.severity != ""} autoHideDuration={5000} onClose={handleCloseAlert}>
+        <Controls.Alert onClose={handleCloseAlert} severity={alert.severity}>
+          {alert.message}
+        </Controls.Alert>
+      </Snackbar>
+      <Paper variant="outlined" className={classes.root}>
+        {user ?
+          <Grid item xs={12} md={12}>
+            <div className={classes.demo} style={{ maxHeight: 200, overflow: 'auto' }}>
+              {user.groups.length > 0 ?
+                <List dense={true}>
+                  {user.groups.map((item, index) => {
+                    return (
+                      <ListItem key={index}>
+                        <ListItemText
+                          primary={item}
+                        />
+                        <ListItemSecondaryAction>
+                          <IconButton edge="end" aria-label="delete" onClick={() => openDialog(item)}>
+                            <DeleteIcon />
+                          </IconButton>
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                    )
                   })}
-            </List> : "אין קבוצות מקושרות"}
-          </div>
-        </Grid>
-: null}
-    </Paper>
+                </List> : "אין קבוצות מקושרות"}
+            </div>
+          </Grid>
+          : null}
+      </Paper>
+
+      <Controls.AlertDialogSlide
+        open={dialog[0]}
+        title={dialog[1]}
+        buttonName="אשר"
+        handleClose={handleClose}
+        // input={{ placeHolder: "New Display Name", value: newDisplayName }}
+        handleClick={deleteGroup}
+      />
+    </div>
   );
 }

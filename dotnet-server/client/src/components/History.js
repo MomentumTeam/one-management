@@ -7,8 +7,7 @@ function History({ match }) {
   const applications = useSelector(selectHistory);
 
   return (
-    <div>
-      <h1>history </h1>
+    <div style={{ marginTop: 20, padding: 30, alignSelf: "flex-start" }}>
       <ApplicationList applicationList={applications} />
     </div>
   );
