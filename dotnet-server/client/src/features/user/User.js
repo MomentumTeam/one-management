@@ -4,7 +4,7 @@ import { selectUserObj } from "./userSlice";
 
 function User() {
   const userObj = useSelector(selectUserObj);
-  
+
   return (
     <div>
       <b

@@ -1,28 +1,13 @@
 import React, { useState } from "react";
-import { makeStyles, Button } from "@material-ui/core";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Dialog from "@material-ui/core/Dialog";
-import { Alert, AlertTitle } from "@material-ui/lab";
+import { Snackbar, Button, CircularProgress, Dialog, } from '@material-ui/core';
 import apis from "../api/applicationsApi";
 import Controls from "./Controls";
-import { Snackbar } from '@material-ui/core';
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    position: "absolute",
-    width: 400,
-    backgroundColor: theme.palette.background.paper,
-    border: "2px solid #000",
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
-}));
 
 export default function ResetPassword({ user, loadUser }) {
   const [loading, setLoading] = useState(false);
   const [dialog, setDialog] = useState([false, '']);  //dialog- [true/false, "content"]
   const [password, setPassword] = useState(false);
-  const classes = useStyles();
   const [alert, setAlert] = useState({ severity: '', message: '' });  //Alert- [true/false, "severity" ,"message"]
 
   const handleCloseAlert = (event, reason) => {
@@ -30,34 +15,31 @@ export default function ResetPassword({ user, loadUser }) {
   };
 
   const handleClose = () => {
-    console.log("handleClose");
     setDialog([false, '']);
   };
 
   const handelClick = async (e) => {
     e.preventDefault();
     setLoading(true);
-    console.log("user=", user);
+
     try {
-      let ret = await apis.resetPassword(user.sAMAccountName);
-      if (ret.status) {
-        setPassword(ret.log);
+      let response = await apis.resetPassword(user.sAMAccountName);
+      if (response.status) {
+        setPassword(response.log);
         loadUser();
       }
-      setDialog([true, ret.log]);
+      setDialog([true, response.log]);
     }
     catch (e) {
-      console.log("blablabla");
       setAlert({ severity: "error", message: e.toString() });
     }
-
     setLoading(false);
   };
 
 
   return (
     <div>
-      <Snackbar open={alert.severity!=""} autoHideDuration={5000} onClose={handleCloseAlert}>
+      <Snackbar open={alert.severity != ""} autoHideDuration={5000} onClose={handleCloseAlert}>
         <Controls.Alert onClose={handleCloseAlert} severity={alert.severity}>
           {alert.message}
         </Controls.Alert>
@@ -67,11 +49,11 @@ export default function ResetPassword({ user, loadUser }) {
         onClick={handelClick}
         color="primary"
         fullWidth
-        disabled={!user}>       
-         אפס סיסמא
+        disabled={!user}>
+        אפס סיסמא
         {loading ? <CircularProgress color="inherit" size={20} /> : null}
       </Button>
-      <Controls.AlertDialogSlide
+      <Controls.DialogSlide
         open={dialog[0]}
         title="הסיסמא שונתה בהצלחה!"
         content={dialog[1]}

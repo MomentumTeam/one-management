@@ -1,23 +1,22 @@
 import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+import { StylesProvider, jssPreset, ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { create } from 'jss';
+import rtl from 'jss-rtl';
+import "./App.css";
+import background from './img/background.jpg';
+import { selectLoading } from "./features/user/userSlice";
+import { getUser } from "./features/user/userSlice";
+import Header from "./components/Header";
 import SideNavbar from "./components/SideNavbar";
-import Faq from "./components/Faq";
+import AllApplications from "./components/AllApplications";
 import Favorites from "./components/Favorites";
 import History from "./components/History";
 import Categories from "./components/Categories";
-import "./App.css";
-import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
-import background from './img/background.jpg';
-import Header from "./components/Header";
-import { selectUserObj, selectLoading } from "./features/user/userSlice";
-import { useSelector, useDispatch } from "react-redux";
-import { getUser } from "./features/user/userSlice";
-import AllApplications from "./components/AllApplications";
 import Application from "./components/Application";
+import Faq from "./components/Faq";
 
-
-import { create } from 'jss';
-import rtl from 'jss-rtl';
-import { StylesProvider, jssPreset, ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 // Configure JSS
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });

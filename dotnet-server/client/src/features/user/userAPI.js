@@ -14,7 +14,6 @@ export const getUserFromServer = () => {
 
 export const updateUserInServer = (user) => {
   return new Promise((resolve, reject) => {
-
     axios({
       method: 'put',
       url: '/api/users',
@@ -29,7 +28,6 @@ export const updateUserInServer = (user) => {
       .catch(function (error) {
         reject(error);
       });
-
   });
 };
 

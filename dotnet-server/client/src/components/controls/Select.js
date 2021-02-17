@@ -1,6 +1,6 @@
 import React from 'react'
-import { FormControl, InputLabel, Select as MuiSelect, MenuItem, FormHelperText } from '@material-ui/core';
-import { makeStyles, ThemeProvider, createMuiTheme } from "@material-ui/core";
+import { FormControl, InputLabel, Select as MuiSelect, MenuItem } from '@material-ui/core';
+import { makeStyles, ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { teal } from '@material-ui/core/colors';
 
 const useStyles = makeStyles(theme => ({
@@ -14,9 +14,7 @@ const theme = createMuiTheme({
     palette: {
         primary: teal,
     },
-    direction:"rtl"
-
-
+    direction: "rtl"
 });
 
 export default function Select(props) {
@@ -25,7 +23,7 @@ export default function Select(props) {
 
     return (
         <ThemeProvider theme={theme}>
-            <FormControl variant="outlined" style={{ minWidth: 120 }} classes={{ root: classes.root}}>
+            <FormControl variant="outlined" style={{ minWidth: 120 }} classes={{ root: classes.root }}>
                 <InputLabel>{label}</InputLabel>
                 <MuiSelect
                     label={label}
@@ -34,12 +32,16 @@ export default function Select(props) {
                     onChange={onChange}>
                     {
                         options.map(
-                            item => (<MenuItem key={item} value={item}>{item}</MenuItem>)
+                            item => (
+                                <MenuItem
+                                    key={item}
+                                    value={item}>
+                                    {item}
+                                </MenuItem>)
                         )
                     }
                 </MuiSelect>
             </FormControl>
         </ThemeProvider>
-
     )
 }

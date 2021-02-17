@@ -1,26 +1,19 @@
-import React, { useEffect, useState } from "react";
-import Checkbox from "@material-ui/core/Checkbox";
-import TextField from "@material-ui/core/TextField";
+import React, { useState } from "react";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
-import CheckBoxIcon from "@material-ui/icons/CheckBox";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import apis from "../api/applicationsApi";
+import { Snackbar, TextField, CircularProgress } from '@material-ui/core';
 import Controls from "./Controls";
-import { Snackbar } from '@material-ui/core';
+import apis from "../api/applicationsApi";
 
-const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
-const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 export default function AddGroup({ user, setUser }) {
-  const [open, setOpen] = React.useState(false);
-  const [options, setOptions] = React.useState([]);
+  const [open, setOpen] = useState(false);
+  const [options, setOptions] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [value, setValue] = useState(options[0]);
-  const loading = open && options.length === 0;
+  const [groupToAdd, setGroupToAdd] = useState();
   const [dialog, setDialog] = useState([false, '']);  //dialog- [true/false, "content"]
   const [alert, setAlert] = useState({ severity: '', message: '' });  //Alert- [true/false, "severity" ,"message"]
-  const [groupToAdd, setGroupToAdd] = useState();
+  const loading = open && options.length === 0;
 
   const handleClose = () => {
     setDialog([false, '']);
@@ -37,18 +30,15 @@ export default function AddGroup({ user, setUser }) {
       setOptions(groups);
     }
     catch (e) {
-      setAlert({ severity: "error", message:  e.toString() });
+      setAlert({ severity: "error", message: e.toString() });
     }
   };
 
   const saveGroup = async (group) => {
     try {
-      console.log('saveGroup')
-      console.log('group', group)
-
       let groupToAdd = { userName: user.sAMAccountName, group: group.samAcountName }
       const response = await apis.addGroup(groupToAdd);
-      console.log('response', response)
+
       setInputValue(null)
       setValue(null)
       setUser({ ...user, groups: [...user.groups, group.samAcountName] })
@@ -68,29 +58,16 @@ export default function AddGroup({ user, setUser }) {
   };
 
   const handleAdd = async () => {
-    console.log('dialog ', dialog)
-    console.log('value', groupToAdd)
-    console.log('handleAdd')
     saveGroup(groupToAdd)
-
-
     setDialog([false, '']);
   };
 
   const handleChange = (event, value, reason) => {
-    console.log('value', value)
-    console.log('handleChange')
-    console.log('dialog ', dialog)
-
     if (reason === "select-option") {
-      console.log('reason', reason);
       setGroupToAdd(value);
       setDialog([true, `אישור הוספת קבוצה ${value.name}`]);
-
     }
   }
-
-
 
   return (
     <div>
@@ -130,13 +107,11 @@ export default function AddGroup({ user, setUser }) {
           />
         )}
       />
-
-      <Controls.AlertDialogSlide
+      <Controls.DialogSlide
         open={dialog[0]}
         title={dialog[1]}
         buttonName="אשר"
         handleClose={handleClose}
-        // input={{ placeHolder: "New Display Name", value: newDisplayName }}
         handleClick={handleAdd}
       />
     </div>

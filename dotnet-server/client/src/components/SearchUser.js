@@ -1,50 +1,22 @@
-import React, { useEffect, useState } from "react";
-import {
-  makeStyles,
-  IconButton,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-} from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
-import Grid from "@material-ui/core/Grid";
-import SearchIcon from "@material-ui/icons/Search";
+import React, { useState } from "react";
+import { Grid, Snackbar, TextField, IconButton, CircularProgress } from '@material-ui/core';
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import SearchIcon from "@material-ui/icons/Search";
+import Controls from "./Controls";
 import apis from "../api/applicationsApi";
 
-import { Snackbar } from '@material-ui/core';
-import Controls from "./Controls";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "60%",
-    direction: "rtl",
-  },
-}));
-
-const domains = [
-  { name: "None", value: "" },
-  { name: "Ten", value: 10 },
-  { name: "Twenty", value: 20 },
-  { name: "Thirty", value: 30 },
-];
 export default function SearchUser({ setUser }) {
   const [open, setOpen] = useState(false);
   const [options, setOptions] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [value, setValue] = useState(options[0]);
-  const [domain, setDomain] = useState("");
-  const loading = open && options.length === 0;
   const [alert, setAlert] = useState({ severity: '', message: '' });  //Alert- [true/false, "severity" ,"message"]
-
-  const classes = useStyles();
+  const loading = open && options.length === 0;
 
   const handleCloseAlert = (event, reason) => {
     setAlert({ severity: '', message: '' });
   };
-
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -59,30 +31,26 @@ export default function SearchUser({ setUser }) {
   };
 
   const submit = async (e) => {
-    console.log("submit!");
     e.preventDefault();
     const selectedUser = value;
-    console.log("selectedUser", selectedUser);
+
     try {
       const userStatus = await apis.getUserStatus(selectedUser.samAcountName);
-      console.log("userStatus = ", userStatus);
       setUser(userStatus);
     }
     catch (e) {
       setAlert({ severity: "error", message: e.toString() });
     }
-
   };
 
   const fetchUsers = async (userPrefix) => {
-    console.log("fetch users!");
     setOpen(true);
     try {
       const searchedUsers = await apis.searchUsers(userPrefix);
       setOptions(searchedUsers);
     }
     catch (e) {
-      window.alert(e.toString());
+      setAlert({ severity: "error", message: e.toString() });
     }
   };
 
@@ -98,9 +66,6 @@ export default function SearchUser({ setUser }) {
           <Grid item xs={12} sm={10}>
             <Autocomplete
               open={open}
-              // onOpen={() => {
-              //    // setOpen(true);
-              // }}
               onClose={() => {
                 setOpen(false);
               }}
@@ -139,8 +104,8 @@ export default function SearchUser({ setUser }) {
               type="submit"
               // variant="filled"
               variant="outlined"
-              className={classes.iconButton}
               aria-label="search"
+              style={{ color: "teal" }}
             >
               <SearchIcon />
             </IconButton>

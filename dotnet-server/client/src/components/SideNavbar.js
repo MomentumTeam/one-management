@@ -1,23 +1,15 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import ListSubheader from "@material-ui/core/ListSubheader";
-import List from "@material-ui/core/List";
+import { NavLink } from "react-router-dom";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
+import { List, ListItemIcon, ListItemText, Collapse } from "@material-ui/core";
 import MuiListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import Collapse from "@material-ui/core/Collapse";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import DraftsIcon from "@material-ui/icons/Drafts";
-import SendIcon from "@material-ui/icons/Send";
-import ExpandLess from "@material-ui/icons/ExpandLess";
-import ExpandMore from "@material-ui/icons/ExpandMore";
-import StarBorder from "@material-ui/icons/StarBorder";
-import { Star, History, Category, DesktopWindows, PermIdentity, Email } from "@material-ui/icons";
+import { Star, History, Category, DesktopWindows, PermIdentity, ExpandMore, ExpandLess } from "@material-ui/icons";
+import GroupAddOutlinedIcon from '@material-ui/icons/GroupAddOutlined';
+import RssFeedOutlinedIcon from '@material-ui/icons/RssFeedOutlined';
 import HelpIcon from "@material-ui/icons/Help";
 import HomeIcon from "@material-ui/icons/Home";
-import { withStyles } from "@material-ui/core/styles";
-import { NavLink, Route } from "react-router-dom";
-import liora from "../img/liora.png";
+import oneAmenLogo3 from "../img/oneAmenLogo3.png";
+import CONFIG from "../config.json";
 
 const routes = [
   {
@@ -44,19 +36,25 @@ const routes = [
         name: "ניהול משתמש",
         id: "a",
         icon: <PermIdentity />,
-        link: "/categories/a",
+        link: `/categories/${CONFIG.categories[0].name}`,
       },
       {
         name: "ניהול עמדה",
         id: "b",
         icon: <DesktopWindows />,
-        link: "/categories/b",
+        link: `/categories/${CONFIG.categories[1].name}`,
+      },
+      {
+        name: "ניהול רשת",
+        id: "c",
+        icon: <RssFeedOutlinedIcon />,
+        link: `/categories/${CONFIG.categories[2].name}`,
       },
       {
         name: "הרשאות ומידור",
         id: "d",
-        icon: <DesktopWindows />,
-        link: "/categories/d",
+        icon: <GroupAddOutlinedIcon />,
+        link: `/categories/${CONFIG.categories[3].name}`,
       }
     ],
   },
@@ -68,34 +66,13 @@ const routes = [
 ];
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    // width: "100%",
-    // // maxWidth: 360,
-    // color: "white",
-    // // backgroundColor: theme.palette.background.paper,
-    // // "&$selected": {
-    // //   backgroundColor: "white",
-    // //   color: "black"
-    // // },
-    // // "&$selected:hover": {
-    // //   backgroundColor: "red",
-    // //   color: "white"
-    // // }
-  },
   icon: {
     color: 'teal',
-    // // "&:hover": {
-    // //   color: "black",
-    // // },
-  },
-  nested: {
-    paddingLeft: theme.spacing(5)
   }
 }));
 
 const ListItem = withStyles({
   root: {
-    // color: "white",
     "&$selected": {
       backgroundColor: "pink",
       color: "black",
@@ -129,12 +106,10 @@ export default function SideNavbar() {
   return (
     <div>
 
-      <img src={liora} style={{ width: "70%", marginTop: "10%" }} />
+      <img src={oneAmenLogo3} style={{ width: "70%", marginTop: "10%" }} />
 
       <List
         component="nav"
-        aria-labelledby="nested-list-subheader"
-        className={classes.root}
       >
         {routes.map((route, index) => {
           return (
@@ -157,7 +132,7 @@ export default function SideNavbar() {
                     <List component="nav" disablePadding>
                       {route.children.map((route, index) => {
                         return (
-                          <ListItem button className={classes.nested} component={NavLink} key={index} exact to={route.link} activeStyle={{ backgroundColor: "white", color: "black" }}>
+                          <ListItem button component={NavLink} key={index} exact to={route.link} activeStyle={{ backgroundColor: "white", color: "black" }}>
                             <ListItemIcon className={classes.icon}>
                               {route.icon}
                             </ListItemIcon>

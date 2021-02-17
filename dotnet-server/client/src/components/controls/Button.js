@@ -1,6 +1,7 @@
-import React from 'react'
+import React from 'react';
 import { Button as MuiButton, makeStyles, ThemeProvider, createMuiTheme } from "@material-ui/core";
 import { teal } from '@material-ui/core/colors';
+
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -35,6 +36,5 @@ export default function Button(props) {
                 {text}
             </MuiButton>
         </ThemeProvider>
-
     )
 }

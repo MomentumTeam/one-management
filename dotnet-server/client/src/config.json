@@ -1,23 +1,5 @@
 {
     "vlanOptions": ["150"],  
-    "locationOptions": [
-        {
-            "id": "1",
-            "title": "A"
-        },
-        {
-            "id": "2",
-            "title": "B"
-        },
-        {
-            "id": "3",
-            "title": "C"
-        },
-        {
-            "id": "4",
-            "title": "D"
-        }
-    ],
     "questions": [
         {
             "question": "מהו נגיף (וירוס) קורונה?",
@@ -105,19 +87,34 @@
     ],
     "categories": [
         {
+            "name": "UserManagement",
             "displayName": "ניהול משתמש",
             "id": "a",
             "type": "category"
         },
         {
+            "name": "StationManagement",
             "displayName": "ניהול עמדה",
             "id": "b",
             "type": "category"
         },
         {
+            "name": "NetworkManagement",
+            "displayName": "ניהול רשת",
+            "id": "c",
+            "type": "category"
+        },
+        {
+            "name": "PermissionsAndCompartmentalization",
             "displayName": "הרשאות ומידור",
             "id": "d",
             "type": "category"
         }
+    ],
+    "domains" : [
+        { "name": "None", "value": "" },
+        { "name": "Ten", "value": 10 },
+        { "name": "Twenty", "value": 20 },
+        { "name": "Thirty", "value": 30 }
     ]
 }

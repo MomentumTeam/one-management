@@ -3,7 +3,7 @@ import RadioGroup from "./controls/RadioGroup";
 import Select from "./controls/Select";
 import Button from "./controls/Button";
 import Alert from "./controls/Alert";
-import AlertDialogSlide from "./controls/Dialog";
+import DialogSlide from "./controls/Dialog";
 
 const Controls = {
     Input,
@@ -11,7 +11,7 @@ const Controls = {
     Select,
     Button,
     Alert,
-    AlertDialogSlide
+    DialogSlide
 }
 
 export default Controls;

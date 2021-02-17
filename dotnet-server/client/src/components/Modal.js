@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
+import { Modal, Backdrop, Fade } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -28,8 +26,6 @@ export default function SimpleModal({ OpenButton, Component }) {
     <div>
       <OpenButton onClick={handleOpen} />
       <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
         className={classes.modal}
         open={open}
         onClose={handleClose}
@@ -40,9 +36,7 @@ export default function SimpleModal({ OpenButton, Component }) {
         }}
       >
         <Fade in={open}>
-          {/* <div className={classes.paper}> */}
           <Component />
-          {/* </div> */}
         </Fade>
       </Modal>
     </div>

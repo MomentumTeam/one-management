@@ -1,12 +1,8 @@
 import React from 'react'
 import { TextField } from '@material-ui/core';
-
+import { ThemeProvider, makeStyles, createMuiTheme } from '@material-ui/core/styles';
 import { teal } from '@material-ui/core/colors';
-import {
-    ThemeProvider,
-    makeStyles,
-    createMuiTheme,
-} from '@material-ui/core/styles';
+
 
 const theme = createMuiTheme({
     palette: {
@@ -18,7 +14,7 @@ const theme = createMuiTheme({
 const useStyles = makeStyles(theme => ({
     root: {
         margin: theme.spacing(0.5),
-        backgroundColor:"white"
+        backgroundColor: "white"
     }
 }));
 
@@ -31,7 +27,6 @@ export default function Input(props) {
             <TextField
                 required
                 label={label}
-                id="mui-theme-provider-outlined-input"
                 value={value}
                 onChange={onChange}
                 variant="outlined"

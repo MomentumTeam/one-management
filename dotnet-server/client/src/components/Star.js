@@ -1,12 +1,14 @@
 import React from "react";
-import { selectFavorites, AddToFavorites, RemoveFromFavorites, updateHistory, updateFavorites } from "../features/user/userSlice";
 import { useSelector, useDispatch } from "react-redux";
 import StarIcon from "@material-ui/icons/Star";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
+import { selectFavorites, AddToFavorites, RemoveFromFavorites, updateFavorites } from "../features/user/userSlice";
+
 
 function Star({ item }) {
   const dispatch = useDispatch();
   const favorites = useSelector(selectFavorites);
+
   if (item.type !== "application") {
     return null;
   }
@@ -14,7 +16,6 @@ function Star({ item }) {
     const star = favorites.includes(item.id) ? (
       <StarIcon
         onClick={() => {
-          console.log("clicked on star to remove from favorites");
           dispatch(RemoveFromFavorites(item.id));
           dispatch(updateFavorites(favorites));
         }}
@@ -22,7 +23,6 @@ function Star({ item }) {
     ) : (
         <StarBorderIcon
           onClick={() => {
-            console.log("clicked on star to add to favorites");
             dispatch(AddToFavorites(item.id));
             dispatch(updateFavorites(favorites));
           }}

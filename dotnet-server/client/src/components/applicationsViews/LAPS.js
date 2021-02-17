@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Grid, Snackbar, Paper, } from '@material-ui/core';
+import { Grid, Snackbar, Paper } from '@material-ui/core';
+import styles from "./style.module.css";
 import Controls from '../Controls';
 import { useForm, Form } from '../UseForm';
 import apis from '../../api/applicationsApi';
-import styles from "./style.module.css";
 
 const initialValues = {
     computerName: '',
@@ -31,13 +31,13 @@ function LAPS() {
         }
         else {
             try {
-                const res = await apis.getLapsPassword(input);
-                if (res.status) {
-                    setPassword(res.log);
-                    setAlert({ severity: 'success', message: res.log });
+                const response = await apis.getLapsPassword(input);
+                if (response.status) {
+                    setPassword(response.log);
+                    setAlert({ severity: 'success', message: response.log });
                 }
                 else {
-                    setAlert({ severity: 'error', message: res.log });
+                    setAlert({ severity: 'error', message: response.log });
                 }
             }
             catch (e) {

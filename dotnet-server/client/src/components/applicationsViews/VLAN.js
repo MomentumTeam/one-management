@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Grid, Snackbar, Paper } from '@material-ui/core';
-import { useForm, Form } from '../UseForm';
-import Controls from '../Controls';
-import apis from '../../api/applicationsApi';
 import styles from "./style.module.css";
+import Controls from '../Controls';
+import { useForm, Form } from '../UseForm';
+import apis from '../../api/applicationsApi';
 import CONFIG from '../../config.json';
 
 const initialValues = {
@@ -22,6 +22,10 @@ function Vlan() {
         resetForm
     } = useForm(initialValues);
 
+    const handleCloseAlert = (event, reason) => {
+        setAlert({ severity: '', message: '' });
+    };
+
     useEffect(async () => {
         try {
             const options = await apis.getLocationOptions();
@@ -32,24 +36,20 @@ function Vlan() {
                 setAlert({ severity: 'error', message: e.response.data });
             }
             else {
-                setAlert({ severity: 'error', message: e.toString()});
+                setAlert({ severity: 'error', message: e.toString() });
             }
         }
     }, []);
 
-    const handleCloseAlert = (event, reason) => {
-        setAlert({ severity: '', message: '' });
-    };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await apis.updateVlan(values.macAddress, values.location, values.vlan);
-            if (res.status) {
-                setAlert({ severity: 'success', message: res.log });
+            const response = await apis.updateVlan(values.macAddresponses, values.location, values.vlan);
+            if (response.status) {
+                setAlert({ severity: 'success', message: response.log });
             }
             else {
-                setAlert({ severity: 'error', message: res.log });
+                setAlert({ severity: 'error', message: response.log });
             }
         }
         catch (e) {
@@ -86,7 +86,6 @@ function Vlan() {
                                 onChange={handleInputChange}
                             />
                         </Grid>
-
                         <Grid item xs={6} >
                             <Controls.Select
                                 name="location"
@@ -95,7 +94,6 @@ function Vlan() {
                                 onChange={handleInputChange}
                                 options={locationOptions}
                             />
-
                             <Controls.Select
                                 name="vlan"
                                 label="Vlan"
