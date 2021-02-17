@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { selectHistory } from "../features/application/ApplicationSlice";
 import ApplicationList from "../features/application/ApplicationList";
 
-function History({ match }) {
+function History() {
   const applications = useSelector(selectHistory);
 
   return (

@@ -1,7 +1,7 @@
 import React from "react";
-import Search from "./Search";
 import { useSelector } from "react-redux";
 import { selectUserObj } from "../features/user/userSlice";
+import Search from "./Search";
 
 function Header() {
   const userObj = useSelector(selectUserObj);

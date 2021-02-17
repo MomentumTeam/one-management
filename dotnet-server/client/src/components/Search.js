@@ -1,11 +1,11 @@
 import React from 'react';
+import { useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
+import { makeStyles, ThemeProvider, createMuiTheme, } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { makeStyles, ThemeProvider, createMuiTheme, } from '@material-ui/core/styles';
-import { selectAll } from "../features/application/ApplicationSlice";
-import { useSelector } from "react-redux";
 import { teal } from '@material-ui/core/colors';
+import { selectAll } from "../features/application/ApplicationSlice";
 
 const useStyles = makeStyles(theme => ({
     outlinedInput: {
@@ -47,20 +47,18 @@ export default function Search() {
             else if (path != location.pathname) {
                 history.push(path);
             }
-            
+
         }
     };
 
     return (
         <ThemeProvider theme={theme}>
             <Autocomplete
-                id="grouped-demo"
                 options={options.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
                 groupBy={(option) => option.firstLetter}
                 getOptionLabel={(option) => option.displayName}
                 classes={{
                     root: classes.outlinedInput,
-                    // focused: classes.outlinedInputFocused,
                 }}
                 renderInput={(params) =>
                     <TextField {...params}

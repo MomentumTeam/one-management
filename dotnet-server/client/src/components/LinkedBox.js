@@ -1,7 +1,6 @@
 import React from "react";
-import { Paper, makeStyles } from "@material-ui/core";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
+import { makeStyles } from '@material-ui/core/styles';
+import { Paper, FormControlLabel, Checkbox } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {

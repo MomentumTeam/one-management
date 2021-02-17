@@ -3,6 +3,7 @@ import { FormControl, FormLabel, RadioGroup as MuiRadioGroup, FormControlLabel, 
 import { withStyles } from '@material-ui/core/styles';
 import { teal } from '@material-ui/core/colors';
 
+
 const GreenRadio = withStyles({
     root: {
         color: teal[400],
@@ -12,6 +13,7 @@ const GreenRadio = withStyles({
     },
     checked: {},
 })((props) => <Radio color="default" required {...props} />);
+
 
 export default function RadioGroup(props) {
 
@@ -29,7 +31,11 @@ export default function RadioGroup(props) {
                 {
                     items.map(
                         item => (
-                            <FormControlLabel key={item.id} value={item.id} control={<GreenRadio />} label={item.title} />
+                            <FormControlLabel
+                                key={item.id}
+                                value={item.id}
+                                control={<GreenRadio />}
+                                label={item.title} />
                         )
                     )
                 }

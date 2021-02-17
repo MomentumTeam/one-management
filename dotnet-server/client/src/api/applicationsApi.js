@@ -83,6 +83,21 @@ const searchUsers = (userPrefix) => {
     });
 };
 
+const getUserStatus = (samAccountName) => {
+    return new Promise((resolve, reject) => {
+        axios
+            .get(`/api/userManagement/userStatus`, {
+                params: {
+                    samAccountName: samAccountName,
+                },
+            })
+            .then((res) => {
+                resolve(res.data);
+            })
+            .catch((err) => reject(err));
+    });
+};
+
 const searchGroup = (groupPrefix) => {
     return new Promise((resolve, reject) => {
         axios
@@ -115,7 +130,7 @@ const removeGroup = (group) => {
     return new Promise((resolve, reject) => {
         axios
             .delete(`/api/userManagement/removeGroup`, {
-                data:{...group}
+                data: { ...group }
             })
             .then((res) => {
                 resolve(res.data);
@@ -138,21 +153,6 @@ const addMac = (macAddress) => {
             .catch((err) => reject(err));
     });
 }
-
-const getUserStatus = (samAccountName) => {
-    return new Promise((resolve, reject) => {
-        axios
-            .get(`/api/userManagement/userStatus`, {
-                params: {
-                    samAccountName: samAccountName,
-                },
-            })
-            .then((res) => {
-                resolve(res.data);
-            })
-            .catch((err) => reject(err));
-    });
-};
 
 const resetPassword = (userId) => {
     return new Promise((resolve, reject) => {
@@ -188,17 +188,16 @@ const apis = {
     getBitLockerPassword,
     getLapsPassword,
     getLocationOptions,
+    unlock,
     updateVlan,
     searchUsers,
     getUserStatus,
-    resetPassword,
-    unlock,
-    addMac,
     searchGroup,
     addGroup,
     removeGroup,
+    addMac,
+    resetPassword,
     changeDisplayName
-
 }
 
 export default apis;

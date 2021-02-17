@@ -1,24 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import FolderIcon from '@material-ui/icons/Folder';
+import {
+  Snackbar, Paper, Grid, IconButton, ListItemText,
+  ListItemSecondaryAction, ListItem, List
+} from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
-import Paper from '@material-ui/core/Paper';
 import apis from "../api/applicationsApi";
-import { Snackbar } from '@material-ui/core';
 import Controls from "./Controls";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,21 +24,17 @@ const useStyles = makeStyles((theme) => ({
     '&::-webkit-scrollbar-thumb': {
       backgroundColor: 'teal',
       borderRadius: '20px',
-      // border: '1px solid white',
     },
     backgroundColor: "rgba(255, 255,255, 0)",
-  },
-  title: {
-    // margin: theme.spacing(4, 0, 2),
-  },
+  }
 }));
 
 
 export default function GroupList({ user, setUser }) {
   const classes = useStyles();
+  const [group, setGroupToDelete] = useState();
   const [dialog, setDialog] = useState([false, '']);  //dialog- [true/false, "content"]
   const [alert, setAlert] = useState({ severity: '', message: '' });  //Alert- [true/false, "severity" ,"message"]
-  const [group, setGroupToDelete] = useState();
 
   const handleClose = () => {
     setDialog([false, '']);
@@ -109,13 +94,11 @@ export default function GroupList({ user, setUser }) {
           </Grid>
           : null}
       </Paper>
-
-      <Controls.AlertDialogSlide
+      <Controls.DialogSlide
         open={dialog[0]}
         title={dialog[1]}
         buttonName="אשר"
         handleClose={handleClose}
-        // input={{ placeHolder: "New Display Name", value: newDisplayName }}
         handleClick={deleteGroup}
       />
     </div>

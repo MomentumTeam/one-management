@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Grid, Snackbar, Paper, } from '@material-ui/core';
+import React, { useState } from 'react';
+import { Grid, Snackbar, Paper } from '@material-ui/core';
+import styles from "./style.module.css";
 import Controls from '../Controls';
 import { useForm, Form } from '../UseForm';
 import apis from '../../api/applicationsApi';
-import styles from "./style.module.css";
 
 const initialValues = {
     macAddress: ''
@@ -25,8 +25,8 @@ function AllowList() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await apis.addMac(values.macAddress);
-            setAlert({ severity: 'success', message: res.log });
+            const response = await apis.addMac(values.macAddress);
+            setAlert({ severity: 'success', message: response.log });
         }
         catch (e) {
             if (e.response && e.response.data) {
@@ -38,7 +38,6 @@ function AllowList() {
         }
         resetForm();
     }
-
 
     return (
         <div className={styles.rootDiv}>

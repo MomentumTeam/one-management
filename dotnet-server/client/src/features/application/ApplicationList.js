@@ -1,15 +1,11 @@
 import React from "react";
-import { Grid, Typography } from "@material-ui/core";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import Star from "../../components/Star";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
+import { Grid, Typography, Card, CardActionArea, CardActions, CardContent } from "@material-ui/core";
 import { AddToHistory, updateHistory } from "../user/userSlice";
-import { useDispatch } from "react-redux";
-import CONFIG from "../../config.json";
+import Star from "../../components/Star";
+
 
 const useStyles = makeStyles({
   root: {
@@ -17,16 +13,11 @@ const useStyles = makeStyles({
     minHeight: 150,
     background: "linear-gradient( #e6e6e6 90%, teal 10%)",
   },
-  media: {
-    height: 140,
-  },
 });
 
 function ApplicationList({ applicationList }) {
   const classes = useStyles();
   const dispatch = useDispatch();
-
-  console.log("applicationList: ", applicationList);
 
   return (
     <div style={{ marginTop: 20, padding: 30, alignSelf: "flex-start" }}>

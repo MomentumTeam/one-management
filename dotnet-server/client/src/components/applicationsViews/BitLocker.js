@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Snackbar, Paper } from '@material-ui/core';
+import styles from "./style.module.css";
 import Controls from '../Controls';
 import { useForm, Form } from '../UseForm';
 import apis from '../../api/applicationsApi';
-import styles from "./style.module.css";
 
 const initialValues = {
     searchType: '',
@@ -35,10 +34,10 @@ function BitLocker() {
         }
         else {
             try {
-                const res = await apis.getBitLockerPassword(type, input);
-                if (res.status) {
-                    setPassword(res.log);
-                    setAlert({ severity: 'success', message: res.log });
+                const response = await apis.getBitLockerPassword(type, input);
+                if (response.status) {
+                    setPassword(response.log);
+                    setAlert({ severity: 'success', message: response.log });
                 }
                 else {
                     setAlert({ severity: "error", message: e.response.data });

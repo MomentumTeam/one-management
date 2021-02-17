@@ -1,5 +1,12 @@
 import React, { useState } from 'react'
-import { makeStyles } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+
+
+const useStyles = makeStyles(theme => ({
+    root: {
+        marginTop: "10%"
+    }
+}));
 
 export function useForm(initialValues) {
     const [values, setValues] = useState(initialValues);
@@ -24,12 +31,6 @@ export function useForm(initialValues) {
 
     }
 }
-
-const useStyles = makeStyles(theme => ({
-    root: {
-        marginTop: "10%"
-    }
-}))
 
 export function Form(props) {
     const classes = useStyles();

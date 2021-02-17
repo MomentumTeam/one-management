@@ -1,22 +1,8 @@
 import React, { useState } from "react";
-import { makeStyles, Button } from "@material-ui/core";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Dialog from "@material-ui/core/Dialog";
-import { Alert, AlertTitle } from "@material-ui/lab";
-import apis from "../api/applicationsApi";
-import { Snackbar } from '@material-ui/core';
+import { Snackbar, Button, CircularProgress } from "@material-ui/core";
 import Controls from "./Controls";
+import apis from "../api/applicationsApi";
 
-const useStyles = makeStyles((theme) => ({
-    paper: {
-        position: "absolute",
-        width: 400,
-        backgroundColor: theme.palette.background.paper,
-        border: "2px solid #000",
-        boxShadow: theme.shadows[5],
-        padding: theme.spacing(2, 4, 3),
-    },
-}));
 
 export default function ChangeDisplayName({ user, loadUser }) {
     const [loading, setLoading] = useState(false);
@@ -80,9 +66,9 @@ export default function ChangeDisplayName({ user, loadUser }) {
                 disabled={!user}
             >
                 Unlock
-        {loading ? <CircularProgress color="inherit" size={20} /> : null}
+            {loading ? <CircularProgress color="inherit" size={20} /> : null}
             </Button>
-            <Controls.AlertDialogSlide
+            <Controls.DialogSlide
                 open={dialog[0]}
                 title={dialog[1]}
                 buttonName="שנה"
