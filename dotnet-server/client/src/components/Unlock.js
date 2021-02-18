@@ -6,8 +6,8 @@ import Controls from "./Controls";
 
 export default function Unlock({ user, loadUser }) {
   const [loading, setLoading] = useState(false);
-  const [alert, setAlert] = useState({ severity: '', message: '' });  //Alert- [true/false, "severity" ,"message"]
-
+  const [alert, setAlert] = useState({ severity: '', message: '' }); 
+  
   const handleCloseAlert = (event, reason) => {
     setAlert({ severity: '', message: '' });
   };

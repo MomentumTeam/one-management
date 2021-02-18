@@ -12,7 +12,7 @@ const initialValues = {
 
 function BitLocker() {
     const [password, setPassword] = useState('');
-    const [alert, setAlert] = useState({ severity: '', message: '' });  //Alert- [true/false, "severity" ,"message"]
+    const [alert, setAlert] = useState({ severity: '', message: '' }); 
 
     const {
         values,

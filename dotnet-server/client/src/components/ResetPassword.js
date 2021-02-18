@@ -6,16 +6,16 @@ import Controls from "./Controls";
 
 export default function ResetPassword({ user, loadUser }) {
   const [loading, setLoading] = useState(false);
-  const [dialog, setDialog] = useState([false, '']);  //dialog- [true/false, "content"]
   const [password, setPassword] = useState(false);
-  const [alert, setAlert] = useState({ severity: '', message: '' });  //Alert- [true/false, "severity" ,"message"]
+  const [dialog, setDialog] = useState({ open: false, content: '' });
+  const [alert, setAlert] = useState({ severity: '', message: '' });  
 
   const handleCloseAlert = (event, reason) => {
     setAlert({ severity: '', message: '' });
   };
 
   const handleClose = () => {
-    setDialog([false, '']);
+    setDialog({ open: false, content: '' });
   };
 
   const handelClick = async (e) => {
@@ -28,7 +28,7 @@ export default function ResetPassword({ user, loadUser }) {
         setPassword(response.log);
         loadUser();
       }
-      setDialog([true, response.log]);
+      setDialog({ open: true, content: response.log });
     }
     catch (e) {
       setAlert({ severity: "error", message: e.toString() });
@@ -54,9 +54,9 @@ export default function ResetPassword({ user, loadUser }) {
         {loading ? <CircularProgress color="inherit" size={20} /> : null}
       </Button>
       <Controls.DialogSlide
-        open={dialog[0]}
+        open={dialog.open}
         title="הסיסמא שונתה בהצלחה!"
-        content={dialog[1]}
+        content={dialog.content}
         buttonName="סגור"
         handleClose={handleClose}
         handleClick={handleClose}
