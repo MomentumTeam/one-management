@@ -11,7 +11,7 @@ export default function SearchUser({ setUser }) {
   const [options, setOptions] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [value, setValue] = useState(options[0]);
-  const [alert, setAlert] = useState({ severity: '', message: '' });  //Alert- [true/false, "severity" ,"message"]
+  const [alert, setAlert] = useState({ severity: '', message: '' }); 
   const loading = open && options.length === 0;
 
   const handleCloseAlert = (event, reason) => {

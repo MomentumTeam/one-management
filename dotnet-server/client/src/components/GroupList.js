@@ -33,11 +33,11 @@ const useStyles = makeStyles((theme) => ({
 export default function GroupList({ user, setUser }) {
   const classes = useStyles();
   const [group, setGroupToDelete] = useState();
-  const [dialog, setDialog] = useState([false, '']);  //dialog- [true/false, "content"]
-  const [alert, setAlert] = useState({ severity: '', message: '' });  //Alert- [true/false, "severity" ,"message"]
+  const [dialog, setDialog] = useState({ open: false, title: '' });
+  const [alert, setAlert] = useState({ severity: '', message: '' });  
 
   const handleClose = () => {
-    setDialog([false, '']);
+    setDialog({ open: false, title: '' });
   };
 
   const handleCloseAlert = (event, reason) => {
@@ -49,7 +49,7 @@ export default function GroupList({ user, setUser }) {
       let groupToDelete = { userName: user.sAMAccountName, group }
       const response = await apis.removeGroup(groupToDelete);
       setUser({ ...user, groups: user.groups.filter(item => item !== group) })
-      setDialog([false, '']);
+      setDialog({ open: false, title: '' });
       setAlert({ severity: 'success', message: response.log });
     }
     catch (e) {
@@ -59,7 +59,7 @@ export default function GroupList({ user, setUser }) {
 
   const openDialog = async (deleteGroupName) => {
     setGroupToDelete(deleteGroupName);
-    setDialog([true, `אישור מחיקת קבוצה ${deleteGroupName}`]);
+    setDialog({ open: true, title: `אישור מחיקת קבוצה ${deleteGroupName}`});
   };
 
   return (
@@ -95,8 +95,8 @@ export default function GroupList({ user, setUser }) {
           : null}
       </Paper>
       <Controls.DialogSlide
-        open={dialog[0]}
-        title={dialog[1]}
+        open={dialog.open}
+        title={dialog.title}
         buttonName="אשר"
         handleClose={handleClose}
         handleClick={deleteGroup}

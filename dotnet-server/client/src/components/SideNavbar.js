@@ -68,6 +68,9 @@ const routes = [
 const useStyles = makeStyles((theme) => ({
   icon: {
     color: 'teal',
+  },
+  nested: {
+    paddingLeft: theme.spacing(5)
   }
 }));
 
@@ -89,9 +92,9 @@ const ListItem = withStyles({
       }
     },
   },
-  nested: {
-    paddingRight: '20%',
-  },
+  // nested: {
+  //   paddingRight: '20%',
+  // },
   selected: {},
 })(MuiListItem);
 
@@ -132,7 +135,7 @@ export default function SideNavbar() {
                     <List component="nav" disablePadding>
                       {route.children.map((route, index) => {
                         return (
-                          <ListItem button component={NavLink} key={index} exact to={route.link} activeStyle={{ backgroundColor: "white", color: "black" }}>
+                          <ListItem button className={classes.nested} component={NavLink} key={index} exact to={route.link} activeStyle={{ backgroundColor: "white", color: "black" }}>
                             <ListItemIcon className={classes.icon}>
                               {route.icon}
                             </ListItemIcon>

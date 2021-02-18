@@ -1,11 +1,12 @@
 import React from 'react';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import { makeStyles, ThemeProvider, createMuiTheme, } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { teal } from '@material-ui/core/colors';
 import { selectAll } from "../features/application/ApplicationSlice";
+import { AddToHistory } from "../features/user/userSlice";
 
 const useStyles = makeStyles(theme => ({
     outlinedInput: {
@@ -25,8 +26,9 @@ const theme = createMuiTheme({
 export default function Search() {
     const classes = useStyles();
     const applications = useSelector(selectAll);
-    let history = useHistory();
+    const dispatch = useDispatch();
     const location = useLocation();
+    const history = useHistory();
 
     const options = applications.map((option) => {
         const firstLetter = option.displayName[0].toUpperCase();
@@ -39,16 +41,17 @@ export default function Search() {
     const search = (e) => {
         const value = e.target.value;
         if (e.keyCode === 13) {
-            const app = applications.find(app => app.displayName == value);
-            const path = `/${app.type}/${app.name}`;
-            if (app.name === "Nova" || app.name === "Sword") {
-                window.open(app.url, '_blank');
+            const application = applications.find(app => app.displayName == value);
+            const path = `/${application.type}/${application.name}`;
+            if (application.name === "Nova" || application.name === "Sword") {
+                window.open(application.url, '_blank');
             }
             else if (path != location.pathname) {
                 history.push(path);
             }
-
+            dispatch(AddToHistory(application.id));
         }
+
     };
 
     return (

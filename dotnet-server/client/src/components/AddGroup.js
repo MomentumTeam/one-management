@@ -11,12 +11,12 @@ export default function AddGroup({ user, setUser }) {
   const [inputValue, setInputValue] = useState("");
   const [value, setValue] = useState(options[0]);
   const [groupToAdd, setGroupToAdd] = useState();
-  const [dialog, setDialog] = useState([false, '']);  //dialog- [true/false, "content"]
-  const [alert, setAlert] = useState({ severity: '', message: '' });  //Alert- [true/false, "severity" ,"message"]
+  const [dialog, setDialog] = useState({ open: false, title: '' });
+  const [alert, setAlert] = useState({ severity: '', message: '' }); 
   const loading = open && options.length === 0;
 
   const handleClose = () => {
-    setDialog([false, '']);
+    setDialog({ open: false, title: '' });
   };
 
   const handleCloseAlert = (event, reason) => {
@@ -59,13 +59,13 @@ export default function AddGroup({ user, setUser }) {
 
   const handleAdd = async () => {
     saveGroup(groupToAdd)
-    setDialog([false, '']);
+    setDialog({ open: false, title: '' });
   };
 
   const handleChange = (event, value, reason) => {
     if (reason === "select-option") {
       setGroupToAdd(value);
-      setDialog([true, `אישור הוספת קבוצה ${value.name}`]);
+      setDialog({ open: true, title: `אישור הוספת קבוצה ${value.name}` });
     }
   }
 
@@ -108,8 +108,8 @@ export default function AddGroup({ user, setUser }) {
         )}
       />
       <Controls.DialogSlide
-        open={dialog[0]}
-        title={dialog[1]}
+        open={dialog.open}
+        title={dialog.title}
         buttonName="אשר"
         handleClose={handleClose}
         handleClick={handleAdd}

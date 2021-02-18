@@ -8,6 +8,7 @@ import SearchUser from "../SearchUser";
 import ResetPassword from "../ResetPassword";
 import UserDetails from "../UserDetails";
 import Unlock from "../Unlock";
+// import ChangeDisplayName from "../ChangeDisplayName";
 import AddGroup from "../AddGroup";
 import GroupList from "../GroupList";
 import apis from "../../api/applicationsApi";
@@ -22,7 +23,7 @@ const theme = createMuiTheme({
 
 function UserManagement() {
   const [user, setUser] = useState();
-  const [alert, setAlert] = useState({ severity: '', message: '' });  //Alert- [true/false, "severity" ,"message"]
+  const [alert, setAlert] = useState({ severity: '', message: '' });  
 
   const handleCloseAlert = (event, reason) => {
     setAlert({ severity: '', message: '' });

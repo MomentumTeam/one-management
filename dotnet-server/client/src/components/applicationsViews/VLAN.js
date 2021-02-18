@@ -14,8 +14,8 @@ const initialValues = {
 
 function Vlan() {
     const [locationOptions, setLocationOptions] = useState([]);
-    const [alert, setAlert] = useState({ severity: '', message: '' });  //Alert- [true/false, "severity" ,"message"]
-
+    const [alert, setAlert] = useState({ severity: '', message: '' });  
+    
     const {
         values,
         handleInputChange,
