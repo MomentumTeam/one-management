@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Snackbar, Button, CircularProgress } from "@material-ui/core";
+import { Button, CircularProgress } from "@material-ui/core";
 import Controls from "./Controls";
 import apis from "../api/applicationsApi";
 
@@ -9,9 +9,10 @@ export default function ChangeDisplayName({ user, loadUser }) {
     const [newDisplayName, setNewDisplayName] = useState('');
     const [dialog, setDialog] = useState({ open: false, title: '' });
     const [alert, setAlert] = useState({ severity: '', message: '' });
+    const [openAlert, setOpenAlert] = useState(false);
 
     const handleCloseAlert = (event, reason) => {
-        setAlert({ severity: '', message: '' });
+        setOpenAlert(false);
     };
 
     const onChange = (e) => {
@@ -23,15 +24,18 @@ export default function ChangeDisplayName({ user, loadUser }) {
             const response = await apis.changeDisplayName(user.name, user.dispalyName);
 
             if (response.status) {
+                setOpenAlert(true);
                 setAlert({ severity: 'success', message: response.log });
                 loadUser();
             }
         }
         catch (e) {
             if (e.response && e.response.data) {
+                setOpenAlert(true);
                 setAlert({ severity: "error", message: e.response.data });
             }
             else {
+                setOpenAlert(true);
                 setAlert({ severity: "error", message: e.toString() });
             }
         }
@@ -53,11 +57,8 @@ export default function ChangeDisplayName({ user, loadUser }) {
 
     return (
         <div>
-            <Snackbar open={alert.severity != ""} autoHideDuration={5000} onClose={handleCloseAlert}>
-                <Controls.Alert onClose={handleCloseAlert} severity={alert.severity}>
-                    {alert.message}
-                </Controls.Alert>
-            </Snackbar>
+            <Controls.Alert open={openAlert} handleCloseAlert={handleCloseAlert} alert={alert} />
+
             <Button
                 variant="outlined"
                 onClick={handelClick}

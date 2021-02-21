@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Snackbar, Paper } from '@material-ui/core';
+import { Grid, Paper } from '@material-ui/core';
 import styles from "./style.module.css";
 import Controls from '../Controls';
 import { useForm, Form } from '../UseForm';
@@ -11,8 +11,9 @@ const initialValues = {
 
 function LAPS() {
     const [password, setPassword] = useState('');
-    const [alert, setAlert] = useState({ severity: '', message: '' });
-
+    const [alert, setAlert] = useState({ open: false, severity: '', message: '' });
+    const [openAlert, setOpenAlert] = useState(false);
+    
     const {
         values,
         handleInputChange,
@@ -20,28 +21,32 @@ function LAPS() {
     } = useForm(initialValues);
 
     const handleCloseAlert = (event, reason) => {
-        setAlert({ severity: '', message: '' });
+        setOpenAlert(false);
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         const input = values.computerName;
         if (!input || !input.replace(/\s/g, '').length) {
-            setAlert([true, "error", "Value cannot be empty!"]);
+            setOpenAlert(true);
+            setAlert({ open: true, severity: 'error', message: "Value cannot be empty!" });
         }
         else {
             try {
                 const response = await apis.getLapsPassword(input);
                 if (response.status) {
                     setPassword(response.log);
-                    setAlert({ severity: 'success', message: response.log });
+                    setOpenAlert(true);
+                    setAlert({ open: true, severity: 'success', message: response.log });
                 }
                 else {
-                    setAlert({ severity: 'error', message: response.log });
+                    setOpenAlert(true);
+                    setAlert({ open: true, severity: 'error', message: response.log });
                 }
             }
             catch (e) {
-                setAlert({ severity: "error", message: e.toString() });
+                setOpenAlert(true);
+                setAlert({ open: true, severity: "error", message: e.toString() });
             }
         }
         resetForm()
@@ -54,11 +59,8 @@ function LAPS() {
 
     return (
         <div className={styles.rootDiv}>
-            <Snackbar open={alert.severity != ""} autoHideDuration={5000} onClose={handleCloseAlert}>
-                <Controls.Alert onClose={handleCloseAlert} severity={alert.severity}>
-                    {alert.message}
-                </Controls.Alert>
-            </Snackbar>
+            <Controls.Alert open={openAlert} handleCloseAlert={handleCloseAlert} alert={alert} />
+
             <Paper elevation={24} classes={{ root: styles.paper }} >
                 <h1>Local Admin Password</h1>
                 <Form onSubmit={handleSubmit}>

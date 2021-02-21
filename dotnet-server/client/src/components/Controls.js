@@ -11,7 +11,7 @@ const Controls = {
     Select,
     Button,
     Alert,
-    DialogSlide
+    DialogSlide,
 }
 
 export default Controls;

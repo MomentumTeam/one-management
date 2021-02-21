@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Snackbar, Paper } from '@material-ui/core';
+import { Grid, Paper } from '@material-ui/core';
 import styles from "./style.module.css";
 import Controls from '../Controls';
 import { useForm, Form } from '../UseForm';
@@ -11,7 +11,8 @@ const initialValues = {
 
 function AllowList() {
     const [alert, setAlert] = useState({ severity: '', message: '' });
-
+    const [openAlert, setOpenAlert] = useState(false);
+    
     const {
         values,
         handleInputChange,
@@ -19,20 +20,23 @@ function AllowList() {
     } = useForm(initialValues);
 
     const handleCloseAlert = (event, reason) => {
-        setAlert({ severity: '', message: '' });
+        setOpenAlert(false);
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const response = await apis.addMac(values.macAddress);
+            setOpenAlert(true);
             setAlert({ severity: 'success', message: response.log });
         }
         catch (e) {
             if (e.response && e.response.data) {
+                setOpenAlert(true);
                 setAlert({ severity: "error", message: e.response.data });
             }
             else {
+                setOpenAlert(true);
                 setAlert({ severity: "error", message: e.toString() });
             }
         }
@@ -41,11 +45,8 @@ function AllowList() {
 
     return (
         <div className={styles.rootDiv}>
-            <Snackbar open={alert.severity != ""} autoHideDuration={5000} onClose={handleCloseAlert}>
-                <Controls.Alert onClose={handleCloseAlert} severity={alert.severity}>
-                    {alert.message}
-                </Controls.Alert>
-            </Snackbar>
+            <Controls.Alert open={openAlert} handleCloseAlert={handleCloseAlert} alert={alert} />
+
             <Paper elevation={20} classes={{ root: styles.paper }}>
                 <h1>Allow List</h1>
                 <Form onSubmit={handleSubmit}>

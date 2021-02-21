@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Snackbar, Paper } from '@material-ui/core';
+import { Grid, Paper } from '@material-ui/core';
 import styles from "./style.module.css";
 import Controls from '../Controls';
 import { useForm, Form } from '../UseForm';
@@ -12,7 +12,8 @@ const initialValues = {
 
 function BitLocker() {
     const [password, setPassword] = useState('');
-    const [alert, setAlert] = useState({ severity: '', message: '' }); 
+    const [alert, setAlert] = useState({ severity: "", message: "" });
+    const [openAlert, setOpenAlert] = useState(false);
 
     const {
         values,
@@ -21,7 +22,7 @@ function BitLocker() {
     } = useForm(initialValues);
 
     const handleCloseAlert = (event, reason) => {
-        setAlert({ severity: '', message: '' });
+        setOpenAlert(false);
     };
 
     const handleSubmit = async (e) => {
@@ -30,20 +31,24 @@ function BitLocker() {
         const type = "computerName";
         const input = values.input;
         if (!input || !input.replace(/\s/g, '').length) {
-            setAlert([true, "error", "Value cannot be empty!"]);
+            setOpenAlert(true);
+            setAlert({ severity: 'error', message: "Value cannot be empty!" });
         }
         else {
             try {
                 const response = await apis.getBitLockerPassword(type, input);
                 if (response.status) {
                     setPassword(response.log);
+                    setOpenAlert(true);
                     setAlert({ severity: 'success', message: response.log });
                 }
                 else {
+                    setOpenAlert(true);
                     setAlert({ severity: "error", message: e.response.data });
                 }
             }
             catch (e) {
+                setOpenAlert(true);
                 setAlert({ severity: "error", message: e.toString() });
             }
         }
@@ -57,11 +62,8 @@ function BitLocker() {
 
     return (
         <div className={styles.rootDiv}>
-            <Snackbar open={alert.severity != ""} autoHideDuration={5000} onClose={handleCloseAlert}>
-                <Controls.Alert onClose={handleCloseAlert} severity={alert.severity}>
-                    {alert.message}
-                </Controls.Alert>
-            </Snackbar>
+            <Controls.Alert open={openAlert} handleCloseAlert={handleCloseAlert} alert={alert} />
+
             <Paper elevation={20} classes={{ root: styles.paper }}>
                 <h1>BitLocker Password</h1>
                 <Form onSubmit={handleSubmit}>

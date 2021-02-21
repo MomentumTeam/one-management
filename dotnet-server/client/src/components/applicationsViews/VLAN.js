@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Snackbar, Paper } from '@material-ui/core';
+import { Grid, Paper } from '@material-ui/core';
 import styles from "./style.module.css";
 import Controls from '../Controls';
 import { useForm, Form } from '../UseForm';
@@ -14,7 +14,8 @@ const initialValues = {
 
 function Vlan() {
     const [locationOptions, setLocationOptions] = useState([]);
-    const [alert, setAlert] = useState({ severity: '', message: '' });  
+    const [alert, setAlert] = useState({ severity: '', message: '' });
+    const [openAlert, setOpenAlert] = useState(false);
     
     const {
         values,
@@ -23,7 +24,7 @@ function Vlan() {
     } = useForm(initialValues);
 
     const handleCloseAlert = (event, reason) => {
-        setAlert({ severity: '', message: '' });
+        setOpenAlert(false);
     };
 
     useEffect(async () => {
@@ -33,9 +34,11 @@ function Vlan() {
         }
         catch (e) {
             if (e.response && e.response.data) {
+                setOpenAlert(true);
                 setAlert({ severity: 'error', message: e.response.data });
             }
             else {
+                setOpenAlert(true);
                 setAlert({ severity: 'error', message: e.toString() });
             }
         }
@@ -46,17 +49,21 @@ function Vlan() {
         try {
             const response = await apis.updateVlan(values.macAddresponses, values.location, values.vlan);
             if (response.status) {
+                setOpenAlert(true);
                 setAlert({ severity: 'success', message: response.log });
             }
             else {
+                setOpenAlert(true);
                 setAlert({ severity: 'error', message: response.log });
             }
         }
         catch (e) {
             if (e.response && e.response.data) {
+                setOpenAlert(true);
                 setAlert({ severity: "error", message: e.response.data });
             }
             else {
+                setOpenAlert(true);
                 setAlert({ severity: "error", message: e.toString() });
             }
         }
@@ -65,11 +72,8 @@ function Vlan() {
 
     return (
         <div className={styles.rootDiv}>
-            <Snackbar open={alert.severity != ""} autoHideDuration={5000} onClose={handleCloseAlert}>
-                <Controls.Alert onClose={handleCloseAlert} severity={alert.severity}>
-                    {alert.message}
-                </Controls.Alert>
-            </Snackbar>
+            <Controls.Alert open={openAlert} handleCloseAlert={handleCloseAlert} alert={alert} />
+
             <Paper elevation={20} classes={{ root: styles.paper }}>
                 <h1>הכנסה ושינוי Vlan</h1>
                 <Form onSubmit={handleSubmit} >
