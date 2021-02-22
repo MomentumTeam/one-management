@@ -1,8 +1,10 @@
 import React from 'react';
+import { useSelector } from "react-redux";
+import { selectConfig } from "../features/config/configSlice"; 
 import { makeStyles } from '@material-ui/core/styles';
 import { Accordion, AccordionSummary, AccordionDetails, Typography } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import CONFIG from '../config.json';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -28,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Faq() {
     const classes = useStyles();
-
+    const CONFIG = useSelector(selectConfig);
     return (
         <div className={classes.root}>
             {CONFIG.questions.map((question) => (

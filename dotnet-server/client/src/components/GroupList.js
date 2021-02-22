@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
-  Snackbar, Paper, Grid, IconButton, ListItemText,
+  Paper, Grid, IconButton, ListItemText,
   ListItemSecondaryAction, ListItem, List
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -34,14 +34,15 @@ export default function GroupList({ user, setUser }) {
   const classes = useStyles();
   const [group, setGroupToDelete] = useState();
   const [dialog, setDialog] = useState({ open: false, title: '' });
-  const [alert, setAlert] = useState({ severity: '', message: '' });  
+  const [alert, setAlert] = useState({ severity: '', message: '' });
+  const [openAlert, setOpenAlert] = useState(false);
 
   const handleClose = () => {
     setDialog({ open: false, title: '' });
   };
 
   const handleCloseAlert = (event, reason) => {
-    setAlert({ severity: '', message: '' });
+    setOpenAlert(false);
   };
 
   const deleteGroup = async () => {
@@ -50,25 +51,24 @@ export default function GroupList({ user, setUser }) {
       const response = await apis.removeGroup(groupToDelete);
       setUser({ ...user, groups: user.groups.filter(item => item !== group) })
       setDialog({ open: false, title: '' });
+      setOpenAlert(true);
       setAlert({ severity: 'success', message: response.log });
     }
     catch (e) {
+      setOpenAlert(true);
       setAlert({ severity: "error", message: e.toString() });
     }
   };
 
   const openDialog = async (deleteGroupName) => {
     setGroupToDelete(deleteGroupName);
-    setDialog({ open: true, title: `אישור מחיקת קבוצה ${deleteGroupName}`});
+    setDialog({ open: true, title: `אישור מחיקת קבוצה ${deleteGroupName}` });
   };
 
   return (
     <div>
-      <Snackbar open={alert.severity != ""} autoHideDuration={5000} onClose={handleCloseAlert}>
-        <Controls.Alert onClose={handleCloseAlert} severity={alert.severity}>
-          {alert.message}
-        </Controls.Alert>
-      </Snackbar>
+      <Controls.Alert open={openAlert} handleCloseAlert={handleCloseAlert} alert={alert} />
+
       <Paper variant="outlined" className={classes.root}>
         {user ?
           <Grid item xs={12} md={12}>

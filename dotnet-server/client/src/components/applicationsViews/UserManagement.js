@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Snackbar, Paper } from '@material-ui/core';
+import { Paper } from '@material-ui/core';
 import { ThemeProvider, createMuiTheme, } from '@material-ui/core/styles';
 import { teal } from '@material-ui/core/colors';
 import styles from "./style.module.css";
@@ -23,10 +23,11 @@ const theme = createMuiTheme({
 
 function UserManagement() {
   const [user, setUser] = useState();
-  const [alert, setAlert] = useState({ severity: '', message: '' });  
-
+  const [alert, setAlert] = useState({ severity: '', message: '' });
+  const [openAlert, setOpenAlert] = useState(false);
+  
   const handleCloseAlert = (event, reason) => {
-    setAlert({ severity: '', message: '' });
+    setOpenAlert(false);
   };
 
   const loadUser = async () => {
@@ -36,9 +37,11 @@ function UserManagement() {
     }
     catch (e) {
       if (e.response && e.response.data) {
+        setOpenAlert(true);
         setAlert({ severity: "error", message: e.response.data });
       }
       else {
+        setOpenAlert(true);
         setAlert({ severity: "error", message: e.toString() });
       }
     }
@@ -46,11 +49,8 @@ function UserManagement() {
 
   return (
     <div className={styles.rootDiv}>
-      <Snackbar open={alert.severity != ""} autoHideDuration={5000} onClose={handleCloseAlert}>
-        <Controls.Alert onClose={handleCloseAlert} severity={alert.severity}>
-          {alert.message}
-        </Controls.Alert>
-      </Snackbar>
+      <Controls.Alert open={openAlert} handleCloseAlert={handleCloseAlert} alert={alert} />
+
       <Paper elevation={24} classes={{ root: styles.paper }}>
         <h1 >ניהול משתמש</h1>
         <div className={styles.flex}>

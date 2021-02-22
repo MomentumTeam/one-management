@@ -20,6 +20,10 @@ public class AllowListController : ControllerBase
             try
             {
                 ReturnDto ret = ApplicationService.AddMac(request.macAddress);
+                if(ret.log == null)
+                {
+                    ret.log = "";
+                }
 
                 return Ok(ret);
             }

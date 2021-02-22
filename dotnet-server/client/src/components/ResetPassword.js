@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Snackbar, Button, CircularProgress, Dialog, } from '@material-ui/core';
+import { Button, CircularProgress, Dialog, } from '@material-ui/core';
 import apis from "../api/applicationsApi";
 import Controls from "./Controls";
 
@@ -8,10 +8,11 @@ export default function ResetPassword({ user, loadUser }) {
   const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState(false);
   const [dialog, setDialog] = useState({ open: false, content: '' });
-  const [alert, setAlert] = useState({ severity: '', message: '' });  
-
+  const [alert, setAlert] = useState({ severity: '', message: '' });
+  const [openAlert, setOpenAlert] = useState(false);
+  
   const handleCloseAlert = (event, reason) => {
-    setAlert({ severity: '', message: '' });
+    setOpenAlert(false);
   };
 
   const handleClose = () => {
@@ -31,6 +32,7 @@ export default function ResetPassword({ user, loadUser }) {
       setDialog({ open: true, content: response.log });
     }
     catch (e) {
+      setOpenAlert(true);
       setAlert({ severity: "error", message: e.toString() });
     }
     setLoading(false);
@@ -39,11 +41,8 @@ export default function ResetPassword({ user, loadUser }) {
 
   return (
     <div>
-      <Snackbar open={alert.severity != ""} autoHideDuration={5000} onClose={handleCloseAlert}>
-        <Controls.Alert onClose={handleCloseAlert} severity={alert.severity}>
-          {alert.message}
-        </Controls.Alert>
-      </Snackbar>
+      <Controls.Alert open={openAlert} handleCloseAlert={handleCloseAlert} alert={alert} />
+
       <Button
         variant="outlined"
         onClick={handelClick}

@@ -51,10 +51,17 @@
             </ResolvedFileToPublish>
         </ItemGroup>
     </Target>
+     
+    <ItemGroup>
+      <Content Remove="ClientConfig\config.json" />
+    </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="3.1.11" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.11" />
     <PackageReference Include="MongoDB.Driver" Version="2.11.6" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClientConfig\config.json" />
   </ItemGroup>
 
 

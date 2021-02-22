@@ -21,6 +21,10 @@ namespace os_server.Controllers
             try
             {
                 ReturnDto returnDto = ApplicationService.GetLapsPassword(request.ComputerName);
+                if (returnDto.log == null)
+                {
+                    returnDto.log = "";
+                }
                 return returnDto;
             }
             catch (Exception e)

@@ -17,6 +17,7 @@ using os_server.Models;
 using os_server.Services;
 using os_server.Middleware;
 using System.IO;
+using Microsoft.Extensions.FileProviders;
 
 namespace os_server
 {
@@ -83,6 +84,12 @@ namespace os_server
             });
 
             app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+        Path.Combine(env.ContentRootPath, "ClientConfig")),
+                RequestPath = "/clientConfig"
+            });
             app.UseSpaStaticFiles();
             app.UseMvc();
             app.UseSpa(spa =>

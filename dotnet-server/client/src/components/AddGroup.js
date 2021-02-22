@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import { Snackbar, TextField, CircularProgress } from '@material-ui/core';
+import { TextField, CircularProgress } from '@material-ui/core';
 import Controls from "./Controls";
 import apis from "../api/applicationsApi";
 
@@ -12,7 +12,8 @@ export default function AddGroup({ user, setUser }) {
   const [value, setValue] = useState(options[0]);
   const [groupToAdd, setGroupToAdd] = useState();
   const [dialog, setDialog] = useState({ open: false, title: '' });
-  const [alert, setAlert] = useState({ severity: '', message: '' }); 
+  const [alert, setAlert] = useState({ severity: '', message: '' });
+  const [openAlert, setOpenAlert] = useState(false);
   const loading = open && options.length === 0;
 
   const handleClose = () => {
@@ -20,7 +21,7 @@ export default function AddGroup({ user, setUser }) {
   };
 
   const handleCloseAlert = (event, reason) => {
-    setAlert({ severity: '', message: '' });
+    setOpenAlert(false);
   };
 
   const fetchGropus = async (groupPrefix) => {
@@ -30,6 +31,7 @@ export default function AddGroup({ user, setUser }) {
       setOptions(groups);
     }
     catch (e) {
+      setOpenAlert(true);
       setAlert({ severity: "error", message: e.toString() });
     }
   };
@@ -39,12 +41,14 @@ export default function AddGroup({ user, setUser }) {
       let groupToAdd = { userName: user.sAMAccountName, group: group.samAcountName }
       const response = await apis.addGroup(groupToAdd);
 
-      setInputValue(null)
-      setValue(null)
-      setUser({ ...user, groups: [...user.groups, group.samAcountName] })
+      setInputValue(null);
+      setValue(null);
+      setUser({ ...user, groups: [...user.groups, group.samAcountName] });
+      setOpenAlert(true);
       setAlert({ severity: 'success', message: response.log });
     }
     catch (e) {
+      setOpenAlert(true);
       setAlert({ severity: "error", message: e.toString() });
     }
   };
@@ -71,11 +75,8 @@ export default function AddGroup({ user, setUser }) {
 
   return (
     <div>
-      <Snackbar open={alert.severity != ""} autoHideDuration={5000} onClose={handleCloseAlert}>
-        <Controls.Alert onClose={handleCloseAlert} severity={alert.severity}>
-          {alert.message}
-        </Controls.Alert>
-      </Snackbar>
+      <Controls.Alert open={openAlert} handleCloseAlert={handleCloseAlert} alert={alert} />
+
       <Autocomplete
         open={open}
         onClose={() => {

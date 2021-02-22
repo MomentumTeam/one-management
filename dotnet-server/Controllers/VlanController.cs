@@ -22,6 +22,10 @@ namespace os_server.Controllers
             try
             {
                 ReturnDto ret = ApplicationService.ChangeVlan(request);
+                if (ret.log == null)
+                {
+                    ret.log = "";
+                }
 
                 return Ok(ret);
             }

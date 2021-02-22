@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Grid, Snackbar, TextField, IconButton, CircularProgress } from '@material-ui/core';
+import { Grid, TextField, IconButton, CircularProgress } from '@material-ui/core';
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import SearchIcon from "@material-ui/icons/Search";
 import Controls from "./Controls";
@@ -11,11 +11,12 @@ export default function SearchUser({ setUser }) {
   const [options, setOptions] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [value, setValue] = useState(options[0]);
-  const [alert, setAlert] = useState({ severity: '', message: '' }); 
+  const [alert, setAlert] = useState({ severity: '', message: '' });
+  const [openAlert, setOpenAlert] = useState(false);
   const loading = open && options.length === 0;
 
   const handleCloseAlert = (event, reason) => {
-    setAlert({ severity: '', message: '' });
+    setOpenAlert(false);
   };
 
   const handleChange = (event, newValue) => {
@@ -28,6 +29,9 @@ export default function SearchUser({ setUser }) {
     if (newInputValue.length > 2) {
       fetchUsers(newInputValue);
     }
+    else {
+      setUser();
+    }
   };
 
   const submit = async (e) => {
@@ -39,6 +43,7 @@ export default function SearchUser({ setUser }) {
       setUser(userStatus);
     }
     catch (e) {
+      setOpenAlert(true);
       setAlert({ severity: "error", message: e.toString() });
     }
   };
@@ -50,17 +55,15 @@ export default function SearchUser({ setUser }) {
       setOptions(searchedUsers);
     }
     catch (e) {
+      setOpenAlert(true);
       setAlert({ severity: "error", message: e.toString() });
     }
   };
 
   return (
     <div>
-      <Snackbar open={alert.severity != ""} autoHideDuration={5000} onClose={handleCloseAlert}>
-        <Controls.Alert onClose={handleCloseAlert} severity={alert.severity}>
-          {alert.message}
-        </Controls.Alert>
-      </Snackbar>
+      <Controls.Alert open={openAlert} handleCloseAlert={handleCloseAlert} alert={alert} />
+
       <form onSubmit={submit} noValidate>
         <Grid container spacing={1}>
           <Grid item xs={12} sm={10}>

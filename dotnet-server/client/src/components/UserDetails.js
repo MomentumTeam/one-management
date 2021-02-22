@@ -102,7 +102,7 @@ export default function UserDetails({ user }) {
               <ExtensionIcon />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary="Ex1" secondary={user && user.ex1 ? user.ex1 : ""} />
+          <ListItemText primary="Extension Attribute 1" secondary={user && user.ex1 ? user.ex1 : ""} />
         </ListItem>
         <Divider variant="inset" component="li" />
         <ListItem>
@@ -111,7 +111,7 @@ export default function UserDetails({ user }) {
               <ExtensionIcon />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary="Ex2" secondary={user && user.ex2 ? user.ex2 : ""} />
+          <ListItemText primary="Extension Attribute 2" secondary={user && user.ex2 ? user.ex2 : ""} />
         </ListItem>
         <Divider variant="inset" component="li" />
         <ListItem>
