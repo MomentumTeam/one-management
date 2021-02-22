@@ -39,3 +39,4 @@ C:\Users\barak\Desktop\one-management\dotnet-server\obj\Release\net5.0-windows\o
 C:\Users\barak\Desktop\one-management\dotnet-server\bin\Release\net5.0-windows\Microsoft.AspNetCore.Http.Connections.Client.dll
 C:\Users\barak\Desktop\one-management\dotnet-server\bin\Release\net5.0-windows\Microsoft.AspNetCore.SignalR.Client.dll
 C:\Users\barak\Desktop\one-management\dotnet-server\bin\Release\net5.0-windows\Microsoft.AspNetCore.SignalR.Client.Core.dll
+C:\Users\barak\Desktop\one-management\dotnet-server\bin\Release\net5.0-windows\ClientConfig\config.json

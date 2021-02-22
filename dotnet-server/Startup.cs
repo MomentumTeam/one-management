@@ -57,6 +57,7 @@ namespace os_server
             services.AddMvc(option => option.EnableEndpointRouting = false);
             services.AddSpaStaticFiles(configuration =>
             {
+                //configuration.RootPath = "client/build";
                 configuration.RootPath = "client";
             });
         }
@@ -68,15 +69,15 @@ namespace os_server
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseImpersonation();
+            //app.UseImpersonation();
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseCors("CorsPolicy");
-            app.UseAuthentication();
+            //app.UseAuthentication();
 
-            app.UseAuthorization();
+            //app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

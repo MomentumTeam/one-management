@@ -389,3 +389,4 @@ C:\Users\barak\Desktop\one-management\dotnet-server\bin\Release\net5.0-windows\w
 C:\Users\barak\Desktop\one-management\dotnet-server\bin\Release\net5.0-windows\win-x64\System.Security.Permissions.dll
 C:\Users\barak\Desktop\one-management\dotnet-server\bin\Release\net5.0-windows\win-x64\System.Windows.Extensions.dll
 C:\Users\barak\Desktop\one-management\dotnet-server\bin\Release\net5.0-windows\win-x64\aspnetcorev2_inprocess.dll
+C:\Users\barak\Desktop\one-management\dotnet-server\bin\Release\net5.0-windows\win-x64\ClientConfig\config.json
