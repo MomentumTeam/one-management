@@ -1,41 +1,42 @@
 import { createSlice } from "@reduxjs/toolkit";
-import CONFIG from "../../config.json";
 
 const initialState = {
-  applications: CONFIG.applications,
-  categories: CONFIG.categories,
+  applications: {},
+  categories: {}
 };
+
 
 export const ApplicationSlice = createSlice({
   name: "application",
   initialState,
-  reducers: {},
+  reducers: {}
 });
 
-export const selectAll = (state) => state.application.applications;
+export const selectAll = (state) => state.config.config.applications;
 
 export const selectFavorites = (state) =>
-  state.application.applications.filter((item) => {
+state.config.config.applications.filter((item) => {
     return state.user.favorites.includes(item.id);
   });
 
 export const selectHistory = (state) => [
   ...state.user.history.map((id) => {
 
-    const elem = state.application.applications.find((element) => element.id === id);
+    const elem = state.config.config.applications.find((element) => element.id === id);
     return elem;
 
   })
 ];
 
 export const selectByCategorie = (name) => (state) => {
-  const categorieId=CONFIG.categories.find((categorie)=>categorie.name==name).id;
+  const categorieId=state.config.config.categories.find((categorie)=>categorie.name==name).id;
 
-  return state.application.applications.filter((item) => {
+  return state.config.config.applications.filter((item) => {
     if (item.categories.includes(categorieId)) {
       return item;
     }
   });
 };
 
+export const { Init } = ApplicationSlice.actions;
 export default ApplicationSlice.reducer;

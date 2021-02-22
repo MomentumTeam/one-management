@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from "react-redux";
 import { Grid, Paper } from '@material-ui/core';
 import styles from "./style.module.css";
+import { selectConfig } from "../../features/config/configSlice"; 
 import Controls from '../Controls';
 import { useForm, Form } from '../UseForm';
 import apis from '../../api/applicationsApi';
-import CONFIG from '../../config.json';
 
 const initialValues = {
     macAddress: '',
@@ -13,6 +14,7 @@ const initialValues = {
 }
 
 function Vlan() {
+    const CONFIG = useSelector(selectConfig);
     const [locationOptions, setLocationOptions] = useState([]);
     const [alert, setAlert] = useState({ severity: '', message: '' });
     const [openAlert, setOpenAlert] = useState(false);

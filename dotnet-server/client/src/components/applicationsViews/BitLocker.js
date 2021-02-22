@@ -26,7 +26,6 @@ function BitLocker() {
     };
 
     const handleSubmit = async (e) => {
-        // const type = CONFIG.bitLockerItems.find((item) => item.id == values.searchType).title;
         e.preventDefault()
         const type = "computerName";
         const input = values.input;

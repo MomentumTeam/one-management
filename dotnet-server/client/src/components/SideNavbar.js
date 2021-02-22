@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectConfig } from "../features/config/configSlice"; 
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import { List, ListItemIcon, ListItemText, Collapse } from "@material-ui/core";
 import MuiListItem from "@material-ui/core/ListItem";
@@ -9,61 +11,7 @@ import RssFeedOutlinedIcon from '@material-ui/icons/RssFeedOutlined';
 import HelpIcon from "@material-ui/icons/Help";
 import HomeIcon from "@material-ui/icons/Home";
 import oneAmenLogo3 from "../img/oneAmenLogo3.png";
-import CONFIG from "../config.json";
 
-const routes = [
-  {
-    name: "הכל",
-    link: "/",
-    icon: <HomeIcon />,
-  },
-  {
-    name: "מועדפים",
-    link: "/favorites",
-    icon: <Star />,
-  },
-  {
-    name: "היסטוריה",
-    link: "/history",
-    icon: <History />,
-  },
-  {
-    name: "קטגוריות",
-    link: "/categories",
-    icon: <Category />,
-    children: [
-      {
-        name: "ניהול משתמש",
-        id: "a",
-        icon: <PermIdentity />,
-        link: `/categories/${CONFIG.categories[0].name}`,
-      },
-      {
-        name: "ניהול עמדה",
-        id: "b",
-        icon: <DesktopWindows />,
-        link: `/categories/${CONFIG.categories[1].name}`,
-      },
-      {
-        name: "ניהול רשת",
-        id: "c",
-        icon: <RssFeedOutlinedIcon />,
-        link: `/categories/${CONFIG.categories[2].name}`,
-      },
-      {
-        name: "הרשאות ומידור",
-        id: "d",
-        icon: <GroupAddOutlinedIcon />,
-        link: `/categories/${CONFIG.categories[3].name}`,
-      }
-    ],
-  },
-  {
-    name: "FAQ",
-    link: "/faq",
-    icon: <HelpIcon />,
-  },
-];
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -100,7 +48,62 @@ const ListItem = withStyles({
 
 export default function SideNavbar() {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const CONFIG = useSelector(selectConfig);
+  const [open, setOpen] = useState(true);
+
+  const routes = [
+    {
+      name: "הכל",
+      link: "/",
+      icon: <HomeIcon />,
+    },
+    {
+      name: "מועדפים",
+      link: "/favorites",
+      icon: <Star />,
+    },
+    {
+      name: "היסטוריה",
+      link: "/history",
+      icon: <History />,
+    },
+    {
+      name: "קטגוריות",
+      link: "/categories",
+      icon: <Category />,
+      children: [
+        {
+          name: "ניהול משתמש",
+          id: "a",
+          icon: <PermIdentity />,
+          link: `/categories/${CONFIG.categories[0].name}`,
+        },
+        {
+          name: "ניהול עמדה",
+          id: "b",
+          icon: <DesktopWindows />,
+          link: `/categories/${CONFIG.categories[1].name}`,
+        },
+        {
+          name: "ניהול רשת",
+          id: "c",
+          icon: <RssFeedOutlinedIcon />,
+          link: `/categories/${CONFIG.categories[2].name}`,
+        },
+        {
+          name: "הרשאות ומידור",
+          id: "d",
+          icon: <GroupAddOutlinedIcon />,
+          link: `/categories/${CONFIG.categories[3].name}`,
+        }
+      ],
+    },
+    {
+      name: "FAQ",
+      link: "/faq",
+      icon: <HelpIcon />,
+    },
+  ];
 
   const handleClick = () => {
     setOpen(!open);
