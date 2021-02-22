@@ -44,6 +44,10 @@ namespace os_server.Controllers
             try
             {
                 ReturnDto ret = ApplicationService.ResetPassword(userId);
+                if (ret.log == null)
+                {
+                    ret.log = "";
+                }
                 return ret;
             }
             catch(Exception e)
@@ -59,6 +63,10 @@ namespace os_server.Controllers
             try
             {
                 ReturnDto result = ApplicationService.Unlock(request.UserId);
+                if (result.log == null)
+                {
+                    result.log = "";
+                }
 
                 return result;
             }
@@ -75,6 +83,10 @@ namespace os_server.Controllers
             try
             {
                 ReturnDto result = ApplicationService.changeDisplayName(request);
+                if (result.log == null)
+                {
+                    result.log = "";
+                }
 
                 return result;
             }
@@ -124,6 +136,10 @@ namespace os_server.Controllers
             try
             {
                 ReturnDto result = ApplicationService.AddGroup(groupChange);
+                if (result.log == null)
+                {
+                    result.log = "";
+                }
 
                 return result;
             }
@@ -140,6 +156,10 @@ namespace os_server.Controllers
             try
             {
                 ReturnDto result = ApplicationService.RemoveGroup(groupChange);
+                if (result.log == null)
+                {
+                    result.log = "";
+                }
 
                 return result;
             }
