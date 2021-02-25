@@ -23,10 +23,14 @@ export default function ChangeDisplayName({ user, loadUser }) {
         try {
             const response = await apis.changeDisplayName(user.name, user.dispalyName);
 
-            if (response.status) {
+            if (response.status === true) {
                 setOpenAlert(true);
                 setAlert({ severity: 'success', message: response.log });
                 loadUser();
+            }
+            else {
+                setOpenAlert(true);
+                setAlert({ severity: 'error', message: response.log });
             }
         }
         catch (e) {
@@ -66,7 +70,7 @@ export default function ChangeDisplayName({ user, loadUser }) {
                 fullWidth
                 disabled={!user}
             >
-                Unlock
+                Change DisplayName
             {loading ? <CircularProgress color="inherit" size={20} /> : null}
             </Button>
             <Controls.DialogSlide

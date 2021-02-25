@@ -39,7 +39,7 @@ function BitLocker() {
                 setLoading(true);
                 const response = await apis.getBitLockerPassword(type, input);
 
-                if (response.status) {
+                if (response.status === true) {
                     setPassword(response.log);
                     setOpenAlert(true);
                     setAlert({ severity: 'success', message: response.log });

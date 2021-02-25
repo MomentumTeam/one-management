@@ -6,11 +6,10 @@ import Controls from "./Controls";
 
 export default function ResetPassword({ user, loadUser }) {
   const [loading, setLoading] = useState(false);
-  const [password, setPassword] = useState(false);
   const [dialog, setDialog] = useState({ open: false, content: '' });
   const [alert, setAlert] = useState({ severity: '', message: '' });
   const [openAlert, setOpenAlert] = useState(false);
-  
+
   const handleCloseAlert = (event, reason) => {
     setOpenAlert(false);
   };
@@ -25,11 +24,15 @@ export default function ResetPassword({ user, loadUser }) {
 
     try {
       let response = await apis.resetPassword(user.sAMAccountName);
-      if (response.status) {
-        setPassword(response.log);
+
+      if (response.status === true) {
         loadUser();
+        setDialog({ open: true, content: response.log });
       }
-      setDialog({ open: true, content: response.log });
+      else {
+        setOpenAlert(true);
+        setAlert({ severity: 'error', message: response.log });
+      }
     }
     catch (e) {
       setOpenAlert(true);

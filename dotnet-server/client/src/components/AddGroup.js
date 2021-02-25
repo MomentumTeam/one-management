@@ -40,12 +40,18 @@ export default function AddGroup({ user, setUser }) {
     try {
       let groupToAdd = { userName: user.sAMAccountName, group: group.samAcountName }
       const response = await apis.addGroup(groupToAdd);
-
-      setInputValue(null);
-      setValue(null);
-      setUser({ ...user, groups: [...user.groups, group.samAcountName] });
-      setOpenAlert(true);
-      setAlert({ severity: 'success', message: response.log });
+      
+      if (response.status === true) {
+        setInputValue(null);
+        setValue(null);
+        setUser({ ...user, groups: [...user.groups, group.samAcountName] });
+        setOpenAlert(true);
+        setAlert({ severity: 'success', message: response.log });
+      }
+      else {
+        setOpenAlert(true);
+        setAlert({ severity: 'error', message: response.log });
+      }
     }
     catch (e) {
       setOpenAlert(true);

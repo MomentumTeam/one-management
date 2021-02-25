@@ -11,6 +11,7 @@ const initialValues = {
 
 function AllowList() {
     const [loading, setLoading] = useState(false);
+
     const [alert, setAlert] = useState({ severity: '', message: '' });
     const [openAlert, setOpenAlert] = useState(false);
 
@@ -29,8 +30,15 @@ function AllowList() {
         try {
             setLoading(true);
             const response = await apis.addMac(values.macAddress);
-            setOpenAlert(true);
-            setAlert({ severity: 'success', message: response.log });
+
+            if (response.status === true) {
+                setOpenAlert(true);
+                setAlert({ severity: 'success', message: response.log });
+            }
+            else {
+                setOpenAlert(true);
+                setAlert({ severity: 'error', message: response.log });
+            }
         }
         catch (e) {
             if (e.response && e.response.data) {

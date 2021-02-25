@@ -32,6 +32,7 @@ function Vlan() {
 
     useEffect(async () => {
         try {
+            setLoading(true);
             const options = await apis.getLocationOptions();
             setLocationOptions(options);
         }
@@ -45,6 +46,8 @@ function Vlan() {
                 setAlert({ severity: 'error', message: e.toString() });
             }
         }
+        setLoading(false);
+
     }, []);
 
     const handleSubmit = async (e) => {
@@ -52,7 +55,8 @@ function Vlan() {
         try {
             setLoading(true);
             const response = await apis.updateVlan(values.macAddresponses, values.location, values.vlan);
-            if (response.status) {
+
+            if (response.status === true) {
                 setOpenAlert(true);
                 setAlert({ severity: 'success', message: response.log });
             }

@@ -8,18 +8,27 @@ export default function Unlock({ user, loadUser }) {
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState({ severity: '', message: '' });
   const [openAlert, setOpenAlert] = useState(false);
-  
+
   const handleCloseAlert = (event, reason) => {
     setOpenAlert(false);
   };
 
-  const unlockUser = async () => {
+  const unlockUser = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
     try {
       const response = await apis.unlock(user.sAMAccountName);
-      if (response.status) {
+
+      if (response.status === true) {
         loadUser();
+        setOpenAlert(true);
+        setAlert({ severity: 'success', message: response.log });
       }
-      return response;
+      else {
+        setOpenAlert(true);
+        setAlert({ severity: 'error', message: response.log });
+      }
     }
     catch (e) {
       if (e.response && e.response.data) {
@@ -31,16 +40,9 @@ export default function Unlock({ user, loadUser }) {
         setAlert({ severity: "error", message: e.toString() });
       }
     }
-  };
-
-  const handelClick = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    const res = await unlockUser();
-    setOpenAlert(true);
-    setAlert({ severity: 'success', message: res.log });
     setLoading(false);
   };
+
 
   return (
     <div>
@@ -48,7 +50,7 @@ export default function Unlock({ user, loadUser }) {
 
       <Button
         variant="outlined"
-        onClick={handelClick}
+        onClick={unlockUser}
         color="primary"
         fullWidth
         disabled={(!user) || (user.locked === "true")}

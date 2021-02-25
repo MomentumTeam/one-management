@@ -49,10 +49,17 @@ export default function GroupList({ user, setUser }) {
     try {
       let groupToDelete = { userName: user.sAMAccountName, group }
       const response = await apis.removeGroup(groupToDelete);
-      setUser({ ...user, groups: user.groups.filter(item => item !== group) })
-      setDialog({ open: false, title: '' });
-      setOpenAlert(true);
-      setAlert({ severity: 'success', message: response.log });
+
+      if (response.status === true) {
+        setUser({ ...user, groups: user.groups.filter(item => item !== group) })
+        setDialog({ open: false, title: '' });
+        setOpenAlert(true);
+        setAlert({ severity: 'success', message: response.log });
+      }
+      else {
+        setOpenAlert(true);
+        setAlert({ severity: 'error', message: response.log });
+      }
     }
     catch (e) {
       setOpenAlert(true);
