@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from "react-redux";
 import { Grid, Paper } from '@material-ui/core';
 import styles from "./style.module.css";
-import { selectConfig } from "../../features/config/configSlice"; 
+import { selectConfig } from "../../features/config/configSlice";
 import Controls from '../Controls';
 import { useForm, Form } from '../UseForm';
 import apis from '../../api/applicationsApi';
@@ -16,9 +16,10 @@ const initialValues = {
 function Vlan() {
     const CONFIG = useSelector(selectConfig);
     const [locationOptions, setLocationOptions] = useState([]);
+    const [loading, setLoading] = useState(false);
     const [alert, setAlert] = useState({ severity: '', message: '' });
     const [openAlert, setOpenAlert] = useState(false);
-    
+
     const {
         values,
         handleInputChange,
@@ -49,6 +50,7 @@ function Vlan() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            setLoading(true);
             const response = await apis.updateVlan(values.macAddresponses, values.location, values.vlan);
             if (response.status) {
                 setOpenAlert(true);
@@ -69,6 +71,7 @@ function Vlan() {
                 setAlert({ severity: "error", message: e.toString() });
             }
         }
+        setLoading(false);
         resetForm();
     }
 
@@ -112,7 +115,8 @@ function Vlan() {
                             <div>
                                 <Controls.Button
                                     type="submit"
-                                    text="Submit" />
+                                    text="Submit"
+                                    disabled={loading} />
                                 <Controls.Button
                                     text="Reset"
 

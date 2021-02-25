@@ -11,9 +11,10 @@ const initialValues = {
 
 function LAPS() {
     const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
     const [alert, setAlert] = useState({ open: false, severity: '', message: '' });
     const [openAlert, setOpenAlert] = useState(false);
-    
+
     const {
         values,
         handleInputChange,
@@ -33,6 +34,7 @@ function LAPS() {
         }
         else {
             try {
+                setLoading(true);
                 const response = await apis.getLapsPassword(input);
                 if (response.status) {
                     setPassword(response.log);
@@ -49,7 +51,8 @@ function LAPS() {
                 setAlert({ open: true, severity: "error", message: e.toString() });
             }
         }
-        resetForm()
+        setLoading(false);
+        resetForm();
     }
 
     const onReset = () => {
@@ -78,7 +81,8 @@ function LAPS() {
                             <div>
                                 <Controls.Button
                                     type="submit"
-                                    text="Submit" />
+                                    text="Submit"
+                                    disabled={loading} />
                                 <Controls.Button
                                     text="Reset"
                                     // color="default"

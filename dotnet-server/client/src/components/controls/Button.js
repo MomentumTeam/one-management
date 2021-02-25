@@ -21,7 +21,7 @@ const theme = createMuiTheme({
 
 export default function Button(props) {
     const classes = useStyles();
-    const { text, size, color, variant, onClick, ...other } = props
+    const { text, size, color, variant, onClick, disabled, ...other } = props
 
     return (
         <ThemeProvider theme={theme}>
@@ -30,6 +30,7 @@ export default function Button(props) {
                 // variant={variant || "contained"}
                 size={size || "large"}
                 color={color || "primary"}
+                disabled={disabled}
                 onClick={onClick}
                 {...other}
                 classes={{ root: classes.root, label: classes.label }}>

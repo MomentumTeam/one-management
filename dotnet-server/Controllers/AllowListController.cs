@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Threading;
 using os_server.Models;
 using os_server.Services;
 
@@ -24,6 +25,7 @@ public class AllowListController : ControllerBase
                 {
                     ret.log = "";
                 }
+                Thread.Sleep(2000);
 
                 return Ok(ret);
             }

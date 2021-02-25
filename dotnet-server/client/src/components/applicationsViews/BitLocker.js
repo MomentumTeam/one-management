@@ -12,6 +12,7 @@ const initialValues = {
 
 function BitLocker() {
     const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
     const [alert, setAlert] = useState({ severity: "", message: "" });
     const [openAlert, setOpenAlert] = useState(false);
 
@@ -35,7 +36,9 @@ function BitLocker() {
         }
         else {
             try {
+                setLoading(true);
                 const response = await apis.getBitLockerPassword(type, input);
+
                 if (response.status) {
                     setPassword(response.log);
                     setOpenAlert(true);
@@ -51,7 +54,8 @@ function BitLocker() {
                 setAlert({ severity: "error", message: e.toString() });
             }
         }
-        resetForm()
+        setLoading(false);
+        resetForm();
     }
 
     const onReset = () => {
@@ -80,7 +84,8 @@ function BitLocker() {
                             <div>
                                 <Controls.Button
                                     type="submit"
-                                    text="submit" />
+                                    text="submit"
+                                    disabled={loading} />
                                 <Controls.Button
                                     text="Reset"
                                     // color="default"

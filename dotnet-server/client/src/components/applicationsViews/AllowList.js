@@ -10,9 +10,10 @@ const initialValues = {
 }
 
 function AllowList() {
+    const [loading, setLoading] = useState(false);
     const [alert, setAlert] = useState({ severity: '', message: '' });
     const [openAlert, setOpenAlert] = useState(false);
-    
+
     const {
         values,
         handleInputChange,
@@ -26,6 +27,7 @@ function AllowList() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            setLoading(true);
             const response = await apis.addMac(values.macAddress);
             setOpenAlert(true);
             setAlert({ severity: 'success', message: response.log });
@@ -40,6 +42,7 @@ function AllowList() {
                 setAlert({ severity: "error", message: e.toString() });
             }
         }
+        setLoading(false);
         resetForm();
     }
 
@@ -65,7 +68,8 @@ function AllowList() {
                             <div>
                                 <Controls.Button
                                     type="submit"
-                                    text="Submit" />
+                                    text="Submit"
+                                    disabled={loading} />
                                 <Controls.Button
                                     text="Reset"
                                     // color="default"
