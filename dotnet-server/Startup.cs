@@ -40,6 +40,14 @@ namespace os_server
             services.AddSingleton<IUsersDatabaseSettings>(sp =>
                 sp.GetRequiredService<IOptions<UsersDatabaseSettings>>().Value);
 
+
+
+            services.Configure<FaqDatabaseSettings>(
+               Configuration.GetSection(nameof(FaqDatabaseSettings)));
+
+            services.AddSingleton<IFaqDatabaseSettings>(sp =>
+                sp.GetRequiredService<IOptions<FaqDatabaseSettings>>().Value);
+
             services.AddCors(opt =>
                 {
                     opt.AddPolicy("CorsPolicy", builder => builder
@@ -49,7 +57,8 @@ namespace os_server
                   .SetIsOriginAllowed((host) => true)
                   .AllowCredentials()); ;});
 
-            services.AddSingleton<UserService>();
+                        services.AddSingleton<FaqService>();
+services.AddSingleton<UserService>();
 
             services.AddControllers();
             services.AddAuthentication(IISDefaults.AuthenticationScheme);

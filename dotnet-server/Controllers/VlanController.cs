@@ -44,7 +44,7 @@ namespace os_server.Controllers
             try
             {
                 string[] locationOptions = ApplicationService.GetLocationOptions();
-                Thread.Sleep(10000);
+                Thread.Sleep(5000);
 
                 return Ok(locationOptions);
             }

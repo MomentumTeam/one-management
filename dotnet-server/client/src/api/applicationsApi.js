@@ -183,6 +183,46 @@ const changeDisplayName = (userName, displayname) => {
     });
 };
 
+const getFaq = () => {
+    return new Promise((resolve, reject) => {
+        axios
+            .get(`/api/Faq`)
+            .then((res) => {
+                resolve(res.data);
+            })
+            .catch((err) => reject(err));
+    });
+};
+
+const addToFaq = (question) => {
+    return new Promise((resolve, reject) => {
+        axios
+            .post(`/api/Faq`,
+                question)
+            .then((res) => {
+                resolve(res.data);
+            })
+            .catch((err) => reject(err));
+    });
+};
+
+const removeFromFaq = (id) => {
+    return new Promise((resolve, reject) => {
+        axios
+            .delete(`/api/Faq/remove`,
+                {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    data: { id: id }
+                }
+            )
+            .then((res) => {
+                resolve(res.data);
+            })
+            .catch((err) => reject(err));
+    });
+};
 
 const apis = {
     getBitLockerPassword,
@@ -197,7 +237,10 @@ const apis = {
     removeGroup,
     addMac,
     resetPassword,
-    changeDisplayName
+    changeDisplayName,
+    getFaq,
+    addToFaq,
+    removeFromFaq
 }
 
 export default apis;

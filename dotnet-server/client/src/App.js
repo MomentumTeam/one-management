@@ -7,7 +7,7 @@ import rtl from 'jss-rtl';
 import "./App.css";
 import background from './img/background.jpg';
 import { selectLoading, getUser } from "./features/user/userSlice";
-import { getConfig, selectConfig } from "./features/config/configSlice";
+import { getConfig, selectConfig, getAllFaq } from "./features/config/configSlice";
 import { Init, selectAll } from "./features/application/ApplicationSlice";
 import Header from "./components/Header";
 import SideNavbar from "./components/SideNavbar";
@@ -34,9 +34,11 @@ function App() {
   useEffect(() => {
     dispatch(getUser());
     dispatch(getConfig());
+    dispatch(getAllFaq());
+
   }, []);
 
-  if (loading || !config || Object.keys(config).length ===0 || !applications || applications.length ===0) {
+  if (loading || !config || Object.keys(config).length === 0 || !applications || applications.length === 0) {
     return <div>Waiting for user/config</div>;
   }
   else {

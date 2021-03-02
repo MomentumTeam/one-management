@@ -16,7 +16,7 @@ function Header() {
           paddingTop: "1%",
         }}
       >
-        {userObj.userId}
+        שלום {userObj.userId}
       </b>
       <Search />
     </div>
