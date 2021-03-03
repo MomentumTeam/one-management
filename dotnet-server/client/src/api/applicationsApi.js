@@ -139,20 +139,20 @@ const removeGroup = (group) => {
     });
 };
 
-const addMac = (macAddress) => {
-    return new Promise((resolve, reject) => {
-        axios
-            .post(`/api/allowList`,
-                {
-                    macAddress: macAddress
-                }
-            )
-            .then((res) => {
-                resolve(res.data);
-            })
-            .catch((err) => reject(err));
-    });
-}
+// const addMac = (macAddress) => {
+//     return new Promise((resolve, reject) => {
+//         axios
+//             .post(`/api/allowList`,
+//                 {
+//                     macAddress: macAddress
+//                 }
+//             )
+//             .then((res) => {
+//                 resolve(res.data);
+//             })
+//             .catch((err) => reject(err));
+//     });
+// }
 
 const resetPassword = (userId) => {
     return new Promise((resolve, reject) => {
@@ -235,7 +235,7 @@ const apis = {
     searchGroup,
     addGroup,
     removeGroup,
-    addMac,
+    // addMac,
     resetPassword,
     changeDisplayName,
     getFaq,

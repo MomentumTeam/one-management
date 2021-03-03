@@ -45,7 +45,8 @@
             "type": "application",
             "categories": [
                 "c"
-            ]
+            ],
+            "url": "http://www.google.com"
         },
         {
             "name": "Nova",

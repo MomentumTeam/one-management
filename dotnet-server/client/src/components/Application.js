@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import "../App.css";
-import AllowList from "./applicationsViews/AllowList";
 import BitLocker from "./applicationsViews/BitLocker";
 import LAPS from "./applicationsViews/LAPS";
 import UserManagement from "./applicationsViews/UserManagement";
@@ -16,9 +15,6 @@ function Application({ match }) {
       let View;
 
       switch (applicationName) {
-        case "AllowList":
-          View = AllowList;
-          break;
         case "BitLocker":
           View = BitLocker;
           break;
