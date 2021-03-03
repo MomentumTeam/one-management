@@ -36,7 +36,7 @@ function LAPS() {
             try {
                 setLoading(true);
                 const response = await apis.getLapsPassword(input);
-                
+
                 if (response.status === true) {
                     setPassword(response.log);
                     setOpenAlert(true);

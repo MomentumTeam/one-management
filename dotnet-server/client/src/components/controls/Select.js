@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { FormControl, InputLabel, Select as MuiSelect, MenuItem } from '@material-ui/core';
 import { makeStyles, ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { teal } from '@material-ui/core/colors';

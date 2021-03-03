@@ -40,3 +40,4 @@ C:\Users\barak\Desktop\one-management\dotnet-server\bin\Release\net5.0-windows\M
 C:\Users\barak\Desktop\one-management\dotnet-server\bin\Release\net5.0-windows\Microsoft.AspNetCore.SignalR.Client.dll
 C:\Users\barak\Desktop\one-management\dotnet-server\bin\Release\net5.0-windows\Microsoft.AspNetCore.SignalR.Client.Core.dll
 C:\Users\barak\Desktop\one-management\dotnet-server\bin\Release\net5.0-windows\ClientConfig\config.json
+C:\Users\barak\Desktop\one-management\dotnet-server\bin\Release\net5.0-windows\ClientConfig\Properties\launchSettings.json

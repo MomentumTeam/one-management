@@ -25,7 +25,7 @@ function UserManagement() {
   const [user, setUser] = useState();
   const [alert, setAlert] = useState({ severity: '', message: '' });
   const [openAlert, setOpenAlert] = useState(false);
-  
+
   const handleCloseAlert = (event, reason) => {
     setOpenAlert(false);
   };

@@ -8,6 +8,7 @@ import { teal } from '@material-ui/core/colors';
 import { selectAll } from "../features/application/ApplicationSlice";
 import { AddToHistory } from "../features/user/userSlice";
 
+
 const useStyles = makeStyles(theme => ({
     outlinedInput: {
         width: "30%",

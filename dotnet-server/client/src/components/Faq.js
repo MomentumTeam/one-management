@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from '@material-ui/core/styles';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
-import { SpeedDial, SpeedDialAction, SpeedDialIcon } from '@material-ui/lab';
 import {
     Accordion, AccordionSummary, AccordionDetails, Typography, Button, IconButton, Dialog, DialogActions,
     DialogContent, DialogTitle, Slide, TextField,
     List, ListItem, ListItemText
-} from '@material-ui/core';
+} from '@material-ui/core'; 
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+import { SpeedDial, SpeedDialAction, SpeedDialIcon } from '@material-ui/lab';
 import { selectUserObj } from "../features/user/userSlice";
 import { AddToFAQ, RemoveFromFAQ } from "../features/config/configSlice";
 import { selectConfig, selectFAQ } from "../features/config/configSlice";
 import apis from "../api/applicationsApi";
 import Controls from "./Controls";
+
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -41,8 +42,8 @@ const useStyles = makeStyles((theme) => ({
     },
     speedDial: {
         position: 'absolute',
-        bottom: theme.spacing(15),
-        right: theme.spacing(20),
+        bottom: theme.spacing(10),
+        right: theme.spacing(10),
     },
     ListItem: {
         backgroundColor: "white",
@@ -59,7 +60,6 @@ const useStyles = makeStyles((theme) => ({
         },
     }
 }));
-
 
 
 function Faq() {

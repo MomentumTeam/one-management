@@ -14,11 +14,11 @@ const Config = () => {
 };
 
 export const getConfig = createAsyncThunk("config/getConfig", async () => {
-  try{
+  try {
     const config = await Config();
     return config;
   }
-  catch(error){
+  catch (error) {
     throw error;
   }
 });
@@ -37,7 +37,7 @@ export const configSlice = createSlice({
   name: "config",
   initialState: {
     config: {},
-    faq:[]
+    faq: []
   },
   reducers: {
     AddToFAQ: (state, action) => {
@@ -46,7 +46,7 @@ export const configSlice = createSlice({
     RemoveFromFAQ: (state, action) => {
       state.faq = state.faq.filter((question) =>
         question.id !== action.payload.id
-       );
+      );
     },
   },
 

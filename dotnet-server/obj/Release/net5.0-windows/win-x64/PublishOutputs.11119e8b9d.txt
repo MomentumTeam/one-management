@@ -2,6 +2,7 @@ C:\Users\barak\Desktop\one-management\dotnet-server\obj\Release\net5.0-windows\w
 C:\Users\barak\Desktop\one-management\dotnet-server\obj\Release\net5.0-windows\win-x64\PubTmp\Out\appsettings.Development.json
 C:\Users\barak\Desktop\one-management\dotnet-server\obj\Release\net5.0-windows\win-x64\PubTmp\Out\appsettings.json
 C:\Users\barak\Desktop\one-management\dotnet-server\obj\Release\net5.0-windows\win-x64\PubTmp\Out\ClientConfig\config.json
+C:\Users\barak\Desktop\one-management\dotnet-server\obj\Release\net5.0-windows\win-x64\PubTmp\Out\ClientConfig\Properties\launchSettings.json
 C:\Users\barak\Desktop\one-management\dotnet-server\obj\Release\net5.0-windows\win-x64\PubTmp\Out\os-server.dll
 C:\Users\barak\Desktop\one-management\dotnet-server\obj\Release\net5.0-windows\win-x64\PubTmp\Out\os-server.deps.json
 C:\Users\barak\Desktop\one-management\dotnet-server\obj\Release\net5.0-windows\win-x64\PubTmp\Out\os-server.runtimeconfig.json
@@ -382,11 +383,11 @@ C:\Users\barak\Desktop\one-management\dotnet-server\obj\Release\net5.0-windows\w
 C:\Users\barak\Desktop\one-management\dotnet-server\obj\Release\net5.0-windows\win-x64\PubTmp\Out\client\build\robots.txt
 C:\Users\barak\Desktop\one-management\dotnet-server\obj\Release\net5.0-windows\win-x64\PubTmp\Out\client\build\static\css\main.6f7c1b4d.chunk.css
 C:\Users\barak\Desktop\one-management\dotnet-server\obj\Release\net5.0-windows\win-x64\PubTmp\Out\client\build\static\css\main.6f7c1b4d.chunk.css.map
-C:\Users\barak\Desktop\one-management\dotnet-server\obj\Release\net5.0-windows\win-x64\PubTmp\Out\client\build\static\js\2.3a2cba8d.chunk.js
-C:\Users\barak\Desktop\one-management\dotnet-server\obj\Release\net5.0-windows\win-x64\PubTmp\Out\client\build\static\js\2.3a2cba8d.chunk.js.LICENSE.txt
-C:\Users\barak\Desktop\one-management\dotnet-server\obj\Release\net5.0-windows\win-x64\PubTmp\Out\client\build\static\js\2.3a2cba8d.chunk.js.map
-C:\Users\barak\Desktop\one-management\dotnet-server\obj\Release\net5.0-windows\win-x64\PubTmp\Out\client\build\static\js\main.234ed9e2.chunk.js
-C:\Users\barak\Desktop\one-management\dotnet-server\obj\Release\net5.0-windows\win-x64\PubTmp\Out\client\build\static\js\main.234ed9e2.chunk.js.map
+C:\Users\barak\Desktop\one-management\dotnet-server\obj\Release\net5.0-windows\win-x64\PubTmp\Out\client\build\static\js\2.de3a4a44.chunk.js
+C:\Users\barak\Desktop\one-management\dotnet-server\obj\Release\net5.0-windows\win-x64\PubTmp\Out\client\build\static\js\2.de3a4a44.chunk.js.LICENSE.txt
+C:\Users\barak\Desktop\one-management\dotnet-server\obj\Release\net5.0-windows\win-x64\PubTmp\Out\client\build\static\js\2.de3a4a44.chunk.js.map
+C:\Users\barak\Desktop\one-management\dotnet-server\obj\Release\net5.0-windows\win-x64\PubTmp\Out\client\build\static\js\main.2e7535df.chunk.js
+C:\Users\barak\Desktop\one-management\dotnet-server\obj\Release\net5.0-windows\win-x64\PubTmp\Out\client\build\static\js\main.2e7535df.chunk.js.map
 C:\Users\barak\Desktop\one-management\dotnet-server\obj\Release\net5.0-windows\win-x64\PubTmp\Out\client\build\static\js\runtime-main.7b5d7149.js
 C:\Users\barak\Desktop\one-management\dotnet-server\obj\Release\net5.0-windows\win-x64\PubTmp\Out\client\build\static\js\runtime-main.7b5d7149.js.map
 C:\Users\barak\Desktop\one-management\dotnet-server\obj\Release\net5.0-windows\win-x64\PubTmp\Out\client\build\static\media\background.a89ce533.jpg

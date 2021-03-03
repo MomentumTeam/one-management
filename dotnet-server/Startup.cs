@@ -41,32 +41,33 @@ namespace os_server
                 sp.GetRequiredService<IOptions<UsersDatabaseSettings>>().Value);
 
 
-
             services.Configure<FaqDatabaseSettings>(
                Configuration.GetSection(nameof(FaqDatabaseSettings)));
 
             services.AddSingleton<IFaqDatabaseSettings>(sp =>
                 sp.GetRequiredService<IOptions<FaqDatabaseSettings>>().Value);
 
-            services.AddCors(opt =>
-                {
-                    opt.AddPolicy("CorsPolicy", builder => builder
-                  .AllowAnyHeader()
-                  .AllowAnyMethod()
-                  .WithOrigins(Configuration.GetSection(Config.CORS_ORIGINS).Get<string[]>())
-                  .SetIsOriginAllowed((host) => true)
-                  .AllowCredentials()); ;});
-
-                        services.AddSingleton<FaqService>();
-services.AddSingleton<UserService>();
-
+            services.AddCors(opt => 
+            {
+                opt.AddPolicy("CorsPolicy", builder => builder
+                .AllowAnyMethod()
+                .WithOrigins(Configuration.GetSection(Config.CORS_ORIGINS).Get<string[]>())
+                .SetIsOriginAllowed((host) => true)
+                .AllowCredentials()); 
+            });
+            
+            services.AddSingleton<FaqService>();
+            services.AddSingleton<UserService>();
             services.AddControllers();
             services.AddAuthentication(IISDefaults.AuthenticationScheme);
 
             services.AddMvc(option => option.EnableEndpointRouting = false);
             services.AddSpaStaticFiles(configuration =>
             {
+                //for publish
                 //configuration.RootPath = "client/build";
+
+                //for dev
                 configuration.RootPath = "client";
             });
         }
@@ -97,13 +98,17 @@ services.AddSingleton<UserService>();
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(
-        Path.Combine(env.ContentRootPath, "ClientConfig")),
+                    Path.Combine(env.ContentRootPath, "ClientConfig")),
                 RequestPath = "/clientConfig"
             });
             app.UseSpaStaticFiles();
             app.UseMvc();
             app.UseSpa(spa =>
             {
+                //for publish
+                //spa.Options.SourcePath = Path.Join(env.ContentRootPath, "client/build");
+
+                //for dev
                 spa.Options.SourcePath = Path.Join(env.ContentRootPath, "client");
                 spa.UseReactDevelopmentServer(npmScript: "start");
             });

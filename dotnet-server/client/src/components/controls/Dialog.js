@@ -33,7 +33,6 @@ export default function DialogSlide(props) {
                     required
                     margin="dense"
                     value={input.value}
-                    // id="displayName"
                     label={input.placeHolder}
                     onChange={onChange}
                     fullWidth
