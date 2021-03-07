@@ -386,8 +386,8 @@ C:\Users\barak\Desktop\one-management\dotnet-server\obj\Release\net5.0-windows\w
 C:\Users\barak\Desktop\one-management\dotnet-server\obj\Release\net5.0-windows\win-x64\PubTmp\Out\client\build\static\js\2.658eabd7.chunk.js
 C:\Users\barak\Desktop\one-management\dotnet-server\obj\Release\net5.0-windows\win-x64\PubTmp\Out\client\build\static\js\2.658eabd7.chunk.js.LICENSE.txt
 C:\Users\barak\Desktop\one-management\dotnet-server\obj\Release\net5.0-windows\win-x64\PubTmp\Out\client\build\static\js\2.658eabd7.chunk.js.map
-C:\Users\barak\Desktop\one-management\dotnet-server\obj\Release\net5.0-windows\win-x64\PubTmp\Out\client\build\static\js\main.73bbafb5.chunk.js
-C:\Users\barak\Desktop\one-management\dotnet-server\obj\Release\net5.0-windows\win-x64\PubTmp\Out\client\build\static\js\main.73bbafb5.chunk.js.map
+C:\Users\barak\Desktop\one-management\dotnet-server\obj\Release\net5.0-windows\win-x64\PubTmp\Out\client\build\static\js\main.079190fb.chunk.js
+C:\Users\barak\Desktop\one-management\dotnet-server\obj\Release\net5.0-windows\win-x64\PubTmp\Out\client\build\static\js\main.079190fb.chunk.js.map
 C:\Users\barak\Desktop\one-management\dotnet-server\obj\Release\net5.0-windows\win-x64\PubTmp\Out\client\build\static\js\runtime-main.7b5d7149.js
 C:\Users\barak\Desktop\one-management\dotnet-server\obj\Release\net5.0-windows\win-x64\PubTmp\Out\client\build\static\js\runtime-main.7b5d7149.js.map
 C:\Users\barak\Desktop\one-management\dotnet-server\obj\Release\net5.0-windows\win-x64\PubTmp\Out\client\build\static\media\background.a89ce533.jpg

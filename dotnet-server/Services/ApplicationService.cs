@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -12,11 +13,11 @@ namespace os_server.Services
 {
     public class ApplicationService
     {
-        public static HttpClient client;
+        public static WebClient client;
 
         static ApplicationService()
         {
-            client = new HttpClient();
+            client = new WebClient { UseDefaultCredentials = true };
         }
 
         public static UserOptionList[] SearchUsers(string userPrefix)
@@ -25,15 +26,9 @@ namespace os_server.Services
             {
                 try
                 {
-                    var response = await client.GetAsync(Config.GATE_API + "/api/options/" + userPrefix);
-                    string content = await response.Content.ReadAsStringAsync();
-                    if (response.StatusCode != HttpStatusCode.OK)
-                    {
-                        return new UserOptionList[] { };
-                    }
-
-                    UserOptionList[] array = JsonConvert.DeserializeObject<UserOptionList[]>(content);
-                    return array;
+                        var responseContent = await client.DownloadStringTaskAsync(Config.GATE_API + "/api/options/" + userPrefix);
+                        UserOptionList[] userArray = JsonConvert.DeserializeObject<UserOptionList[]>(responseContent);
+                        return userArray;
                 }
                 catch (Exception)
                 {
@@ -58,15 +53,9 @@ namespace os_server.Services
             {
                 try
                 {
-                    var response = await client.GetAsync(Config.GATE_API + "/api/options/group/" + groupPrefix);
-                    string content = await response.Content.ReadAsStringAsync();
-                    if (response.StatusCode != HttpStatusCode.OK)
-                    {
-                        return new GroupOptionList[] { };
-                    }
-
-                    GroupOptionList[] array = JsonConvert.DeserializeObject<GroupOptionList[]>(content);
-                    return array;
+                        var responseContent = await client.DownloadStringTaskAsync(Config.GATE_API + "/api/options/group/" + groupPrefix);
+                        GroupOptionList[] array = JsonConvert.DeserializeObject<GroupOptionList[]>(responseContent);
+                        return array;
                 }
                 catch (Exception)
                 {
@@ -89,18 +78,31 @@ namespace os_server.Services
         {
             Task<ReturnDto> t = Task<ReturnDto>.Run(async () =>
             {
+
                 try
                 {
                     string content = JsonConvert.SerializeObject(groupChange);
-                    HttpContent httpContent = new StringContent(content, UnicodeEncoding.UTF8, "application/json");
-                    var response = await client.PatchAsync(Config.GATE_API + "/api/Gate/group" , httpContent);
-                    string res = await response.Content.ReadAsStringAsync();
-                    ReturnDto ret = JsonConvert.DeserializeObject<ReturnDto>(res);
-                    return ret;
+                    client.Headers[HttpRequestHeader.ContentType] = "application/json";
+                    var responseContent = await client.UploadStringTaskAsync(Config.GATE_API + "/api/Gate/group", "PATCH", content);
+                    ReturnDto retObj = JsonConvert.DeserializeObject<ReturnDto>(responseContent);
+                    return retObj;
                 }
-                catch (Exception e)
+                catch (WebException webex)
                 {
-                    return new ReturnDto(false, e.Message);
+                    string content;
+                    HttpWebResponse webResp = (HttpWebResponse)webex.Response;
+                    using (var reader = new StreamReader(webResp.GetResponseStream(), Encoding.UTF8))
+                    {
+                        content = reader.ReadToEnd();
+                    }
+                    if (webResp.StatusCode == HttpStatusCode.BadRequest)
+                    {
+                        return new ReturnDto(false, content);
+                    }
+                    else
+                    {
+                        return new ReturnDto(false, webex.Message);
+                    }
                 }
             });
             try
@@ -122,18 +124,28 @@ namespace os_server.Services
             {
                 try
                 {
-                    var request = new HttpRequestMessage(HttpMethod.Delete, Config.GATE_API + "/api/Gate/group");
-                    request.Content = new StringContent(JsonConvert.SerializeObject(groupChange), Encoding.UTF8, "application/json");
-                    var response = await client.SendAsync(request);
-
-                    //var response = await client.DeleteAsync(Config.GATE_API + "/api/Gate/group", httpContent);
-                    string res = await response.Content.ReadAsStringAsync();
-                    ReturnDto ret = JsonConvert.DeserializeObject<ReturnDto>(res);
-                    return ret;
+                    string content = JsonConvert.SerializeObject(groupChange);
+                    client.Headers[HttpRequestHeader.ContentType] = "application/json";
+                    var responseContent = await client.UploadStringTaskAsync(Config.GATE_API + "/api/Gate/group", "DELETE", content);
+                    ReturnDto retObj = JsonConvert.DeserializeObject<ReturnDto>(responseContent);
+                    return retObj;
                 }
-                catch (Exception e)
+                catch (WebException webex)
                 {
-                    return new ReturnDto(false, e.Message);
+                    string content;
+                    HttpWebResponse webResp = (HttpWebResponse)webex.Response;
+                    using (var reader = new StreamReader(webResp.GetResponseStream(), Encoding.UTF8))
+                    {
+                        content = reader.ReadToEnd();
+                    }
+                    if (webResp.StatusCode == HttpStatusCode.BadRequest)
+                    {
+                        return new ReturnDto(false, content);
+                    }
+                    else
+                    {
+                        return new ReturnDto(false, webex.Message);
+                    }
                 }
             });
             try
@@ -155,14 +167,27 @@ namespace os_server.Services
             {
                 try
                 {
-                    var response = await client.PutAsync(Config.GATE_API + "/api/Gate/password/" + user, null);
-                    string content = await response.Content.ReadAsStringAsync();
-                    ReturnDto ret = JsonConvert.DeserializeObject<ReturnDto>(content);
+                    var responseContent = await client.UploadStringTaskAsync(Config.GATE_API + "/api/Gate/password/" + user, "PUT", user);
+                    ReturnDto ret = JsonConvert.DeserializeObject<ReturnDto>(responseContent);
                     return ret;
                 }
-                catch (Exception e)
+                catch (WebException webex)
                 {
-                    return new ReturnDto(false, e.Message);
+
+                    string content;
+                    HttpWebResponse webResp = (HttpWebResponse)webex.Response;
+                    using (var reader = new StreamReader(webResp.GetResponseStream(), Encoding.UTF8))
+                    {
+                        content = reader.ReadToEnd();
+                    }
+                    if (webResp.StatusCode == HttpStatusCode.BadRequest)
+                    {
+                        return new ReturnDto(false, content);
+                    }
+                    else
+                    {
+                        return new ReturnDto(false, webex.Message);
+                    }
                 }
             });
             try
@@ -185,18 +210,26 @@ namespace os_server.Services
             {
                 try
                 {
-                    var response = await client.GetAsync(Config.GATE_API + "/api/Gate/userStatus/" + samAccountName);
-                    string content = await response.Content.ReadAsStringAsync();
-                    if (response.StatusCode != HttpStatusCode.OK)
+                    var responseContent = await client.DownloadStringTaskAsync(Config.GATE_API + "/api/Gate/userStatus/" + samAccountName);
+                    UserStatus ret = JsonConvert.DeserializeObject<UserStatus>(responseContent);
+                    return ret;
+                }
+                catch (WebException webex)
+                {
+                    string content;
+                    HttpWebResponse webResp = (HttpWebResponse)webex.Response;
+                    using (var reader = new StreamReader(webResp.GetResponseStream(), Encoding.UTF8))
+                    {
+                        content = reader.ReadToEnd();
+                    }
+                    if (webResp.StatusCode != HttpStatusCode.OK)
                     {
                         throw new Exception(content);
                     }
-                    UserStatus ret = JsonConvert.DeserializeObject<UserStatus>(content);
-                    return ret;
-                }
-                catch (Exception e)
-                {
-                    throw;
+                    else
+                    {
+                        throw;
+                    }
                 }
             });
             try
@@ -209,7 +242,6 @@ namespace os_server.Services
             {
                 throw;
             }
-
         }
 
 
@@ -219,50 +251,79 @@ namespace os_server.Services
             {
                 try
                 {
-                    var response = await client.PutAsync(Config.GATE_API + "/api/Gate/unlock/" + userId, null);
-                    string content = await response.Content.ReadAsStringAsync();
-                    if (response.StatusCode != HttpStatusCode.OK)
+                    var responseContent = await client.UploadStringTaskAsync(Config.GATE_API + "/api/Gate/unlock/" + userId, "PUT", userId);
+                    ReturnDto ret = JsonConvert.DeserializeObject<ReturnDto>(responseContent);
+                    return ret;
+                }
+                catch (WebException webex)
+                {
+                    string content;
+                    HttpWebResponse webResp = (HttpWebResponse)webex.Response;
+                    using (var reader = new StreamReader(webResp.GetResponseStream(), Encoding.UTF8))
+                    {
+                        content = reader.ReadToEnd();
+                    }
+                    if (webResp.StatusCode == HttpStatusCode.BadRequest)
                     {
                         return new ReturnDto(false, content);
                     }
-                    ReturnDto returnDto = JsonConvert.DeserializeObject<ReturnDto>(content);
-                    return returnDto;
-                }
-                catch (Exception e)
-                {
-                    return new ReturnDto(false, e.Message);
+                    else
+                    {
+                        return new ReturnDto(false, webex.Message);
+                    }
                 }
             });
-            t.Wait();
-            ReturnDto ret = t.Result;
-            return ret;
+            try
+            {
+                t.Wait();
+                ReturnDto ret = t.Result;
+                return ret;
+            }
+            catch (Exception e)
+            {
+                return new ReturnDto(false, e.Message);
+            }
         }
 
         public static ReturnDto changeDisplayName(DisplayName displayNameRequest)
         {
             Task<ReturnDto> t = Task<ReturnDto>.Run(async () =>
             {
+                string displayName = JsonConvert.SerializeObject(displayNameRequest);
                 try
                 {
-                    string content = JsonConvert.SerializeObject(displayNameRequest);
-                    HttpContent httpContent = new StringContent(content, UnicodeEncoding.UTF8, "application/json");
-                    var response = await client.PutAsync(Config.GATE_API + "/api/Gate/displayName/", httpContent);
-                    string responseContent = await response.Content.ReadAsStringAsync();
-                    if (response.StatusCode != HttpStatusCode.OK)
+                    var responseContent = await client.UploadStringTaskAsync(Config.GATE_API + "/api/Gate/displayName", "PUT", displayName);
+                    ReturnDto ret = JsonConvert.DeserializeObject<ReturnDto>(responseContent);
+                    return ret;
+                }
+                catch (WebException webex)
+                {
+                    string content;
+                    HttpWebResponse webResp = (HttpWebResponse)webex.Response;
+                    using (var reader = new StreamReader(webResp.GetResponseStream(), Encoding.UTF8))
+                    {
+                        content = reader.ReadToEnd();
+                    }
+                    if (webResp.StatusCode == HttpStatusCode.BadRequest)
                     {
                         return new ReturnDto(false, content);
                     }
-                    ReturnDto returnDto = JsonConvert.DeserializeObject<ReturnDto>(responseContent);
-                    return returnDto;
-                }
-                catch (Exception e)
-                {
-                    return new ReturnDto(false, e.Message);
+                    else
+                    {
+                        return new ReturnDto(false, webex.Message);
+                    }
                 }
             });
-            t.Wait();
-            ReturnDto ret = t.Result;
-            return ret;
+            try
+            {
+                t.Wait();
+                ReturnDto res = t.Result;
+                return res;
+            }
+            catch (Exception e)
+            {
+                return new ReturnDto(false, e.Message);
+            }
         }
 
 
@@ -273,18 +334,26 @@ namespace os_server.Services
             {
                 try
                 {
-                    var response = await client.PostAsync(Config.GATE_API + "/api/Gate/mac/" + macAddress, null);
-                    string content = await response.Content.ReadAsStringAsync();
-                    if (response.StatusCode != HttpStatusCode.OK)
-                    {
-                        throw new Exception("Status " + response.StatusCode + ": " + content);
-                    }
-                    ReturnDto returnDto = JsonConvert.DeserializeObject<ReturnDto>(content);
-                    return returnDto;
+                    var responseContent = await client.UploadStringTaskAsync(Config.GATE_API + "/api/Gate/mac/", "POST", macAddress);
+                    ReturnDto ret = JsonConvert.DeserializeObject<ReturnDto>(responseContent);
+                    return ret;
                 }
-                catch (Exception e)
+                catch (WebException webex)
                 {
-                    throw;
+                    string content;
+                    HttpWebResponse webResp = (HttpWebResponse)webex.Response;
+                    using (var reader = new StreamReader(webResp.GetResponseStream(), Encoding.UTF8))
+                    {
+                        content = reader.ReadToEnd();
+                    }
+                    if (webResp.StatusCode == HttpStatusCode.BadRequest)
+                    {
+                        return new ReturnDto(false, content);
+                    }
+                    else
+                    {
+                        return new ReturnDto(false, webex.Message);
+                    }
                 }
             });
             try
@@ -297,32 +366,36 @@ namespace os_server.Services
             {
                 throw;
             }
-
-
         }
-
-
 
         public static ReturnDto ChangeVlan(ChangeVlan changeVlanRequest)
         {
             Task<ReturnDto> t = Task<ReturnDto>.Run(async () =>
             {
+                string changeVlan = JsonConvert.SerializeObject(changeVlanRequest);
                 try
                 {
-                    string content = JsonConvert.SerializeObject(changeVlanRequest);
-                    HttpContent httpContent = new StringContent(content, UnicodeEncoding.UTF8, "application/json");
-                    var response = await client.PostAsync(Config.GATE_API + "/api/Gate/vlan", httpContent);
-                    string responseContent = await response.Content.ReadAsStringAsync();
-                    if (response.StatusCode != HttpStatusCode.OK)
-                    {
-                        throw new Exception("Status " + response.StatusCode + ": " + content);
-                    }
-                    ReturnDto returnDto = JsonConvert.DeserializeObject<ReturnDto>(responseContent);
-                    return returnDto;
+                    client.Headers[HttpRequestHeader.ContentType] = "application/json";
+                    var responseContent = await client.UploadStringTaskAsync(Config.GATE_API + "/api/Gate/vlan", "POST", changeVlan);
+                    ReturnDto ret = JsonConvert.DeserializeObject<ReturnDto>(responseContent);
+                    return ret;
                 }
-                catch (Exception e)
+                catch (WebException webex)
                 {
-                    throw;
+                    string content;
+                    HttpWebResponse webResp = (HttpWebResponse)webex.Response;
+                    using (var reader = new StreamReader(webResp.GetResponseStream(), Encoding.UTF8))
+                    {
+                        content = reader.ReadToEnd();
+                    }
+                    if (webResp.StatusCode == HttpStatusCode.BadRequest)
+                    {
+                        return new ReturnDto(false, content);
+                    }
+                    else
+                    {
+                        return new ReturnDto(false, webex.Message);
+                    }
                 }
             });
             try
@@ -345,18 +418,26 @@ namespace os_server.Services
             {
                 try
                 {
-                    var response = await client.GetAsync(Config.GATE_API + "/api/Gate/location/");
-                    string content = await response.Content.ReadAsStringAsync();
-                    if (response.StatusCode != HttpStatusCode.OK)
-                    {
-                        throw new Exception("Status " + response.StatusCode + ": " + content);
-                    }
-                    string[] locations = JsonConvert.DeserializeObject<string[]>(content);
+                    var responseContent = await client.DownloadStringTaskAsync(Config.GATE_API + "/api/Gate/location/");
+                    string[] locations = JsonConvert.DeserializeObject<string[]>(responseContent);
                     return locations;
                 }
-                catch (Exception e)
+                catch (WebException webex)
                 {
-                    throw;
+                    string content;
+                    HttpWebResponse webResp = (HttpWebResponse)webex.Response;
+                    using (var reader = new StreamReader(webResp.GetResponseStream(), Encoding.UTF8))
+                    {
+                        content = reader.ReadToEnd();
+                    }
+                    if (webResp.StatusCode == HttpStatusCode.BadRequest)
+                    {
+                        return new string[0];
+                    }
+                    else
+                    {
+                        return new string[0];
+                    }
                 }
             });
             try
@@ -367,7 +448,7 @@ namespace os_server.Services
             }
             catch (Exception e)
             {
-                throw;
+                return new string[0];
             }
 
         }
@@ -378,19 +459,38 @@ namespace os_server.Services
             {
                 try
                 {
-                    var response = await client.GetAsync(Config.GATE_API + "/api/Gate/Bitlocker/" + input);
-                    string content = await response.Content.ReadAsStringAsync();
-                    ReturnDto returnDto = JsonConvert.DeserializeObject<ReturnDto>(content);
-                    return returnDto;
+                    var responseContent = await client.DownloadStringTaskAsync(Config.GATE_API + "/api/Gate/Bitlocker/" + input);
+                    ReturnDto ret = JsonConvert.DeserializeObject<ReturnDto>(responseContent);
+                    return ret;
                 }
-                catch (Exception e)
+                catch (WebException webex)
                 {
-                    return new ReturnDto(false, e.Message);
+                    string content;
+                    HttpWebResponse webResp = (HttpWebResponse)webex.Response;
+                    using (var reader = new StreamReader(webResp.GetResponseStream(), Encoding.UTF8))
+                    {
+                        content = reader.ReadToEnd();
+                    }
+                    if (webResp.StatusCode == HttpStatusCode.BadRequest)
+                    {
+                        return new ReturnDto(false, content);
+                    }
+                    else
+                    {
+                        return new ReturnDto(false, webex.Message);
+                    }
                 }
             });
-            t.Wait();
-            ReturnDto ret = t.Result;
-            return ret;
+            try
+            {
+                t.Wait();
+                ReturnDto ret = t.Result;
+                return ret;
+            }
+            catch (Exception e)
+            {
+                return new ReturnDto(false, e.Message);
+            }
         }
 
         public static ReturnDto GetLapsPassword(string computerName)
@@ -399,19 +499,38 @@ namespace os_server.Services
             {
                 try
                 {
-                    var response = await client.GetAsync(Config.GATE_API + "/api/Gate/laps/" + computerName);
-                    string content = await response.Content.ReadAsStringAsync();
-                    ReturnDto returnDto = JsonConvert.DeserializeObject<ReturnDto>(content);
-                    return returnDto;
+                    var responseContent = await client.DownloadStringTaskAsync(Config.GATE_API + "/api/Gate/laps/" + computerName);
+                    ReturnDto ret = JsonConvert.DeserializeObject<ReturnDto>(responseContent);
+                    return ret;
                 }
-                catch (Exception e)
+                catch (WebException webex)
                 {
-                    return new ReturnDto(false, e.Message);
+                    string content;
+                    HttpWebResponse webResp = (HttpWebResponse)webex.Response;
+                    using (var reader = new StreamReader(webResp.GetResponseStream(), Encoding.UTF8))
+                    {
+                        content = reader.ReadToEnd();
+                    }
+                    if (webResp.StatusCode == HttpStatusCode.BadRequest)
+                    {
+                        return new ReturnDto(false, content);
+                    }
+                    else
+                    {
+                        return new ReturnDto(false, webex.Message);
+                    }
                 }
             });
-            t.Wait();
-            ReturnDto ret = t.Result;
-            return ret;
+            try
+            {
+                t.Wait();
+                ReturnDto ret = t.Result;
+                return ret;
+            }
+            catch (Exception e)
+            {
+                return new ReturnDto(false, e.Message);
+            }
         }
     }
 
