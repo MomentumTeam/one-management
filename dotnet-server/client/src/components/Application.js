@@ -3,7 +3,6 @@ import "../App.css";
 import BitLocker from "./applicationsViews/BitLocker";
 import LAPS from "./applicationsViews/LAPS";
 import UserManagement from "./applicationsViews/UserManagement";
-import VLAN from "./applicationsViews/VLAN";
 
 
 function Application({ match }) {
@@ -23,9 +22,6 @@ function Application({ match }) {
           break;
         case "UserManagement":
           View = UserManagement;
-          break;
-        case "VLAN":
-          View = VLAN;
           break;
       }
 

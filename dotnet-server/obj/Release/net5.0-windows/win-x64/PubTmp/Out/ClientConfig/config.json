@@ -36,7 +36,8 @@
             "type": "application",
             "categories": [
                 "b"
-            ]
+            ],
+            "url": "http://www.google.com"
         },
         {
             "name": "AllowList",
@@ -45,7 +46,8 @@
             "type": "application",
             "categories": [
                 "c"
-            ]
+            ],
+            "url": "http://www.google.com"
         },
         {
             "name": "Nova",

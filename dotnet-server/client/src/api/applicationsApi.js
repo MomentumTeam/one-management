@@ -31,42 +31,46 @@ const getLapsPassword = (computerName) => {
     });
 };
 
-const getLocationOptions = () => {
-    return new Promise((resolve, reject) => {
-        axios
-            .get(`/api/vlan/locationOptions`)
-            .then((res) => {
-                resolve(res.data);
-            })
-            .catch((err) => reject(err));
-    });
-};
+// const addMac = (macAddress) => {
+//     return new Promise((resolve, reject) => {
+//         axios
+//             .post(`/api/allowList`,
+//                 {
+//                     macAddress: macAddress
+//                 }
+//             )
+//             .then((res) => {
+//                 resolve(res.data);
+//             })
+//             .catch((err) => reject(err));
+//     });
+// }
 
-const unlock = (userId) => {
-    return new Promise((resolve, reject) => {
-        axios
-            .put(`/api/userManagement/unlock`, { userId: userId })
-            .then((res) => {
-                resolve(res.data);
-            })
-            .catch((err) => reject(err));
-    });
-}
+// const getLocationOptions = () => {
+//     return new Promise((resolve, reject) => {
+//         axios
+//             .get(`/api/vlan/locationOptions`)
+//             .then((res) => {
+//                 resolve(res.data);
+//             })
+//             .catch((err) => reject(err));
+//     });
+// };
 
-const updateVlan = (macAddress, location, vlan) => {
-    return new Promise((resolve, reject) => {
-        axios
-            .post(`/api/Vlan`, {
-                macAddress: macAddress,
-                location: location,
-                vlan: vlan,
-            })
-            .then((res) => {
-                resolve(res.data);
-            })
-            .catch((err) => reject(err));
-    });
-};
+// const updateVlan = (macAddress, location, vlan) => {
+//     return new Promise((resolve, reject) => {
+//         axios
+//             .post(`/api/Vlan`, {
+//                 macAddress: macAddress,
+//                 location: location,
+//                 vlan: vlan,
+//             })
+//             .then((res) => {
+//                 resolve(res.data);
+//             })
+//             .catch((err) => reject(err));
+//     });
+// };
 
 const searchUsers = (userPrefix) => {
     return new Promise((resolve, reject) => {
@@ -97,6 +101,17 @@ const getUserStatus = (samAccountName) => {
             .catch((err) => reject(err));
     });
 };
+
+const unlock = (userId) => {
+    return new Promise((resolve, reject) => {
+        axios
+            .put(`/api/userManagement/unlock`, { userId: userId })
+            .then((res) => {
+                resolve(res.data);
+            })
+            .catch((err) => reject(err));
+    });
+}
 
 const searchGroup = (groupPrefix) => {
     return new Promise((resolve, reject) => {
@@ -138,21 +153,6 @@ const removeGroup = (group) => {
             .catch((err) => reject(err));
     });
 };
-
-// const addMac = (macAddress) => {
-//     return new Promise((resolve, reject) => {
-//         axios
-//             .post(`/api/allowList`,
-//                 {
-//                     macAddress: macAddress
-//                 }
-//             )
-//             .then((res) => {
-//                 resolve(res.data);
-//             })
-//             .catch((err) => reject(err));
-//     });
-// }
 
 const resetPassword = (userId) => {
     return new Promise((resolve, reject) => {
@@ -227,15 +227,15 @@ const removeFromFaq = (id) => {
 const apis = {
     getBitLockerPassword,
     getLapsPassword,
-    getLocationOptions,
-    unlock,
-    updateVlan,
+    // addMac,
+    // getLocationOptions,
+    // updateVlan,
     searchUsers,
     getUserStatus,
+    unlock,
     searchGroup,
     addGroup,
     removeGroup,
-    // addMac,
     resetPassword,
     changeDisplayName,
     getFaq,

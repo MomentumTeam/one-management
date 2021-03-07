@@ -36,7 +36,8 @@
             "type": "application",
             "categories": [
                 "b"
-            ]
+            ],
+            "url": "http://www.google.com"
         },
         {
             "name": "AllowList",
