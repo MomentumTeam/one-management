@@ -44,7 +44,7 @@ export default function Search() {
         if (e.keyCode === 13) {
             const application = applications.find(app => app.displayName == value);
             const path = `/${application.type}/${application.name}`;
-            if (application.name === "Nova" || application.name === "Sword" || application.name === "AllowList" || application.name === "VLAN") {
+            if (application.name === "AllowList" || application.name === "VLAN") {
                 window.open(application.url, '_blank');
             }
             else if (path != location.pathname) {
