@@ -45,7 +45,7 @@ export default function Search() {
             const application = applications.find(app => app.displayName == value);
             const path = `/${application.type}/${application.name}`;
 
-            history.push(path); AddToHistory(application.id));
+            history.push(path); AddToHistory(application.id);
         }
 
     };
