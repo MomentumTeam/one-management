@@ -31,20 +31,20 @@ const getLapsPassword = (computerName) => {
     });
 };
 
-// const addMac = (macAddress) => {
-//     return new Promise((resolve, reject) => {
-//         axios
-//             .post(`/api/allowList`,
-//                 {
-//                     macAddress: macAddress
-//                 }
-//             )
-//             .then((res) => {
-//                 resolve(res.data);
-//             })
-//             .catch((err) => reject(err));
-//     });
-// }
+const addMac = (macAddress) => {
+    return new Promise((resolve, reject) => {
+        axios
+            .post(`/api/allowList`,
+                {
+                    macAddress: macAddress
+                }
+            )
+            .then((res) => {
+                resolve(res.data);
+            })
+            .catch((err) => reject(err));
+    });
+}
 
 // const getLocationOptions = () => {
 //     return new Promise((resolve, reject) => {
@@ -73,6 +73,7 @@ const getLapsPassword = (computerName) => {
 // };
 
 const searchUsers = (userPrefix) => {
+    console.log('userPrefix', userPrefix)
     return new Promise((resolve, reject) => {
         axios
             .get(`/api/userManagement/search`, {
@@ -129,6 +130,7 @@ const searchGroup = (groupPrefix) => {
 };
 
 const addGroup = (group) => {
+    console.log('group', group)
     return new Promise((resolve, reject) => {
         axios
             .patch(`/api/userManagement/addGroup`, {
@@ -227,7 +229,7 @@ const removeFromFaq = (id) => {
 const apis = {
     getBitLockerPassword,
     getLapsPassword,
-    // addMac,
+    addMac,
     // getLocationOptions,
     // updateVlan,
     searchUsers,

@@ -44,13 +44,8 @@ export default function Search() {
         if (e.keyCode === 13) {
             const application = applications.find(app => app.displayName == value);
             const path = `/${application.type}/${application.name}`;
-            if (application.name === "AllowList" || application.name === "VLAN") {
-                window.open(application.url, '_blank');
-            }
-            else if (path != location.pathname) {
-                history.push(path);
-            }
-            dispatch(AddToHistory(application.id));
+
+            history.push(path); AddToHistory(application.id));
         }
 
     };

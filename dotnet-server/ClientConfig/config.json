@@ -30,16 +30,6 @@
             ]
         },
         {
-            "name": "VLAN",
-            "displayName": "VLAN",
-            "id": "4",
-            "type": "application",
-            "categories": [
-                "b"
-            ],
-            "url": "http://www.google.com"
-        },
-        {
             "name": "AllowList",
             "displayName": "Allow List",
             "id": "5",

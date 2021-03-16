@@ -28,7 +28,9 @@ namespace os_server.Services
                 {
                         var responseContent = await client.DownloadStringTaskAsync(Config.GATE_API + "/api/options/" + userPrefix);
                         UserOptionList[] userArray = JsonConvert.DeserializeObject<UserOptionList[]>(responseContent);
-                        return userArray;
+                        
+                    
+                    return userArray;
                 }
                 catch (Exception)
                 {
@@ -334,7 +336,7 @@ namespace os_server.Services
             {
                 try
                 {
-                    var responseContent = await client.UploadStringTaskAsync(Config.GATE_API + "/api/Gate/mac/", "POST", macAddress);
+                    var responseContent = await client.UploadStringTaskAsync(Config.GATE_API + "/api/Gate/mac/"+ macAddress, "POST");
                     ReturnDto ret = JsonConvert.DeserializeObject<ReturnDto>(responseContent);
                     return ret;
                 }

@@ -30,14 +30,10 @@ function ApplicationList({ applicationList }) {
                 onClick={() => {
                   dispatch(AddToHistory(application.id));
                   dispatch(updateHistory());
-                  if (application.name === "AllowList" || application.name === "VLAN") {
-                    window.open(application.url, '_blank');
-                  }
                 }}
                 className={classes.root}
                 component={Link}
-                to={application.name === "AllowList" || application.name === "VLAN" ? "" : `/application/${application.name}`}
-              >
+                to={`/application/${application.name}`} >
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="h2">
                     {application.displayName}

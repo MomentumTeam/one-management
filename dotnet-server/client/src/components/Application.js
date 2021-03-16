@@ -3,7 +3,7 @@ import "../App.css";
 import BitLocker from "./applicationsViews/BitLocker";
 import LAPS from "./applicationsViews/LAPS";
 import UserManagement from "./applicationsViews/UserManagement";
-
+import AllowList from "./applicationsViews/AllowList";
 
 function Application({ match }) {
   const { applicationName } = match.params;
@@ -22,6 +22,9 @@ function Application({ match }) {
           break;
         case "UserManagement":
           View = UserManagement;
+          break;
+        case "AllowList":
+          View = AllowList;
           break;
       }
 

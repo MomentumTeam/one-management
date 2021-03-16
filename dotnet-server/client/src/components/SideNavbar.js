@@ -90,12 +90,6 @@ export default function SideNavbar() {
           icon: <RssFeedOutlinedIcon />,
           link: `/categories/${CONFIG.categories[2].name}`,
         },
-        {
-          name: "הרשאות ומידור",
-          id: "d",
-          icon: <GroupAddOutlinedIcon />,
-          link: `/categories/${CONFIG.categories[3].name}`,
-        }
       ],
     },
     {
