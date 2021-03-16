@@ -73,7 +73,6 @@ const addMac = (macAddress) => {
 // };
 
 const searchUsers = (userPrefix) => {
-    console.log('userPrefix', userPrefix)
     return new Promise((resolve, reject) => {
         axios
             .get(`/api/userManagement/search`, {
@@ -130,7 +129,6 @@ const searchGroup = (groupPrefix) => {
 };
 
 const addGroup = (group) => {
-    console.log('group', group)
     return new Promise((resolve, reject) => {
         axios
             .patch(`/api/userManagement/addGroup`, {

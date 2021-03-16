@@ -30,42 +30,12 @@
             ]
         },
         {
-            "name": "VLAN",
-            "displayName": "VLAN",
-            "id": "4",
-            "type": "application",
-            "categories": [
-                "b"
-            ],
-            "url": "http://www.google.com"
-        },
-        {
             "name": "AllowList",
             "displayName": "Allow List",
             "id": "5",
             "type": "application",
             "categories": [
                 "c"
-            ],
-            "url": "http://www.google.com"
-        },
-        {
-            "name": "Nova",
-            "displayName": "Nova",
-            "id": "6",
-            "type": "application",
-            "categories": [
-                "d"
-            ],
-            "url": "http://www.google.com"
-        },
-        {
-            "name": "Sword",
-            "displayName": "חרב מתהפכת",
-            "id": "7",
-            "type": "application",
-            "categories": [
-                "d"
             ],
             "url": "http://www.google.com"
         }
@@ -87,12 +57,6 @@
             "name": "NetworkManagement",
             "displayName": "ניהול רשת",
             "id": "c",
-            "type": "category"
-        },
-        {
-            "name": "PermissionsAndCompartmentalization",
-            "displayName": "הרשאות ומידור",
-            "id": "d",
             "type": "category"
         }
     ],

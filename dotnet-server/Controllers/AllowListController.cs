@@ -25,7 +25,8 @@ public class AllowListController : ControllerBase
                 {
                     ret.log = "";
                 }
-                Thread.Sleep(2000);
+
+                //Thread.Sleep(2000);
 
                 return Ok(ret);
             }

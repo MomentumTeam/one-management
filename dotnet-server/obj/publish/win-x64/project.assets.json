@@ -8368,11 +8368,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\barak\\Desktop\\one-management\\dotnet-server\\os-server.csproj",
+      "projectUniqueName": "C:\\Users\\barak\\Desktop\\project\\one-management\\dotnet-server\\os-server.csproj",
       "projectName": "os-server",
-      "projectPath": "C:\\Users\\barak\\Desktop\\one-management\\dotnet-server\\os-server.csproj",
+      "projectPath": "C:\\Users\\barak\\Desktop\\project\\one-management\\dotnet-server\\os-server.csproj",
       "packagesPath": "C:\\Users\\barak\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\barak\\Desktop\\one-management\\dotnet-server\\obj\\publish\\win-x64\\",
+      "outputPath": "C:\\Users\\barak\\Desktop\\project\\one-management\\dotnet-server\\obj\\publish\\win-x64\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\barak\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -8431,15 +8431,15 @@
         "downloadDependencies": [
           {
             "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
-            "version": "[5.0.2, 5.0.2]"
+            "version": "[5.0.3, 5.0.3]"
           },
           {
             "name": "Microsoft.NETCore.App.Runtime.win-x64",
-            "version": "[5.0.2, 5.0.2]"
+            "version": "[5.0.3, 5.0.3]"
           },
           {
             "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
-            "version": "[5.0.2, 5.0.2]"
+            "version": "[5.0.3, 5.0.3]"
           }
         ],
         "frameworkReferences": {
@@ -8450,7 +8450,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
       }
     },
     "runtimes": {

@@ -26,7 +26,8 @@ namespace os_server.Controllers
                 {
                     returnDto.log = "";
                 }
-                Thread.Sleep(2000);
+
+                //Thread.Sleep(2000);
 
                 return returnDto;
             }

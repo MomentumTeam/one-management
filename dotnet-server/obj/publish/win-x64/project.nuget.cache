@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "uoe6abApIppM4vIyoNEBmj7nF2dm/SJE0fCId5oJ8yKCZv7i2gsjTUJjeebYkx1MDw40zBICevD57tHK8b5X4g==",
+  "dgSpecHash": "YdaQoQTZ4sbbfApjtAlWiEHvsqFpR2Lz3fGzp7DH4HUb+VhBriBoCwbfTWLTxz/VJDgBsNgGDt8pGUcu3dZEJg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\barak\\Desktop\\one-management\\dotnet-server\\os-server.csproj",
+  "projectFilePath": "C:\\Users\\barak\\Desktop\\project\\one-management\\dotnet-server\\os-server.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\barak\\.nuget\\packages\\dnsclient\\1.3.1\\dnsclient.1.3.1.nupkg.sha512",
     "C:\\Users\\barak\\.nuget\\packages\\microsoft.aspnetcore.connections.abstractions\\3.1.5\\microsoft.aspnetcore.connections.abstractions.3.1.5.nupkg.sha512",
@@ -144,9 +144,9 @@
     "C:\\Users\\barak\\.nuget\\packages\\system.threading.timer\\4.3.0\\system.threading.timer.4.3.0.nupkg.sha512",
     "C:\\Users\\barak\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\barak\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\barak\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\5.0.2\\microsoft.netcore.app.runtime.win-x64.5.0.2.nupkg.sha512",
-    "C:\\Users\\barak\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\5.0.2\\microsoft.windowsdesktop.app.runtime.win-x64.5.0.2.nupkg.sha512",
-    "C:\\Users\\barak\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\5.0.2\\microsoft.aspnetcore.app.runtime.win-x64.5.0.2.nupkg.sha512"
+    "C:\\Users\\barak\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\5.0.3\\microsoft.netcore.app.runtime.win-x64.5.0.3.nupkg.sha512",
+    "C:\\Users\\barak\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\5.0.3\\microsoft.windowsdesktop.app.runtime.win-x64.5.0.3.nupkg.sha512",
+    "C:\\Users\\barak\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\5.0.3\\microsoft.aspnetcore.app.runtime.win-x64.5.0.3.nupkg.sha512"
   ],
   "logs": []
 }

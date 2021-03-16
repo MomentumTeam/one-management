@@ -27,7 +27,8 @@ namespace os_server.Controllers
                 {
                     ret.log = "";
                 }
-                Thread.Sleep(2000);
+
+                //Thread.Sleep(2000);
 
                 return Ok(ret);
             }
@@ -44,7 +45,8 @@ namespace os_server.Controllers
             try
             {
                 string[] locationOptions = ApplicationService.GetLocationOptions();
-                Thread.Sleep(5000);
+
+                //Thread.Sleep(5000);
 
                 return Ok(locationOptions);
             }
