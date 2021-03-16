@@ -27,10 +27,16 @@ namespace os_server.Services
                 try
                 {
                         var responseContent = await client.DownloadStringTaskAsync(Config.GATE_API + "/api/options/" + userPrefix);
+
+                        if (responseContent == "error")
+                        {
+                            return new UserOptionList[] { };
+
+                        }
+
                         UserOptionList[] userArray = JsonConvert.DeserializeObject<UserOptionList[]>(responseContent);
-                        
-                    
-                    return userArray;
+                        return userArray;
+
                 }
                 catch (Exception)
                 {
@@ -56,8 +62,16 @@ namespace os_server.Services
                 try
                 {
                         var responseContent = await client.DownloadStringTaskAsync(Config.GATE_API + "/api/options/group/" + groupPrefix);
+
+                        if(responseContent == "error")
+                        {
+                            return new GroupOptionList[] { };
+
+                        }
+
                         GroupOptionList[] array = JsonConvert.DeserializeObject<GroupOptionList[]>(responseContent);
                         return array;
+
                 }
                 catch (Exception)
                 {
